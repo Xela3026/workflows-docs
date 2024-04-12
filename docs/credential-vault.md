@@ -10,7 +10,7 @@ import CustomisableImage from '@site/src/components/CustomisableImage';
 
 # Credential Vault
 
-The Credential Vault is a location where you can store constant information and data - 'credentials' - to be used in any of your workflows. It is most useful for storing things like API keys important IDs, or commonly used URLs. All of your credentials will be stored in the `{{CREDENTIALS}}` data store. To learn how to reference these credentials in your workflow using placeholders, see [here](./workflows.md#placeholders). 
+The Credential Vault is a location where you can store constant information and data - 'credentials' - to be used in any of your workflows. It is most useful for storing things like API keys important IDs, or commonly used URLs. All of your credentials will be stored in the `{{CREDENTIAL}}` data store. To learn how to reference these credentials in your workflow using placeholders, see [here](./workflows.md#placeholders). 
 
 This vault also supports the encryption of sensititive information to prevent it form being accessed by unwanted personnel.
 
@@ -73,7 +73,18 @@ The only property here you need to edit is the `"credentials"` property. This pr
 
 The `"api-key"` credential would have had a visible value when created, but once the credentials set was saved and closed, its value was hidden by asterisks as shown.
 
-To reference specific credentials in your workflows using the [placeholder method](./workflows.md#placeholders), follow the format `{{CREDENTIALS.set-name.credential-name}}`. So, in the above example, to use the API key, you would use the placeholder `{{CREDENTIALS.Docs Example.api-key}}`.
+## Using Credentials
+
+The first step in using a credential set is importing it into your workflow. To do this:
+1. In the Credential Vault, find the "ID" of the credential set you want to use. 
+2. Then, in your workflow, click on the pencil icon in the toolbar up the top. This will open your workflow's properties.
+3. Find the `"credentials"` property, it should be an array. Then, insert the credential set's ID as a string inside this array.
+
+Your credential set can now be used within your workflow.
+
+To reference specific credentials in your workflows using the [placeholder method](./workflows.md#placeholders), follow the format `{{CREDENTIAL.set-name.credential-name}}`. So, in the above example, to use the API key, you would use the placeholder `{{CREDENTIAL.Docs Example.api-key}}`.
+
+
 
 [comment]: <> (can you have spaces in the placeholder like that? WIP)
 

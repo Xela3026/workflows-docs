@@ -4,6 +4,7 @@ import BorderImage from './BorderImage.js';
 
 const CustomisableImage = ({ src, alt, width }) => {
   const [clicked, setClicked] = useState(false);
+  const [mousePosition, setMousePosition] = useState({x: 0, y: 0 });
 
   const handleClick = () => {
     setClicked(!clicked);
@@ -11,9 +12,28 @@ const CustomisableImage = ({ src, alt, width }) => {
     document.body.style.paddingRight = clicked ? "0px" : "16px";
   };
 
+  const handleMouseMove = (event) => {
+    setMousePosition({x: event.clientX, y: event.clientY });
+
+  };
+
+  const calculateAngle = () => {
+    // range of rotation angle
+    const maxAngle = 10;
+    const minAngle = -10;
+
+    // calculate angle based on mouse position within the window width
+    const anglex = ((mousePosition.x / window.innerWidth) * (maxAngle - minAngle)) + minAngle;
+    const angley =  ((mousePosition.y / window.innerHeight) * (maxAngle - minAngle)) + minAngle;
+
+    return [anglex, -angley];
+  };
+
+  const [phi, theta] = calculateAngle();
+
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} onMouseMove={handleMouseMove}>
         <BorderImage src={src} alt={alt} width={width} />
 
         <div 
@@ -33,6 +53,7 @@ const CustomisableImage = ({ src, alt, width }) => {
                 <img className={'enlargeImage'}
                 src={src}
                 alt={alt}
+                style={{'transform': "rotateY("+phi+"deg) rotateX("+theta+"deg)",}}
 
                 />
                 
