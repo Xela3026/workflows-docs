@@ -12,11 +12,13 @@ const CustomisableImage = ({ src, alt, width }) => {
     document.body.style.paddingRight = clicked ? "0px" : "16px";
   };
 
+  
   const handleMouseMove = (event) => {
     setMousePosition({x: event.clientX, y: event.clientY });
 
   };
-
+  
+  /** 
   const calculateAngle = () => {
     // range of rotation angle
     const maxAngle = 10;
@@ -29,7 +31,7 @@ const CustomisableImage = ({ src, alt, width }) => {
     return [anglex, -angley];
   };
 
-  const [phi, theta] = calculateAngle();
+  const [phi, theta] = calculateAngle();**/
 
 
   return (
@@ -53,7 +55,7 @@ const CustomisableImage = ({ src, alt, width }) => {
                 <img className={'enlargeImage'}
                 src={src}
                 alt={alt}
-                style={{'transform': "rotateY("+phi+"deg) rotateX("+theta+"deg)",}}
+                /**style={{'transform': "rotateY("+phi+"deg) rotateX("+theta+"deg)",}}**/
 
                 />
                 
