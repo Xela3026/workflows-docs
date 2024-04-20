@@ -16,6 +16,8 @@ This vault also supports the encryption of sensititive information to prevent it
 
 The Credential Vault also sorts your information into sets of credentials. Each set of credentials usually contains related information. For example, you may create a set of credentials for API keys called "API Keys", and then store all of your API keys in that set and then encrypt them for safety.
 
+<br/>
+
 ## Initialisation
 
 To create new set of credentials, navigate to the Credential Vault section on the sidebar:
@@ -36,7 +38,11 @@ Give your new credential set a name under 'Credential Set Name'. This will be us
 
 ## Configuration
 
-Your new credentials set will appear at the bottom of the Credential Vault. Click on the set to open its storage. The inside of an empty credentials set will look like:
+Your new credentials set will appear at the bottom of the Credential Vault. Click on the set to open its storage. 
+
+<br/>
+
+The inside of an empty credentials set will look like:
 
 ```jsx title="Empty Credentials Set"
 {
@@ -47,9 +53,29 @@ Your new credentials set will appear at the bottom of the Credential Vault. Clic
 }
 ```
 
+<br/>
+
 The Credential Vault uses Workflow's JSON editor. Learn more about how to use this editor [here](./workflows.md#configuration).
 
-The only property here you need to edit is the `"credentials"` property. This property is an array. Each item in the array is an object that gives details about a piece of data to store as a credential. This object has three properties: `"name"`, `"value"`, and `"sensitive"`. `"name"` is the name of the credential you are storing. This name is used to reference the credential in your workflow. `"value"` is the credential you are storing (can this be any data type like array, object, string, int, float etc WIP WIP WIP?). `"sensitive"` is a boolean. If it is true, when you save your credentials, this credential will be encrypted and censored within your vault. No one will be able to see its value. It will just look like a string of asterisks. The following is what one credentials set may look like:
+<br/>
+
+<div className="dubheader">Storing Data</div>
+
+The only property here you need to edit is the `"credentials"` property. This property is an array. Each item in the array is an object that gives details about a piece of data to store as a credential. 
+
+This object has three properties: `"name"`, `"value"`, and `"sensitive"`. 
+- `"name"` is the name of the credential you are storing. This name is used to reference the credential in your workflow. 
+- `"value"` is the credential you are storing 
+
+[comment]: <> (can this be any data type like array, object, string, int, float etc WIP WIP WIP)
+
+- `"sensitive"` is a boolean. If it is true, when you save your credentials, this credential will be encrypted and censored within your vault. No one will be able to see its value. It will just look like a string of asterisks. 
+
+<br/>
+
+<div className="dubheader">Example</div>
+
+The following is what one credentials set may look like:
 
 ```jsx title="Example Credentials Set"
 {
@@ -73,16 +99,27 @@ The only property here you need to edit is the `"credentials"` property. This pr
 
 The `"api-key"` credential would have had a visible value when created, but once the credentials set was saved and closed, its value was hidden by asterisks as shown.
 
+<br/>
+
 ## Using Credentials
 
 The first step in using a credential set is importing it into your workflow. To do this:
 1. In the Credential Vault, find the "ID" of the credential set you want to use. 
+
+
+<CustomisableImage src="/img/credential-id.png" alt="Credential ID" width="600"/>
+
 2. Then, in your workflow, click on the pencil icon in the toolbar up the top. This will open your workflow's properties.
-3. Find the `"credentials"` property, it should be an array. Then, insert the credential set's ID as a string inside this array.
+
+<CustomisableImage src="/img/workflow-properties.png" alt="Workflow Properties" width="700"/>
+
+3. Find the `"credentials"` property - it should be an array. Then, insert the credential set's ID as a string inside this array.
+
+<CustomisableImage src="/img/workflow-credentials.png" alt="Credentials Property" width="500"/>
 
 Your credential set can now be used within your workflow.
 
-To reference specific credentials in your workflows using the [placeholder method](./workflows.md#placeholders), follow the format `{{CREDENTIAL.set-name.credential-name}}`. So, in the above example, to use the API key, you would use the placeholder `{{CREDENTIAL.Docs Example.api-key}}`.
+To reference specific credentials in your workflows using the [placeholder method](./workflows.md#placeholders), follow the format `{{CREDENTIAL.set-name.credential-name}}`. So, in the example from [Configuration](#configuration), to use the API key, you would use the placeholder `{{CREDENTIAL.Docs Example.api-key}}`.
 
 
 

@@ -270,7 +270,7 @@ These placeholders can point to two different types of data stores - static and 
 - `{{fetched}}`: data received from the response of the [fetch](#fetch) request in a step. Formatted as  `{ status: xxx, data:{} }`. `{{fetched.status}}` will return the HTTP status code of the request. `{{fetched.data}}` is the body of the data. Learn more about fetching [here](#fetch).
 - `{{http}}`: data received from the response of a http request. Formatted as  `{ status: xxx, data:{} }`. A HTTP request is slightly different from a fetched request because it is an [action](#actions).
 - `{{memory}}`: data stored within the current step. Data is usually stored here via [file streaming](#stream).
-- `{{instance}}`*: data stored in the current instance. By default, this data store is empty. Data can be stored here using the "Save to Instance" [action](#actions).
+- `{{instance}}`: data stored in the current instance. By default, this data store is empty. Data can be stored here using the "Save to Instance" [action](#actions).
 - `{{execKeys}}`: an execution key generated in a step. Learn more about execution keys [here](#execution-keys).
 - `{{instanceKey}}`: the ID of the current instance of the workflow.
 
@@ -1250,7 +1250,9 @@ This homepage is where you find and manage all of your workflows. For each workf
 - the name of the workflow
 - any tags on the workflow
 - the ID of the workflow (used to activate the workflow in the URL of the API request)
-- a rubbish bin icon that will delete the workflow when clicked. To confirm this deletion, a small menu will appear where you need to confirm the name of the workflow you are deleting and then click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">DELETE</Tag>.
+- the delete button
+
+To delete a workflow, click the delete button. A small menu will then appear where you need to confirm the name of the workflow you are deleting. Then click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">DELETE</Tag>.
 
 <br/>
 
@@ -1316,3 +1318,24 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 [comment]: <> (I probably need to split up this page into multiple pages - it is currently way too long. I think this thing about headers and banners is a good idea, I just need to monitor and evaluate its execution. On second thought - definitely need to split this up into at least like 10 pages. This thing is almost 10 000 words.)
 
 [comment]: <> (it would be wise to get someone to look over this whole page to make sure the formatting with the banners and headers is cohesive, makes sense, and doesn't look bad. I am uncertain about its visual appeal in some sections - mainly the execution keys and nextStep section)
+
+
+
+
+
+
+[comment]: <> (some of the images have red arrows and boxes. Some of these red elements have a shadow, some dont. May need to resolve this inconsistency.)
+
+[comment]: <> (maybe I can put some images for each button in the toolbar. Currently I just providing one image and labelling each button with dubheaders.)
+
+[comment]: <> (maybe I've just been looking at it for too long, but something about the whole docs just seems off. It doesn't look professional or like a real docs site. Something about the formatting idk just feels off.)
+
+
+
+
+
+
+
+[comment]: <> (might add a glossary page so I can provide some common definitions used throughout the docs - instance, step, workflow, execution key, credentials, payload, toolbar etc.)
+
+[comment]: <> (idk if I mentioned it but I fixed the blurry image problem. Remember to find other blurry images and fix them with the new strategy.)
