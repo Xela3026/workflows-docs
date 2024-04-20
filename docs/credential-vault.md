@@ -32,7 +32,7 @@ Clicking that button will open this menu:
 
 <CustomisableImage src="/img/new-credentials-menu.png" alt="New Credentials Menu" width="400"/>
 
-Give your new credential set a name under 'Credential Set Name'. This will be used to help identify your credential set within your workspace. Finally, click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">SET</Tag> to finalise the initialisation of your new credential set.
+Give your new credential set a name under 'Credential Set Name'. This will be used to help identify your credential set within your workspace. Then provide a short explanation of what the credentials set is for under 'Description'. Finally, click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">SET</Tag> to finalise the initialisation of your new credential set.
 
 <br/>
 

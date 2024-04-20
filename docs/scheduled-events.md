@@ -66,12 +66,12 @@ After creating an event or navigating to the scheduled events page using the sid
 
 <CustomisableImage src="/img/scheduled-event-homepage.png" alt="Scheduled Events Homepage" width="700"/>
 
-The audits homepage will display all of your workspace's scheduled events. From left to right, the menu will display:
+The scheduled events homepage will display all of your workspace's scheduled events. From left to right, the menu will display:
 - the duration until the event is activated
 - the name of the scheduled event
 - the ID of the scheduled event
 - the delete button
 
-To disable and delete an audit, click the delete button. A small menu will then appear where you need to type the word 'confirm'. Then click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">DELETE</Tag>.
+To remove a scheduled event, click the delete button. A small menu will then appear where you need to type the word 'confirm'. Then click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">DELETE</Tag>.
 
 

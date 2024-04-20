@@ -1339,3 +1339,7 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 [comment]: <> (might add a glossary page so I can provide some common definitions used throughout the docs - instance, step, workflow, execution key, credentials, payload, toolbar etc.)
 
 [comment]: <> (idk if I mentioned it but I fixed the blurry image problem. Remember to find other blurry images and fix them with the new strategy.)
+
+[comment]: <> (In these docs and the Yabbr App docs, one thing I could work on to make them better is to create and explain more use cases for each feature. Why is the feature useful? What can you use it for?)
+
+[comment]: <> (also just remembered, in the very beginning of this page, I screenshotted the JSON for a new step intsead of putting it in a codeblock. Need to resolve that.)
