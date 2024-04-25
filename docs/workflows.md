@@ -196,7 +196,7 @@ The workflow will try to determine where it is being triggered and activated fro
 
 <div className="dubheader">Lock Button</div> 
 
-Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without Yabbr API authentication. If it is 'locked', then a Yabbr API authentication is required to activate the workflow.
+Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without <BrandName/> API authentication. If it is 'locked', then a <BrandName/> API authentication is required to activate the workflow.
 
 <br/>
 
@@ -408,6 +408,8 @@ When creating a new fetch request, the following JSON will appear:
   "nextStep": []
 }
 ```
+
+[comment]: <> (Is it ok that I used the Yabbr name here in the url?)
 
 <br/>
 
