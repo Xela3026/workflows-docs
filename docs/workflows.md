@@ -664,12 +664,16 @@ So, your JSON should look something like this:
     [
       "location1",
       "data1",
-      {"flags1"}
+      {
+        "flagName": "flagValue"
+      }
     ],
     [
       "location2",
       "data2",
-      {"flags2"}
+      {
+        "flagName": "flagValue"
+      }
     ]
   ]
 }
@@ -687,7 +691,9 @@ The third item is an object. Within this object, you can create some "flags" to 
 
 <div className="dubheader">"push"</div>
 
-Boolean. Adds data as an element within the array of the property. Will only work if the data storage location is an array. If the data storage location does not exist, it will create it as an array. If this flag is false, it is functionally the same as the flag not existing.
+Boolean. If `true`: adds data as an element within the array of the property. Will only work if the data storage location is an array. If the data storage location does not exist, it will create it as an array. If this flag is false, it is functionally the same as the flag not existing.
+
+[comment]: <> (review these explanations. They're bad. WIP)
 
 <br/>
 

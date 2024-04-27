@@ -24,7 +24,7 @@ Each of these events also have some associated data. For example, when a chat is
 You can then catch and store this data using an [Event Subscription](./event-subscriptions.md). So:
 1. An action is executed. 
 2. An event is triggered. It will record information about the action.
-3. The information is relayed to all the event subscribers and stored. Learn more about event subscriptions [here](./event-subscriptions.md).
+3. The information is relayed to all the event subscribers and used. Learn more about event subscriptions [here](./event-subscriptions.md).
 
 <br/>
 
@@ -35,6 +35,11 @@ You can also create your own custom events. To define a custom event, you need t
 These custom events behave exactly the same as normal events. They still need to be triggered, they can still record information, and they can still pass this information on to "subscribers". The difference is, you can trigger a custom event wherever you want. It could be in a workflow, or in some external application. It's as simple as making an API request. Learn more about this custom triggering [here](#triggering-an-event).
 
 Custom events essentially let you record the details of any arbitrary action in any location. 
+
+<div className="dubheader">Schema "Instructions"</div>
+
+An event schema will define the "behaviour" of a custom event by specifying the data that it will record. Since an event is "triggered" by an API request, the event schema describes how the API request body should be formatted. This page will refer to a triggered event and its recorded data as this "API request body". This API request is explored more [here](#triggering-an-event).
+
 
 
 
@@ -92,22 +97,30 @@ Creating a new event schema will meet you with the following JSON:
 
 Explanations of the above properties:
 - **type**: the name of the custom event. 
-- **hierarchy**: WIP
-- **additionalProps**: WIP
+- **hierarchy**: currently non-functional.
 - **priority**: WIP
-- **properties**: an event is triggered via an API request. `"properties"` details every property that the API request body needs to include. Each property of this object is a property that the API request body must include. These properties are formatted as objects: 
-    - their key is the name of the required property
-    - their `"type"` property is the data type of the required property
-    - their `"required"` property is a boolean that indicates the necessity of the property. `true` means the API request body must include this property. `false` means the API request body does not have to include this property.
+- **properties**: each property of this object describes a property that the API request body should include. For each property in this object:
+    - the key is the name of the request body property. E.g. `"examplePropertyOne"`.
+    - the `"type"` property is the data type of the request body property. E.g. `"string"`.
+    - the `"required"` property is a boolean that indicates the necessity of the property. `true` means the request body must include this property. `false` means the request body does not have to include this property.
+- **additionalProps**: describes how to handle API request body properties that do not appear in `"properties"`.
+  - `"enabled"`: boolean. `true` means the request body cannot include any properties not defined in `"properties"`. If the request body has additional properties, the event will be rejected. `false` means the request body can include extra properties.
+  - `"type"`: an array of data types. These are the allowed data types for the request body's additional properties. The data types you can include are `"object"`, `"array"`, `"string"`, `"number"`, and `"*"`. `"*"` will allow all data types. If a request body has an additional property with an unsupported data type, the event will be rejected.
+
+[comment]: <> (are these all the allowed data types?)
 
 <br/>
 
 <div className="dubheader">Example</div>
 
-Consider the example `"properties"`:
+Consider the example `"properties"` and `"additionalProps"`:
 
 ```jsx title="Example"
 {
+  "additionalProps": {
+    "enabled": false,
+    "types": []
+  },
   "properties": {
     "examplePropertyOne": {
       "type": "string",
@@ -121,14 +134,14 @@ Consider the example `"properties"`:
 }
 ```
 
-The API request body to trigger this example event should look like:
+The API request body to trigger this example event must look like:
 
 ```jsx title="chat.concluded"
 {
   "body": {
-    "examplePropertyOne": "lorem ipsum",
+    "examplePropertyOne": "anything goes here",
     "examplePropertyTwo": {
-      "lorem": "ipsum"
+      "anything": "here"
     }
   }
 }
@@ -177,14 +190,14 @@ To specify which event you are triggering, and its associated data, you need to 
 
 Thus, events actually function in a three step process:
 1. A POST request is made detailing an event name and some associated data.
-2. The event schema with the requested name validates the request to ensure all necessary data is present.
+2. The event schema with the requested name validates the request to ensure data is correctly formatted.
 3. The event subscriber catches the data from the POST request.
 
 <br/>
 
 <div className="dubheader">Sending the Request</div>
 
-Since these events are triggered by a POST request, they can be triggered wherever and whenever you want. This is the primary functionality of a custom event. You get to chose how the request is sent. You could set it up with a workflow, or maybe some external application. When one of your processes is activated, it could send this POST request and thus trigger one of your custom events.
+Since these events are triggered by a POST request, they can be triggered wherever and whenever you want. This is the primary functionality of a custom event. You choose how the request is sent. You could set it up with a workflow, or maybe some external application. When one of your processes is activated, it could send this POST request and thus trigger one of your custom events. This custom event can then be used to trigger a webhook. Learn more about that in [Event Subscriptions](./event-subscriptions.md).
 
 [comment]: <> (Review this wording. WIP)
 
