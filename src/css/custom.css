@@ -181,23 +181,51 @@ h6 {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
 }
 
 .cards {
-  margin: 0.5em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
   border-radius: 0.4em;
   width: 30%;
   height: 24em;
-  border-bottom: 1px solid lightgray;
+  opacity: 1;
+  position: relative;
   transition: border 0.3s;
   padding-right: 0.1em;
   cursor: pointer;
-  position: relative;
+  flex-shrink: 0;
+  margin: 0 0 1em 0;
+
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out, box-shadow 0.1s ease-in-out;
   
 }
 
+.cover {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  opacity: 0.3;
+
+  overflow: hidden;
+}
+
+
+.cards  .header,.cards p {
+  padding: 3%;
+}
+
+.smaller {
+  transform: scale(0.8);
+  opacity: 0.6;
+}
+
 .cards:hover {
-  border-bottom: 1px solid rgb(0, 0, 0)
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .code-container {

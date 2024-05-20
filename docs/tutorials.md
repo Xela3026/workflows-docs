@@ -4,31 +4,22 @@ toc_min_heading_level: 2
 toc_max_heading_level: 5
 ---
 
+import CarouselCard from '@site/src/components/CarouselCard';
+import Carousel from '@site/src/components/Carousel';
+
 # Tutorials 
+<Carousel>
+    <CarouselCard code='"value": "Hello, World!"' name="Tutorial 1: Hello, World!" />
+    <CarouselCard code='"stored1": "Hello", "stored2": "World!"' name="Tutorial 2: Placeholders" />
+    <CarouselCard code='"messageSender": "61400000003", "messageRecipient": "61400000002"' name="Tutorial 3: Fetch Requests" />
+    <CarouselCard code='"isMessageLate": true' name="Tutorial 4: Conditions"/>
+    <CarouselCard code='"value": "Hello World"' name="Tutorial 5: Hello World" />
+    <CarouselCard code='"value": "Hello World"' name="Tutorial 6: Hello World" />
+    <CarouselCard code='"value": "Hello World"' name="Tutorial 7: Hello World" />
+</Carousel>
 
-<div className='card-row'>
-    <div className='cards'>
-        <div className='code-container'>
-            &#123;<br/><br/>
-            "value": "Hello World"<br/><br/>
-            &#125;
-        </div>
-        <div className='header'>Tutorial 1: Hello World</div>
-    </div>
-    
-</div>
 
-<div className='card-row'>
-    <div className='cards'>
-        <div className='code-container'>
-            &#123;<br/><br/>
-            "value": "Hello World"<br/><br/>
-            &#125;
-        </div>
-        <div className='header'>Tutorial 1: Hello World</div>
-    </div>
-    
-</div>
+
 
 Planning it out:
 
@@ -50,7 +41,7 @@ Tutorial plans (grouped):
 
 Hello World
 Using placeholders (probably use 'payload' here. Maybe 'store')
-Dice roller
+Dice roller (try and get them to make this at the end)
 
 Fetch request + return to caller (use a Yabbr GET Message request as an example)
 
@@ -75,3 +66,8 @@ recording survey results? idk some business applications - ask Logan for these
 
 
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+
+<script>
+    console.log('test');
+
+</script>
