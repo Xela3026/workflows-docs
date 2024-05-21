@@ -17,7 +17,6 @@ const CarouselCard = ({ code, name, offset, direction }) => {
                     const containerCentre = container.offsetWidth / 2;
                     const cardRect = cardRef.current.getBoundingClientRect();
                     const containerRect = container.getBoundingClientRect();
-                    const initialOffset = (containerRect.right - cardRef.current.offsetWidth) / 2;
                     const cardCentre = cardRect.left + cardRect.width / 2 - containerRect.left + direction * cardRef.current.offsetWidth;
                     const distance = Math.floor(Math.abs(containerCentre - cardCentre));
                     const ratio = distance / container.offsetWidth;
