@@ -39,10 +39,10 @@ export default Carousel;*/
 import React, { useState, useRef, useEffect } from 'react';
 
 const Carousel = ({ children }) => {
-    const [offset,setOffset] = useState(1);
-    const [direction,setDirection] = useState(1);
+    
+    const [offset,setOffset] = useState(Math.floor(children.length / 2));
+    const [direction,setDirection] = useState(Math.floor(children.length / 2));
     const [isCooldown, setIsCooldown] = useState(false);
-    const [loaded, setLoaded] = useState(false);
 
 
 
@@ -73,38 +73,20 @@ const Carousel = ({ children }) => {
         }
     };
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setOffset(2);
-            setDirection(1);
-            setTimeout(() => {
-                setOffset(3);
-                setDirection(1);
-                setLoaded(true);
-            }, 220);
-        }, 220);
-
-        return () => clearTimeout(timer);
-
-        
-    }, []);
-
-    
-
-
-
 
     return (
-        <div style={{opacity: loaded ? 1 : 0 }}>
+        <div>
 
             <div className='card-row'>
 
                 {React.Children.map(children, child=> {
                     return React.cloneElement(child, {offset, direction});
                 })}
+                <button id="previous" onClick={handlePrevious} className="moveButton left">🠈</button>
+                <button id="next" onClick={handleNext} className="moveButton right">🠊</button>
             </div>
-            <button id="previous" onClick={handlePrevious}>Previous</button>
-            <button id="next" onClick={handleNext}>Next</button>
+            
+            
 
         </div>
     );

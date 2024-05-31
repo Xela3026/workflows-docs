@@ -119,6 +119,7 @@ h1, h2, h3, h4, h5, h6 {
   color: white;
   height: fit-content;
   text-shadow: 2px 2px 5px black;
+  /* box-shadow: 2px 2px 5px black; */
   padding: 0.5em;
 }
 
@@ -137,6 +138,7 @@ h3 {
 }
 
 h4 {
+  font-size: 1.3em;
   border: 2px solid var(--ifm-color-primary);
   color: black;
   text-shadow: none;
@@ -144,6 +146,7 @@ h4 {
 }
 
 h5 {
+  font-size: 1em;
   border: 2px solid black;
   color: black;
   text-shadow: none;
@@ -190,7 +193,7 @@ h6 {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
   border-radius: 0.4em;
-  width: 30%;
+  width: 33%;
   height: 24em;
   opacity: 1;
   position: relative;
@@ -204,6 +207,8 @@ h6 {
   
 }
 
+
+
 .cover {
   position: absolute;
   height: 100%;
@@ -215,9 +220,6 @@ h6 {
 }
 
 
-.cards  .header,.cards p {
-  padding: 3%;
-}
 
 .smaller {
   transform: scale(0.8);
@@ -231,7 +233,7 @@ h6 {
 .code-container {
   position: relative;
   width: 100%;
-  height: 70%;
+  height: 65%;
   text-align: left;
   background: var(--ifm-color-primary);
   padding: 1em;
@@ -240,35 +242,69 @@ h6 {
   font-weight: bold;
   display: flex;
   align-items: center;
-  justify-content: center;
+
 
 }
 
 .header {
   font-size: 1.3em;
   color: var(--ifm-color-primary);
-  padding-top: 0.3em;
-  padding-bottom: 0.1em;
+  overflow-wrap: break-word;  
+  white-space: normal;
+  width: auto;
+  margin: 3% 0 0 3%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
 }
 
-@keyframes fade-left{
-  0%{
-    transform: translateX(0px) scale(1,1);
-    opacity: 1;
-  }
-  100%{
-    transform: translateX(-200px) scale(0.8,0.8);
-    opacity: 0.5;
-  }
+.description {
+  margin-left: 3%;
+  overflow-wrap: break-word;  
+  white-space: normal;
+  font-size: 1em;
 }
 
-@keyframes fade-right{
-  0%{
-    transform: translateX(0px) scale(1,1);
-    opacity: 1;
-  }
-  100%{
-    transform: translateX(200px) scale(0.8,0.8);
-    opacity: 0.5;
-  }
+.fullLink {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
 }
+
+.moveButton {
+  background-color: white;
+  color: var(--ifm-color-primary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  margin: 0 auto;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 0.25em 0.5em 0.25em 0.5em;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+  display: flex;
+  position: absolute;
+  top: 45%;
+  
+  justify-content: center;
+  
+}
+
+.moveButton:hover {
+  background-color: rgb(227, 227, 227);
+  color: #005596;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.left {
+  left: 20%;
+}
+
+.right {
+  right: 20%;
+}
+

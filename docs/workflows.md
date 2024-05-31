@@ -150,6 +150,8 @@ These steps will automatically be sent to the "Unassigned" tab. You may also nee
 
 An overview of the JSON of the entire workflow. It is an array where each item is the JSON of a single step. Formatted as above.
 
+[comment]: <> (I think thsi explanation of the upload and download button might be either wrong or outdated - WIP)
+
 <br/>
 
 <div className="dubheader">Add (+) Button</div>
@@ -454,7 +456,7 @@ Explanations of the above properties:
 - **fileType**: the type of file you are using.
 - **delimiter**: when the data is extracted and stored as an array, this will be the character that separates each piece of data.
 - **includeEmpty**: whether to include empty lines when recording data from the file. `true` will include empty lines, `false` will ignore empty lines. Empty cells in a CSV file will never be ignored.
-- **headerIndex**: (optional) will use the first line of a CSV file as column titles. This will allow you to refer to column titles instead of column indexes when retrieving data.
+- **headerIndex**: (optional for CSV) the index of the row that contains the file's column titles. This will allow you to refer to column titles instead of column indexes when retrieving data.
 
 <br/>
 
@@ -466,13 +468,11 @@ Once you have extracted the data, you need a way of accessing it. The data is st
 
 <div className="dubheader">TXT</div>
 
-Returns `{{memory.record}}` as an array. Each line of the file is stored as a whole string. Each of these strings is stored in the array and separated by the "delimiter" defined earlier. An example txt file with "delimiter": ",":
+Returns `{{memory.record}}` as an array. Each line of the file is stored as a whole string. Each of these strings is stored in the array and separated by the "delimiter" defined earlier. An example txt file with `"delimiter": ","`:
 
 ```txt
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-
 Vivamus rhoncus magna congue ornare lacinia. 
-
 Sed vitae orci vitae dolor ultrices ultricies.
 ```
 
@@ -480,39 +480,59 @@ Would be stored as the array:
 
 ```jsx
 ["Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-
 "Vivamus rhoncus magna congue ornare lacinia.",
-
 "Sed vitae orci vitae dolor ultrices ultricies."]
 ```
 
 <br/>
 
 :::tip TIP
-To reference a specific line in the file, use dot notation followed by the index of the line. For example, `{{memory.record.2}}` would return the third line of the file.
+To get a specific line in the file, reference the index of the line. For example, `{{memory.record.2}}` would return the third line of the file.
 :::
 
 <br/>
 
 <div className="dubheader">CSV</div>
 
-CSV files are read line by line. `{{memory.record}}` is an array that represents one line of the CSV file. Each item in the array is a different column within that line. Since CSV files are only read and stored one line at a time, that means `{{memory.record}}` is constantly overwritten and only ever stores one line at a time. This means, if there are not other specifications, that `{{memory.record}}` will just be the last line of the file, and all other data will have been overwritten. 
+CSV files are read line by line. `{{memory.record}}` is an array that represents one line of the CSV file. Each item in the array is a different column within that line. Since CSV files are only read and stored one line at a time, `{{memory.record}}` is constantly overwritten and only ever stores one line at a time. This also means that if no additional mechanisms are in place to use previous lines, `{{memory.record}}` will contain just the last line of the file. The rest of the lines will have been overwritten.
 
-To access individual columns within a line of stored data, you reference the index of the column using dot notation. For example , `{{memory.record.2}}` would return the value of the third column in the line. Alternately, adding `"headerIndex: 0` to your file stream JSON will use the first line of the CSV file as column headings. Then, you can reference these column headings instead of the column indices. For example, to access the value in the "email" column on the current line, you would reference `{{memory.record.email}}`.
 
-<br/>
 
-:::tip TIP
-Since only one line is read and stored at a time, referencing a column within a line would be referencing an individual cell.
-:::
+To access individual columns within a line of stored data, you reference the index of the column. For example , `{{memory.record.2}}` would return the value of the third column in the line. Alternately, adding a `"headerIndex"` to your file stream JSON will read the file's column titles. Then, you can reference these column titles instead of the column indices. For example, to access the value in the "email" column on the current line, you would reference `{{memory.record.email}}`.
 
 <br/>
 
-To perform an [action](#actions) on every line in a CSV file, you need to iterate over every line and run the action. To add this file iteration, you need to give the `"stream": true` property to an [Execute Step action](#execute-step). If an Execute Step action has this property, then it will run the next step for every line in the streamed file. 
+<div className="dubheader">Example CSV</div>
 
-Consider the following example - you have a step with a file stream and then an Execute Step action that looks like this:
+Consider the following example CSV file:
 
-```jsx title="Execute Step File Iteration"
+[comment]: <> (is it better to show the CSV file like this or in tabulated format/excel screenshot?)
+
+```csv
+First Name,Last Name,Email
+John,Smith,abc123@example.com
+Jane,Doe,def456@example.com
+```
+
+Streaming this file will return `{{memory.record}}` as:
+
+```jsx
+["Jane", "Doe", "def456@example.com"]
+```
+
+To just extract the email `"def456@example.com"` from the data, you can use `{{memory.record.2}}`. Alternately, by including `"headerIndex": 0` in the file stream JSON, you can use `{{memory.record.Email}}` to extract the desired data.
+
+
+
+<br/>
+
+<div className="dubheader">Using Every Line (CSV)</div>
+
+To use every line in a CSV file, you must send each line one by one to another step. This step can then process each individual incoming line. To add this functionality, you need to give the `"stream": true` property to an [Execute Step action](#execute-step). If an Execute Step action has this property, then it will run the next step for every line in the streamed file.
+
+Consider the following example - you have a single step with a file stream and an Execute Step action. The Execute Step action is as follows:
+
+```jsx title="Execute Step"
 {
   "body":
   {
@@ -522,7 +542,7 @@ Consider the following example - you have a step with a file stream and then an 
 }
 ```
 
-When this is run, it will send every line in the streamed file individually as the payload for the next step. So, the next step will be run once for every line in the streamed file. In each execution of this step, its payload will be a new line in the file.
+When the step is run, it will send every line in the streamed file individually as the payload for the next step. Thus, the next step will be run once for every line in the streamed file, each time with a new payload.
 
 To store an entire CSV file within <BrandName/> and the workflow, use the [Stream To](#stream-to) action.
 
@@ -914,7 +934,7 @@ This property is the same as the `"padStart"` property, except the filler text i
 
 :::tip TIP
 - You can use placeholders like `{{payload}}` or `{{fetched}}` to save data from earlier in the step.
-- Saving data to a step's `{{memory}}` data store is useful when you are repeating the step multiple times. The memory data store will survive the duration of the step, and then get wiped once the step finishes looping and goes to the a new step.
+- Saving data to a step's `{{memory}}` data store is useful when you are repeating the step multiple times. The memory data store will survive the duration of the step, and then get wiped once the step finishes looping and goes to a new step.
 :::
 
 <br/>
@@ -922,7 +942,9 @@ This property is the same as the `"padStart"` property, except the filler text i
 
 ##### Repeat Eval
 
-Restarts the step with a new payload. The new payload is the JSON defined in this action. Selecting this action will present you with a blank object. The data within this object will be sent back to the start of the step as the payload.
+Restarts the step with a new payload. The JSON data for this step will be sent back to the start of the step as the payload.
+
+[comment]: <> (I'm pretty sure this is incorrect after looking at the CDL workflows - they repeat eval has no JSON, and the Next Step action has a memory.index? WIP)
 
 <br/>
 
@@ -1358,3 +1380,19 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 
 
 [comment]: <> (remember to go back and comment the carousel code)
+
+[comment]: <> (maybe make the banners/headers collapsible for more readability)
+
+[comment]: <> (maybe when explaining what each property does, instead of putting them in dot points, perhaps a table would be a better format)
+
+
+
+[comment]: <> (probably need to add separate pages or tabs for the "Workflows" page - it is way too long)
+
+[comment]: <> (maybe include a tutorial about activating a workflow using an external caller - maybe make a program that sends a POST request to the workflow then catches the response)
+
+[comment]: <> (on inspection, I think my understanding and description of the repeat action may be incorrect. What is memory.index in the CDL workflows with the repeat action?)
+
+[comment]: <> (didnt show how to revert changes using the saving function of workflows - add this)
+
+[comment]: <> (I could also potentially make the workflow IDs of the tutorial workflows public so that anyone can test them out.)
