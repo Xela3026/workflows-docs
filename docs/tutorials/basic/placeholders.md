@@ -28,6 +28,19 @@ The end goal is for the API caller to send our workflow any `"name"`, and receiv
 
 ## The Workflow
 
+<div className="dubheader">Sample Input</div>
+
+<br/>
+
+```jsx
+{
+    "name": "Alex"
+}
+```
+
+<br/>
+
+
 <div className="dubheader">Desired Output</div>
 
 <br/>
@@ -50,19 +63,19 @@ The API caller will send a payload to the workflow with body `{"name": "anything
 
 <div className="dubheader">Walk-through</div>
 
-1. Create a new workflow and store the sentence prefix `"My name is "` within it. This can be achieved by finding the workflow's properties, and inserting the prefix into the `"store"` object under an appropriate key like `"prefix"`.
+**1.** Create a new workflow and store the sentence prefix `"My name is "` within it. This can be achieved by finding the workflow's properties, and inserting the prefix into the `"store"` object under an appropriate key like `"prefix"`.
 
 <CustomisableImage src="/img/placeholders-store.png" alt="Storing the Prefix" width="500"/>
 
-2. Create a new step with an empty condition. 
+**2.** Create a new step with an empty condition. 
 
 <CustomisableImage src="/img/placeholders-empty-condition.png" alt="Empty Condition" width="300"/>
 
-3. Add a new Return to Caller action to the empty condition. The `"body"` should include a `"message"` property that will be the concatenated string that is rerturned to the API caller. The two values we want to combine are `{{store.prefix}}` (sentence prefix stored in the workflow `"My name is "`) and `{{payload.name}}` (the name received from the API caller). This should combine into the full property `"message": "{{store.prefix}}{{payload.name}}"`.
+**3.** Add a new Return to Caller action to the empty condition. The `"body"` should include a `"message"` property that will be the concatenated string that is rerturned to the API caller. The two values we want to combine are `{{store.prefix}}` (sentence prefix stored in the workflow `"My name is "`) and `{{payload.name}}` (the name received from the API caller). This should combine into the full property `"message": "{{store.prefix}}{{payload.name}}"`.
 
 <CustomisableImage src="/img/placeholders-return.png" alt="Return Concatenated String" width="500"/>
 
-4. Save the workflow. To test the workflow, we need to give it a payload to use. This payload must include the name we want the workflow to display. For this tutorial, we will set `"name": "Alex"` to get the desired output from the start. However, you can make `"name"` whatever you want and get a different output. Once you've added a payload, you can test the workflow.
+**4.** Save the workflow. To test the workflow, we need to give it a payload to use. This payload must include the name we want the workflow to display. For this tutorial, we will set `"name": "Alex"` to get the desired output from the start. However, you can make `"name"` whatever you want and get a different output. Once you've added a payload, you can test the workflow.
 
 <CustomisableImage src="/img/placeholders-test.png" alt="Testing" width="400"/>
 

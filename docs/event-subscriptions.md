@@ -108,14 +108,14 @@ An event subscription can either catch custom events defined by your [event sche
 
 :::info Information
 - You can only catch <BrandName/> events that have been triggered from within your own workspace. 
-- Your Workflows and Yabbr App workspaces are connected. An event triggered in your Yabbr App workspace can be caught by an event subscription in your Workflows workspace.
+- Your Workflows and <BrandName/> App workspaces are connected. An event triggered in your <BrandName/> App workspace can be caught by an event subscription in your Workflows workspace.
 :::
 
 <br/>
 
 [comment]: <> (do workspaces have anymore than workflows and the yabbr app? WIP)
 
-These predefined events are triggered by various actions in your Yabbr App and Workflows workspace:
+These predefined events are triggered by various actions in your <BrandName/> App and Workflows workspace:
 - `"chat.concluded"`: a session in the <BrandName/> Chat is concluded.
 - `"contact.update"`: a customer's contact information is updated.
 - `"workflow.log.error"`: a workflow logs an error.

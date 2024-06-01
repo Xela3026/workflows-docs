@@ -49,40 +49,40 @@ The workflow will work like this: An API caller sends a POST request to the work
 
 <div className="dubheader">Walk-through</div>
 
-1. Create a new Workflow and give it an appropriate name like "Hello World" or "My First Workflow".
+**1.** Create a new Workflow and give it an appropriate name like "Hello World" or "My First Workflow".
 
 <CustomisableImage src="/img/hello-world-setup.png" alt="Create New Workflow" width="500"/>
 
-2. In your new workflow, create a new step. This step will be returning the value "Hello, World!". Give it an appropriate name (`"name"`) and description (`"description"`) to match this functionality. 
+**2.** In your new workflow, create a new step. This step will be returning the value "Hello, World!". Give it an appropriate name (`"name"`) and description (`"description"`) to match this functionality. 
 
 <CustomisableImage src="/img/hello-world-step.png" alt="Creating the First Step" width="500"/>
 
 [comment]: <> (may need to make this ^ above image more accurate - put in some actual values for the description and name as an example.)
 
-3. Add a condition. Make it empty by making the `"conditions"` array empty. Give it an appropriate name (`"name"`) like "Empty Condition".
+**3.** Add a condition. Make it empty by making the `"conditions"` array empty. Give it an appropriate name (`"name"`) like "Empty Condition".
 
 <CustomisableImage src="/img/hello-world-condition.png" alt="Creating an Empty Condition" width="300"/>
 
-4. Add a new "Return to Caller" action to the empty condition.
+**4.** Add a new "Return to Caller" action to the empty condition.
 
 <CustomisableImage src="/img/hello-world-action.png" alt="Adding the Return Action" width="500"/>
 
-5. Insert `"value": "Hello, World!"` into the `"body"` of the return action.
+**5.** Insert `"value": "Hello, World!"` into the `"body"` of the return action.
 
 <CustomisableImage src="/img/hello-world-return.png" alt="Configuring the Return Action" width="350"/>
 
-6. Save your changes.
+**6.** Save your changes.
 
 <CustomisableImage src="/img/hello-world-save.png" alt="Saving the Workflow" width="600"/>
 
-7. Test your workflow.
+**7.** Test your workflow.
 
 <CustomisableImage src="/img/hello-world-test.png" alt="Testing the Workflow" width="400"/>
 
 <br/>
 
 :::info INFO
-The link that appears underneath "Start" (hidden by white in the image above) is the API endpoint of this specific workflow. If an external caller where to send a POST request to that URL, it would activate the workflow and then receive `{"value": "Hello, World!"}` as a response.
+The link that appears underneath "Start" (hidden by white in the image above) is the "start" API endpoint of this specific workflow. If an external caller where to send a POST request to that URL, it would activate the workflow and then receive `{"value": "Hello, World!"}` as a response.
 :::
 
 <br/>

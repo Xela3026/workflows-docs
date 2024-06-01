@@ -21,7 +21,7 @@ At any time, refer to the documentation related to each tutorial for more inform
     <CarouselCard code='"message": "My name is Alex"' name="Tutorial 2: Placeholders" link="./basic/placeholders">Interpolate values using placeholders. The program will concatenate two strings stored in placeholders.</CarouselCard>
     <CarouselCard code='"size": "Medium"' name="Tutorial 3: Conditions" link="./basic/conditions">Learn how to use conditions and logic to perform different actions in different situations.</CarouselCard>
     <CarouselCard code='"message": "Dangerous weather: Violent Rain. Be cautious."' name="Tutorial 4: Fetch Requests" link="./basic/fetch-requests">Send an API request to retrieve and then output some data about the weather.</CarouselCard>
-    <CarouselCard code='"line2": "He owns a car.", "isJohnPresent": true' name="Tutorial 5: TXT File Stream" link="./basic/txt-file-stream">Read a TXT file and output some information about it.</CarouselCard>
+    <CarouselCard code='"containsLoremIpsum": true, "line2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"' name="Tutorial 5: TXT File Stream" link="./basic/txt-file-stream">Read a TXT file and output some information about it.</CarouselCard>
     <CarouselCard code='"status": "Success"' name="Tutorial 6: CSV File Stream" link="./basic/csv-file-stream">Read a CSV file and output some information about it.</CarouselCard>
     <CarouselCard code='"message": "Payload is sufficient"' name="Tutorial 7: Execution Keys" link="./basic/execution-keys">Manage and use execution keys to communicate between two workflows.</CarouselCard>
     <CarouselCard code='WIP' name="Tutorial 8: Repeating a Step" link="./basic/repeating-step">WIP</CarouselCard>
@@ -162,3 +162,10 @@ like the weather tutorial, but running a campaign to alert people maybe. and the
 May want to loop through a bunch of customers or messages and make a decision on each
 
 The advanced tutorials should use some Yabbr API endpoints
+
+
+Create a list of the 10 last numbers that one of your virtual numbers texted.
+
+
+
+Fetch a file URL, stream the file, and use the information (maybe run a campaign, or iterate through each customer in the file)
