@@ -96,6 +96,8 @@ If the conditions were not all in a group, then workflows would run them asynchr
 }
 ```
 
+<br/>
+
 **2.** Create a new step with a new condition. This will be our first condition `sum < 10`. Give it an appropriate `"name"` for its functionality like `"Small"`. We also want to put it into a condition group using the `"group"` property. We will call this group `"Sizes"`. Leave the other properties for now, we will deal with them later.
 
 ```jsx title="First Condition"
@@ -112,6 +114,8 @@ If the conditions were not all in a group, then workflows would run them asynchr
   "name": "Small"
 }
 ```
+
+<br/>
 
 **3.** To get the condition `sum < 10`, we first define our two values. 
 - `"value1"` will be our sum. To compute a sum, we will use a new placeholder that evaluates maths expressions. Learn more about this [here](../../workflows.md#other-substitutions). We want a maths expression that adds the two numbers in our payload. The syntax for this is `M{ {{payload.num1}} + {{payload.num2}} }` (Ensure the outside curly braces don't touch the inside contents). 
@@ -132,6 +136,8 @@ If the conditions were not all in a group, then workflows would run them asynchr
   "name": "Small"
 }
 ```
+
+<br/>
 
 **4.** For the second condition `10 <= sum <= 20`, we will need two conditions: `sum >= 10` and `sum <= 20`. For this functionality, we will add a second condition object to the `"conditions"` array. The first condition object will evaluate `sum >= 10` and the second object will evaluate `sum <= 20`. We also want both of these conditions to be met simultaneously. We do this by setting `"conditionCombiner"` to `"&&"`. Remember that this condition must also belong to the same `"Sizes"` group as the first condition.
 
@@ -155,6 +161,8 @@ If the conditions were not all in a group, then workflows would run them asynchr
 }
 ```
 
+<br/>
+
 [comment]: <> (it may be confusing having value2 come before value1. Check this. WIP)
 
 **5.** The third and final condition will be empty. The only important thing is to put it into the same condition group `"Sizes"` with the previous conditions.
@@ -168,6 +176,8 @@ If the conditions were not all in a group, then workflows would run them asynchr
 }
 ```
 
+<br/>
+
 **6.** Under each condition, we need an appropriate Return to Caller action. We will return the property `"size"`. For the first condition, `"size"` will be `"Small"`. For the second condition, it will be `"Medium"`. For the third condition, it will be `"Large"`.
 
 <CustomisableImage src="/img/conditions-actions.png" alt="Actions" width="500"/>
@@ -180,6 +190,8 @@ If the conditions were not all in a group, then workflows would run them asynchr
 }
 ```
 
+<br/>
+
 **7.** It is now done and we can test it. To test it, your payload should include `"num1"` and `"num2"`. Make sure that the three conditions are being evaluated properly by using different values for `"num1"` and `"num2"`. The below payload should evaluate to `"Medium"`.
 
 ```jsx title="Example Return Action"
@@ -188,6 +200,7 @@ If the conditions were not all in a group, then workflows would run them asynchr
   "num2": 8
 }
 ```
+
 
 
 

@@ -11,6 +11,7 @@ import BrandName from '@site/src/components/BrandName';
 
 # Workflows
 
+
 <div className="dubheader">Overview</div>
 
 A workflow is an automated set of tasks that are executed based on logic. A workflow is comprised of various 'steps'. Each step is a mini task that is executed. These steps are then sequenced together to automate a larger process. In general, a step has three phases:
@@ -519,12 +520,23 @@ Consider the following example - you have a single step with a file stream and a
 
 When the step is run, it will send every line in the streamed file individually as the payload for the next step. Thus, the next step will be run once for every line in the streamed file, each time with a new payload. If there were 5 lines in the file, then the next step would run 5 times.
 
+:::info Info
+The workflow will only run one step at a time. Thus, it will actually "queue" several iterations of the step to run at the same time once the current step has finished executing. In the above example, the workflow would queue five executions of the next step, each with their own payload.
+:::
+
 To store a CSV file within <BrandName/>, use the [Stream To](#stream-to) action.
 
 <br/>
 
 
-[comment]: <> (WIP - check the wording)
+[comment]: <> (WIP - I don't know if this information is correct.)
+
+[comment]: <> (Ok this is also missing a lot of information - WIP)
+
+
+[comment]: <> (I need a section about everything stored in the memory of a step - eg record, index, finalIteration, default, allRead etc. This will help with file streaming as well. WIP)
+
+[comment]: <> (after further inspection, I have found out that stream:true can be put on multiple types of actions like save to instance.)
 
 
 
@@ -1374,3 +1386,10 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 [comment]: <> (didnt show how to revert changes using the saving function of workflows - add this)
 
 [comment]: <> (I could also potentially make the workflow IDs of the tutorial workflows public so that anyone can test them out.)
+
+
+
+
+
+
+

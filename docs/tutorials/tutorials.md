@@ -10,24 +10,32 @@ import Carousel from '@site/src/components/Carousel';
 
 # Tutorials 
 
+Brainstorm:
+
 Various workflows projects that will teach you how to effectively use workflows. Takes you through step by step
 I may end up putting this in the overall Workflow docs "Overview" page so that they can quick nav to the tutorials
 At any time, refer to the documentation related to each tutorial for more information.
 
-<div className="subheading">Basic</div>
+Basic tutorials teach you how to use each feature
+
+<div className="subheader">Basic</div>
 
 <Carousel>
     <CarouselCard code='"value": "Hello, World!"' name="Tutorial 1: Hello, World!" link="./basic/hello-world">Learn Workflows fundamentals. Setup an elementary workflow and test it.</CarouselCard>
     <CarouselCard code='"message": "My name is Alex"' name="Tutorial 2: Placeholders" link="./basic/placeholders">Interpolate values using placeholders. The program will concatenate two strings stored in placeholders.</CarouselCard>
     <CarouselCard code='"size": "Medium"' name="Tutorial 3: Conditions" link="./basic/conditions">Learn how to use conditions and logic to perform different actions in different situations.</CarouselCard>
     <CarouselCard code='"message": "Dangerous weather: Violent Rain. Be cautious."' name="Tutorial 4: Fetch Requests" link="./basic/fetch-requests">Send an API request to retrieve and then output some data about the weather.</CarouselCard>
-    <CarouselCard code='"containsLoremIpsum": true, "line2": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"' name="Tutorial 5: TXT File Stream" link="./basic/txt-file-stream">Read a TXT file and output some information about it.</CarouselCard>
-    <CarouselCard code='"status": "Success"' name="Tutorial 6: CSV File Stream" link="./basic/csv-file-stream">Read a CSV file and output some information about it.</CarouselCard>
-    <CarouselCard code='"message": "Payload is sufficient"' name="Tutorial 7: Execution Keys" link="./basic/execution-keys">Manage and use execution keys to communicate between two workflows.</CarouselCard>
+    <CarouselCard code='"containsLoremIpsum": true, "thirdSentence": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur"' name="Tutorial 5: TXT File Stream" link="./basic/txt-file-stream">Read a TXT file and output some information about it.</CarouselCard>
+    <CarouselCard code='"containsRed": ["White", "Silver", "Gray", "Red", "Maroon", "Yellow", "Olive", "Fuchsia", "Purple"]' name="Tutorial 6: CSV File Stream" link="./basic/csv-file-stream">Read a CSV file and output some information about it.</CarouselCard>
+    <CarouselCard code='WIP' name="Tutorial 7: HTTPS Request" link="./basic/https-request">WIP</CarouselCard>
     <CarouselCard code='WIP' name="Tutorial 8: Repeating a Step" link="./basic/repeating-step">WIP</CarouselCard>
-    <CarouselCard code='WIP' name="Tutorial 9: Save to Instance" link="./basic/save-to-instance">WIP</CarouselCard>
+    <CarouselCard code='"message": "Payload is sufficient"' name="Tutorial 9: Execution Keys" link="./basic/execution-keys">Manage and use execution keys to communicate between two workflows.</CarouselCard>
+    <CarouselCard code='WIP' name="Tutorial 10: Fetch Request #2" link="./basic/fetch-request-two">Use the Credentials Vault to make requests to the Yabbr API.</CarouselCard>
+    <CarouselCard code='WIP' name="Tutorial 11: API File Stream" link="./basic/api-file-stream">Use the Yabbr API to read your own stored files.</CarouselCard>
 </Carousel>
 
+
+Advanced tutorials teach you how to sequence each feature to create a full, useful, automated project
 
 <br/>
 
@@ -48,7 +56,7 @@ At any time, refer to the documentation related to each tutorial for more inform
 
 
 
-
+Brainstorm:
 The different tutorials will also all be avaible on the sidebar
 
 
@@ -130,9 +138,9 @@ Learning about CSV file stream
 Learning about the HTTPS request action (+ credentials maybe)
 
 Tutorial 7: 
-Learning how to use exec keys
-HTTPS request action again (+ credentials maybe)
-talking between workflows
+Learn HTTPS Request
+Learn Next Step action
+
 
 Uses the payload as the input. Sends an execution key and the payload to another workflow. The other workflow processes it and then sends a value back to the workflow using the exec key. It catches this new value and outputs it
 
@@ -144,13 +152,16 @@ Idea - payload is a txt file that contains another URL. Use a condition to see i
 The 'code' for this card will be a single joined string from the two files - TBD what that string is
 
 Tutorial 9:
-Save to Instance. Using data from one step in a later step
-(maybe this can be a stream to tutorial instead, and I can use save to instance in tutorial 8)
+Learning how to use exec keys
+HTTPS request action again (+ credentials maybe)
+talking between workflows
 
 
 I don't have anything for the "Stream To" action, but I don't think it's that important. If they really want it it's in the docs.
 
 One of these tutorials should really teach Credentials
+
+[comment]: <> (need to figure out a way to incorporate HTTPS requests. Maybe I can put them in Fetch Requests Part 2.)
 
 
 
@@ -169,3 +180,6 @@ Create a list of the 10 last numbers that one of your virtual numbers texted.
 
 
 Fetch a file URL, stream the file, and use the information (maybe run a campaign, or iterate through each customer in the file)
+
+
+like the colours tutorial, but send a fetch request to a free colour API to get the colour scheme for the colour

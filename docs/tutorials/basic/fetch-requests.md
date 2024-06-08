@@ -71,6 +71,8 @@ An API caller activates the workflow. The first step will send a GET request to 
 
 <CustomisableImage src="/img/fetch-fetch.png" alt="New Fetch Request" width="400"/>
 
+<br/>
+
 **2.** In the fetch request, we want to retrieve the weather code from the Open Meteo API. See the documentation [here](https://open-meteo.com/en/docs). You can customise your own API URL using that documentation, or just use the one in this tutorial. The API URL used here will retrieve the current weather code in Brisbane. 
 - we are using a GET request to retrive this data. So, `"verb"` will be `"GET"`.
 - the request does not require authentication. So, `"headers"` will be empty.
@@ -87,6 +89,8 @@ An API caller activates the workflow. The first step will send a GET request to 
   "url": "api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=weather_code"
 }
 ```
+
+<br/>
 
 **3.** Create a new condition. Give it a `"group"` name like `"rainy"` to create a condition group. This condition will check to see if the weather code is dangerous. You can see what each weather code means below, but for this tutorial we will say that weather code 82 is dangerous. To retrieve the weather code from our request, we need to use the placeholder `{{fetched.data.current.weather_code}}`. We are checking if this value is equivalent to 82.
 
@@ -105,6 +109,8 @@ An API caller activates the workflow. The first step will send a GET request to 
 }
 ```
 
+<br/>
+
 <CustomisableImage src="/img/fetch-weather-codes.png" alt="Weather Codes" width="500"/>
 
 **4.** The second condition will belong to the same `"rainy"` group, but it will be empty. This is the `else` statement that will execute when the weather code is not 82.
@@ -117,6 +123,8 @@ An API caller activates the workflow. The first step will send a GET request to 
   "group": "rainy"
 }
 ```
+
+<br/>
 
 **5.** Return the appropriate message for each condition.
 
@@ -135,6 +143,8 @@ An API caller activates the workflow. The first step will send a GET request to 
   }
 }
 ```
+
+<br/>
 
 **6.** The workflow is done. Test it out. You can also play around with different weather codes, weather data, and conditions. You could try returning some of the fetched data.
 

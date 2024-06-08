@@ -67,20 +67,26 @@ The API caller will send a payload to the workflow with body `{"name": "anything
 
 <CustomisableImage src="/img/placeholders-store.png" alt="Storing the Prefix" width="500"/>
 
+<br/>
+
 **2.** Create a new step with an empty condition. 
 
 <CustomisableImage src="/img/placeholders-empty-condition.png" alt="Empty Condition" width="300"/>
+
+<br/>
 
 **3.** Add a new Return to Caller action to the empty condition. The `"body"` should include a `"message"` property that will be the concatenated string that is rerturned to the API caller. The two values we want to combine are `{{store.prefix}}` (sentence prefix stored in the workflow `"My name is "`) and `{{payload.name}}` (the name received from the API caller). This should combine into the full property `"message": "{{store.prefix}}{{payload.name}}"`.
 
 <CustomisableImage src="/img/placeholders-return.png" alt="Return Concatenated String" width="500"/>
 
+<br/>
+
 **4.** Save the workflow. To test the workflow, we need to give it a payload to use. This payload must include the name we want the workflow to display. For this tutorial, we will set `"name": "Alex"` to get the desired output from the start. However, you can make `"name"` whatever you want and get a different output. Once you've added a payload, you can test the workflow.
 
 <CustomisableImage src="/img/placeholders-test.png" alt="Testing" width="400"/>
 
-
 <br/>
+
 
 :::info Important
 If you were sending a request to the workflow externally, the 'payload' would just become the body of your POST request.

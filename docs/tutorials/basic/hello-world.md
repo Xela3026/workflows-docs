@@ -51,11 +51,15 @@ The workflow will work like this: An API caller sends a POST request to the work
 
 **1.** Create a new Workflow and give it an appropriate name like "Hello World" or "My First Workflow".
 
+<br/>
+
 <CustomisableImage src="/img/hello-world-setup.png" alt="Create New Workflow" width="500"/>
 
 **2.** In your new workflow, create a new step. This step will be returning the value "Hello, World!". Give it an appropriate name (`"name"`) and description (`"description"`) to match this functionality. 
 
 <CustomisableImage src="/img/hello-world-step.png" alt="Creating the First Step" width="500"/>
+
+<br/>
 
 [comment]: <> (may need to make this ^ above image more accurate - put in some actual values for the description and name as an example.)
 
@@ -63,17 +67,25 @@ The workflow will work like this: An API caller sends a POST request to the work
 
 <CustomisableImage src="/img/hello-world-condition.png" alt="Creating an Empty Condition" width="300"/>
 
+<br/>
+
 **4.** Add a new "Return to Caller" action to the empty condition.
 
 <CustomisableImage src="/img/hello-world-action.png" alt="Adding the Return Action" width="500"/>
+
+<br/>
 
 **5.** Insert `"value": "Hello, World!"` into the `"body"` of the return action.
 
 <CustomisableImage src="/img/hello-world-return.png" alt="Configuring the Return Action" width="350"/>
 
+<br/>
+
 **6.** Save your changes.
 
 <CustomisableImage src="/img/hello-world-save.png" alt="Saving the Workflow" width="600"/>
+
+<br/>
 
 **7.** Test your workflow.
 
