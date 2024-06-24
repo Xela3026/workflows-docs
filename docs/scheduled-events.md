@@ -46,7 +46,7 @@ Creating a new scheduled event will meet you with the following JSON:
 }
 ```
 
-[comment]: <> (I used the yabbr workflow URL here. Is this ok? WIP)
+[comment]: <> (replace the URLs for the whitelabels. W1P)
 
 Explanations of the above properties:
 - **name**: the name of the scheduled event. Used to identify different events within your workspace.

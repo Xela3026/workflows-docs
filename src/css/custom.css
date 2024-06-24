@@ -258,12 +258,25 @@ h6 {
 
 }
 
+.cardContent {
+  height: 35%;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 0.5em;
+}
+
 .description {
   margin-left: 3%;
   overflow-wrap: break-word;  
   white-space: normal;
-  font-size: 1em;
+  font-size: 80%;
+  
+  
 }
+
 
 .fullLink {
   position: absolute;
@@ -306,5 +319,103 @@ h6 {
 
 .right {
   right: 20%;
+}
+
+
+
+
+
+
+
+.bard-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.bards {
+  margin: 0.5em;
+  
+  border-radius: 0.4em;
+  width: 100%;
+  
+  height: 17em;
+  border-bottom: 1px solid lightgray;
+  transition: border 0.3s;
+  padding-right: 0.1em;
+  cursor: pointer;
+  position: relative;
+
+}
+
+
+
+
+.bards:hover {
+  border-bottom: 2px solid rgb(0, 0, 0)
+}
+
+
+
+
+
+
+.img-bontainer {
+  position: relative;
+
+  width: 100%;
+  height: 40%;
+  text-align: center;
+  background: var(--ifm-color-primary);
+  padding-top: 1em;
+  padding-bottom: 1em;
+  border-radius: 0.5em 0.5em 0 0;
+  
+
+
+}
+
+
+
+
+
+
+
+.bards p {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-bottom: 0.5em;
+}
+
+.img-bontainer img {
+  object-fit: cover;
+  border-top-left-radius: 0.4em;
+  border-top-right-radius: 0.4em;
+}
+
+
+.beader {
+  font-size: 1.3em;
+  color: var(--ifm-color-primary);
+  padding-top: 0.3em;
+  padding-bottom: 0.1em;
+}
+
+
+.link {
+  position:absolute; 
+  height: 100%;
+
+  z-index: 1;
+
+  top: 0;
+  left:0;
+  width: 100%;
+
 }
 

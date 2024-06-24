@@ -49,8 +49,11 @@ const CarouselCard = ({ children, code, name, offset, direction, link }) => {
                 {code}<br/><br/>
                 &#125;
             </div>
-            <div className='header'>{name}</div>
-            <div className='description'>{children}</div>
+            <div className='cardContent'>
+                <div className='header'>{name}</div>
+                <div className='description'>{children}</div>
+            </div>
+            
         </div>
         
     );

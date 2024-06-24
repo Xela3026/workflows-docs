@@ -81,7 +81,7 @@ All of the logic in the workflows is encoded as JSON. To configure a piece of JS
 
 <br/>
 
-:::warning Warning
+:::danger Caution
 Deleting a step from your workflow will also delete any steps that follow it.
 :::
 
@@ -151,8 +151,6 @@ These steps will automatically be sent to the "Unassigned" tab. You may also nee
 
 An overview of the JSON of the entire workflow. It is an array where each item is the JSON of a single step. Formatted as above.
 
-[comment]: <> (I think thsi explanation of the upload and download button might be either wrong or outdated - WIP)
-
 <br/>
 
 <div className="dubheader">Add (+) Button</div>
@@ -199,7 +197,7 @@ The workflow will try to determine where it is being triggered and activated fro
 
 <div className="dubheader">Lock Button</div> 
 
-Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without <BrandName/> API authentication. If it is 'locked', then a <BrandName/> API authentication is required to activate the workflow.
+Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without <BrandName type="name"/> API authentication. If it is 'locked', then a <BrandName type="name"/> API authentication is required to activate the workflow.
 
 <br/>
 
@@ -434,7 +432,7 @@ Any other necessary properties follow standard API request standards.
 
 The file streaming function will extract information from a file that you can use within a step. The only file types currently supported are 'txt' and 'csv'. However, note that a CSV file is just a TXT file where each "column" is separated by a comma (`","`), and each "row" is separated by a new line (`\n`).
 
-A streamed file is read line by line. Every time a line is read, it is stored into `{{memory.record}}`. However, this means that each new line will overwrite the last line, so once a file stream is done `{{memory.record}}` is just the last line of the file. 
+A streamed file is read line by line. Every time a line is read, it is stored into `{{memory.record}}`. Thus, actions have to be executed on the file line by line. This process involves some looping logic. Learn more in this section.
 
 `{{memory.record}}` is an array. By default, the whole line is stored as a single string in this array. You can break up this string into different elements within the array by using a delimiter. See below.
 
@@ -473,9 +471,9 @@ Since CSV file columns are separated by a `","` when read, using `","` as a deli
 
 <div className="subheader">Accessing Data</div>
 
-As previously mentioned, a line of the file is stored in `{{memory.record}}`. To access a specific item in this array, reference in the index of the item. For example, `{{memory.record.2}}` would return the third item in the array. In the case of a CSV file, this would be the third column in the row.
+As previously mentioned, a line of the file is stored in `{{memory.record}}`. To access a specific item in this array, reference the index of the item. For example, `{{memory.record.2}}` would return the third item in the array. In the case of a CSV file, this would be the third column in the row.
 
-For CSV files, if you specify the `"headerIndex"` property, then you can instead reference the columns using their column title. For example, to access the value in the "email" column, you would reference `{{memory.record.email}}`.
+For CSV files, if you specify the `"headerIndex"` property, then you can reference columns using their column title. For example, to access the value in the "email" column, you would reference `{{memory.record.email}}`.
 
 
 <br/>
@@ -490,7 +488,7 @@ John,Smith,abc123@example.com
 Jane,Doe,def456@example.com
 ```
 
-Streaming this file (`"delimiter": ","`) will return `{{memory.record}}` as:
+Once the file has been fully streamed, it will return `{{memory.record}}` as:
 
 ```jsx
 ["Jane", "Doe", "def456@example.com"]
@@ -498,13 +496,32 @@ Streaming this file (`"delimiter": ","`) will return `{{memory.record}}` as:
 
 To just extract the email `"def456@example.com"` from the data, you can use `{{memory.record.2}}`. Alternately, by including `"headerIndex": 0` in the file stream JSON, you can use `{{memory.record.Email}}` to extract the desired data.
 
+:::info Important
+Since files are read line by line, `{{memory.record}}` will usually just return the last line in a file. To access every line, extra looping logic is required.
+:::
+
 
 
 <br/>
 
-<div className="dubheader">Using Every Line (CSV)</div>
+<div className="dubheader">Using Every Line</div>
 
-To use every line in a file, you must send each line one by one to another step. This step can then process each individual incoming line. To add this functionality, you need to give the `"stream": true` property to an [Execute Step action](#execute-step). If an Execute Step action has this property, then it will run the next step for every line in the streamed file.
+By default, a file stream will read every line, and **then** execute conditions and actions. This makes `{{memory.record}}` always the last line of the file. With some extra configuration, the conditions and actions can be evaluated every time a new line is read. This gives the step a looping nature.
+
+The Save to Instance action has this property by default. However, the Return to Caller and Execute Step actions require you to opt in. To opt in, give the action the `"stream": true` property.
+
+<br/>
+
+:::info Info
+- the step will loop back to the start of the file stream. This means the step will go new line, conditions, actions, new line, conditions, actions, new line...
+- once the file has been fully streamed (the loop is complete), the `{{memory.default.allRead}}` property becomes `true`. Use this in a condition to execute an action once at the end of the loop.
+- other types of actions are currently unsupported for this looping
+:::
+
+<br/>
+
+ 
+
 
 Consider the following example - you have a single step with a file stream and an Execute Step action. The Execute Step action is as follows:
 
@@ -520,23 +537,16 @@ Consider the following example - you have a single step with a file stream and a
 
 When the step is run, it will send every line in the streamed file individually as the payload for the next step. Thus, the next step will be run once for every line in the streamed file, each time with a new payload. If there were 5 lines in the file, then the next step would run 5 times.
 
-:::info Info
-The workflow will only run one step at a time. Thus, it will actually "queue" several iterations of the step to run at the same time once the current step has finished executing. In the above example, the workflow would queue five executions of the next step, each with their own payload.
+<br/>
+
+:::tip Tip
+The workflow will only run one step at a time. Thus, it will actually "queue" several iterations of the step to run once the current step has finished executing. In the above example, the workflow would queue five executions of the next step, each with their own payload.
 :::
 
-To store a CSV file within <BrandName/>, use the [Stream To](#stream-to) action.
+To store a CSV file within <BrandName type="name"/>, use the [Stream To](#stream-to) action.
 
 <br/>
 
-
-[comment]: <> (WIP - I don't know if this information is correct.)
-
-[comment]: <> (Ok this is also missing a lot of information - WIP)
-
-
-[comment]: <> (I need a section about everything stored in the memory of a step - eg record, index, finalIteration, default, allRead etc. This will help with file streaming as well. WIP)
-
-[comment]: <> (after further inspection, I have found out that stream:true can be put on multiple types of actions like save to instance.)
 
 
 
@@ -586,12 +596,11 @@ To create a condition that will always be true, make the `"conditions"` property
 <br/>
 
 :::info Important
-Conditions are asynchronous. This means they will all be evaluated simultaneously, regardless of order. To override this, add the `"synchronousEvaluation": true` property to the JSON of the overall step. You can find the overall step JSON under the `{...}` button. This will evaluate conditions from left to right.
+Conditions are evaluated left to right and are asynchronous. This means that the program will not wait for a condition's actions to be completed before evaluating the next condition. To override this, add the `"synchronousEvaluation": true` property to the JSON of the overall step. You can find the overall step JSON under the `{...}` button. This will make the program wait for a condition's actions to be completed before evaluating the next condition.
 ::: 
 
 <br/>
 
-[comment]: <> (is the left to right evaluation thing here true? WIP)
 
 ##### Operators
 
@@ -700,7 +709,7 @@ The third item is an object. Within this object, you can create some "flags" to 
 
 Boolean. If `true`: adds data as an element within the array of the property. Will only work if the data storage location is an array. If the data storage location does not exist, it will create it as an array. If this flag is false, it is functionally the same as the flag not existing.
 
-[comment]: <> (review these explanations. They're bad. WIP)
+
 
 <br/>
 
@@ -895,7 +904,7 @@ Add some text to the start of a string to inflate its length. This flag is an ob
       "42",
       {
         "padStart": {
-          "length": "5",
+          "length": 5,
           "filler": "0",
         }
       }
@@ -914,7 +923,6 @@ Here, the value of `{{instance.example}}` would be `"00042"`. This flag is usefu
 
 This property is the same as the `"padStart"` property, except the filler text is added to the end of the string.
 
-[comment]: <> (can you use integers here? or do they have to be strings? WIP)
 
 <br/>
 
@@ -931,7 +939,7 @@ This property is the same as the `"padStart"` property, except the filler text i
 
 Repeats a step. The JSON for this action is always empty. When it is run, the workflow will return to the beginning of the step and increment `{{memory.index}}` by 1. `{{memory.index}}` starts at 0 on the first execution of the step.
 
-:::warning Warning
+:::warning Caution
 There is no limit to this action. You must break the loop yourself. For example, you may move the Repeat action under a condition that will only run if `{{memory.index}}` is below a certain value. Then the step will stop repeating after that many loops.
 :::
 
@@ -952,9 +960,7 @@ Whilst the "Return to Caller" action will send the data to the API caller by def
 
 ##### Stream To
 
-[comment]: <> (does it have to be a CSV file? WIP)
-
-Stores a new CSV file within <BrandName/> that you can access within your workflow. This is mainly useful to either store some collated data permanently into a CSV file, or to modify the formatting of a streamed file and potentially insert new information.
+Stores a new plain text file (eg CSV, TXT, etc.) within <BrandName type="name"/> that you can access within your workflow. You may use this to store some collated data permanently into a file, or to modify the formatting of a streamed file and potentially insert new information.
 
 <br/>
 
@@ -966,6 +972,7 @@ The JSON for this action is:
   "authHeaders": {},
   "header": "",
   "line": "",
+  "footer": "",
 }
 ```
 
@@ -973,14 +980,14 @@ The JSON for this action is:
 
 Explanations of the above properties:
 - **destination**: the new file name. For example: `"my-file.csv"`.
-- **authHeaders**: authorisation headers. These are the headers that you use in any <BrandName/> API requests to authorise the request. It is usually either tokens or an API key. This API authorisation process gives you permission to store your new file at one of the <BrandName/> API endpoints.
-- **header**: the column titles of the new CSV file. This property is a string. Separate column titles using a comma. For example, to create the headings "Email", "Phone", and "Name", you would use `"header": "Email,Phone,Name"`. 
-- **line**: the data you are writing into the file. This property is a string. Separate the data into columns using commas, and separate the data into rows/lines using `\n`. 
+- **authHeaders**: authorisation headers. These are the headers that you use in any <BrandName type="name"/> API requests to authorise the request. It is usually either tokens or an API key. This API authorisation process gives you permission to store your new file at one of the <BrandName type="name"/> API endpoints.
+- **header**: the first line of the file. If you're creating a CSV file, this would be the column titles.
+- **line**: the data you are writing to the file. This property is a string. Separate the data into new lines using `\n`. For a CSV file, separate data into columns using `,`.
 - **id**: (optional) an identifier for your file. This can be any miscellaneous string. You can use it to reference the file elsewhere in the workflow. 
+- **footer**: the last line of the file.
 
 <br/>
 
-[comment]: <> (watch the formatting here, this dubheader might be a bit too small.)
 
 <div className="dubheader">Example</div>
 
@@ -1001,25 +1008,25 @@ In order to recreate this with the Stream To action, you would use the following
 
 <div className="dubheader">Iteration</div>
 
-If you stream a CSV file earlier in a step, this action will automatically iterate over every line in the file. This means that the action will repeat for every line in the streamed file. Every time it repeats, the value of `{{memory.record}}` will be a new line in the CSV file. The iterations of this action will not **replace** the content already written to the file on every step. Every time the action is iterated over, it will **add** the data to the file.
+If you are streaming a file, this action will loop over each line by default. The repetitions of this action will not **replace** the content in the file, but will instead **add** the data to the file on a new line. The `"header"` and `"footer"` will not be repeated, and will only appear once.
 
-[comment]: <> (is the only way to access the information in a file you have written using the Stream To action by streaming it back from the endpoint in a new step? Or can you access the lines of the file using its id or name? Is the above information accurate? WIP)
+:::tip TIP
+Use `"ignoreAutoAppendNewLine": true` so that each repetition of the action does not create a new line. New lines will have to be added manually using `\n`.
+:::
+
 
 <br/>
 
 <div className="dubheader">File Storage</div>
 
-Once the Stream To action is completed, the entire file will be stored at one of the <BrandName/> API endpoints. You can access the file again by streaming it from the <BrandName/> API endpoints with a GET request and the file ID. 
+Once the Stream To action is completed, the entire file will be stored at one of the <BrandName type="name"/> API endpoints. You can access the file again by streaming it from the <BrandName type="name"/> API endpoints with a GET request and the file ID. 
 
 There are two ways to access the file ID. If the file did not have the `"id"` property in its "Stream To" action, then you need to reference it by its name. To access the file ID using the file name, use `{{memory.nameCsvId}}` where `name.csv` is the name of the file. Alternately, if you gave your file an `"id"` property, you can reference the file's ID using `{{memory.nameId}}` where `"name"` was the value of the `"id"` property. 
 
-[comment]: <> (is the above information accurate? WIP)
 
-[comment]: <> (I don't like this whole explanation of Stream To, check over it. And check over the file streaming of CSV files whilst you're at it. WIP)
 
 Using similar methods, you can reference the number of lines in a file. If there is no `"id"` property, you reference it with `{{memory.nameCsvLines}}` where  where `name.csv` is the name of the file. If there is an `"id"` property, you reference it with `{{memory.nameLines}}` where `"name"` is the value of the `"id"` property.
 
-[comment]: <> (is this information accurate? WIP)
 
 <br/>
 
@@ -1032,11 +1039,9 @@ Once a workflow gets to the end of a step, it stops. In order to get to a new st
 
 When an API caller makes a POST request using an execution key, the workflow will start back up. It will start at the step within the workflow that the execution key pointed to. The body of the POST request will become the payload fed into this new step. It will also continue the exact same instance that the execution key was created in. This means all instance data will be the same, including the instance's ID.
 
-
-
 Imagine it as this: A step generates an execution key pointing to the next step, and then the step ends. The workflow is now in a temporary stasis. Once an API caller makes a request using the execution key, the instance of the workflow resumes from where it left off, just at a new destination, with a new payload.
 
-The URL for the execution key POST request should be formatted as `https://{{insert-workflow-url}}/execute/{{insert-execution-key}}`.
+The URL for the execution key POST request should be formatted as "<BrandName type="workflow"/>/execute/&#123;&#123;execution-key&#125;&#125;" where &#123;&#123;execution-key&#125;&#125; is the execution key.
 
 Once an execution key has been used, it cannot be used again. 
 
@@ -1172,9 +1177,8 @@ The configurable JSON under 'Start' will be the body of your request. This will 
 
 <div className="dubheader">Response</div>
 
-The returned data will appear under 'Response'. Here you can check to see if your workflow is functionining properly, returning the correct values, and if there are any logical errors. If there is a formatting error, the poorly formatted JSON will not be executed. If enough JSON is poorly formatted, the 'Response" data will be blank. 
+The returned data will appear under 'Response'. This allows you to validate your workflow's functionality.
 
-[comment]: <> (WIP WIP WIP WIP)
 
 <br/>
 
@@ -1191,8 +1195,6 @@ For a more detailed view of the functioning of your workflow, you can view the [
 Depending on the `"logLevel"` property, a new set of logs is created for every new instance of the workflow. Logs record what happens in a workflow whilst it is running. For example, it may log the start of a step, the start of an action, the end of an action, the result of an action etc. This detailed documentation of the processes in your workflow is very useful in identifying any unwanted behaviour. 
 
 For example, a log may show you that the result of your fetch request doesn't actually include all the data that you needed. By searching through the logs for each step and process, you can pinpoint any logical errors, formatting mistakes, incomplete requests and more.
-
-[comment]: <> (- also shows errors WIP...)
 
 <br/>
 
@@ -1236,9 +1238,7 @@ To quickly start a new instance of the workflow again with the same payload, cli
 
 ## Activating the Workflow
 
-To start a new instance of a workflow, you need to make a POST request to the workflow's start endpoint. That endpoint will look something like `https://{{workflow-url}}/start/{{workflow-id}}`. You can also find the start endpoint of your workflow in its testing menu (under the power button in the toolbar). It will be displayed under the "Start" section (the ID has been redacted):
-
-<CustomisableImage src="/img/workflow-id.png" alt="Workflow Start Endpoint" width="680"/>
+To start a new instance of a workflow, you need to make a POST request to the workflow's start endpoint. That endpoint will look something like "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;" where &#123;&#123;workflow-id&#125;&#125; is the ID of the workflow. 
 
 <br/>
 
@@ -1248,7 +1248,7 @@ When you make a POST request to this endpoint, it will start a new instance of t
 
 <div className="dubheader">Keys</div>
 
-You can also add a "key" to this request. The start endpoint with a key will look like `https://{{workflow-url}}/start/{{workflow-id}}/{{key-name}}`. The first request made using this key will execute normally. However, any future requests made using the same key will not be executed. Instead, the workflow will just return the same response it gave on its first execution with that key. For example, if the first execution of `https://{{workflow-url}}/start/{{workflow-id}}/onlyonce` returns `"success"`, then, regardless of any other factors (including payload), the second execution of `https://{{workflow-url}}/start/{{workflow-id}}/onlyonce` will also return `"success"`.
+You can also add a "key" to this request. The start endpoint with a key will look like "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/&#123;&#123;key-name&#125;&#125;" where #123;&#123;key-name&#125;&#125; is the name of your key. This key can be anything. The first request made using the key will execute normally. However, any future requests made using the same key will not be executed. Instead, the workflow will just return the same response it gave on its first execution with that key. For example, if the first execution of "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/onlyonce" returns `"success"`, then, regardless of any other factors (including payload), the second execution of "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/onlyonce" will also return `"success"`.
 
 <br/>
 
@@ -1386,6 +1386,13 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 [comment]: <> (didnt show how to revert changes using the saving function of workflows - add this)
 
 [comment]: <> (I could also potentially make the workflow IDs of the tutorial workflows public so that anyone can test them out.)
+
+
+
+
+[comment]: <> (api url beginnings - use placeholder, explain in API docs. in future, use an interpolator W1P. look for -url}})
+
+[commoent]: <> (add a page that lists every API URL - DMS, custodian, default etc. Use interpolators as well. W1P)
 
 
 

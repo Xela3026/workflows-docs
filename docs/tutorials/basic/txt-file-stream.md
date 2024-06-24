@@ -14,7 +14,7 @@ import BrandName from '@site/src/components/BrandName';
 
 <div className="dubheader">Goal</div>
 
-This tutorial will teach you how to use [file streaming](../../workflows.md#stream). It reads a file line by line and stores that information. The <BrandName/> API lets you upload and store files onto it. So, file streaming is useful for retrieving the information from your own uploaded files (e.g. customer information). You could then use that to send out a campaign using another <BrandName/> endpoint. Learn how to access files stored in <BrandName/> with [this tutorial](./api-file-stream). This tutorial will just focus on the basics.
+This tutorial will teach you how to use [file streaming](../../workflows.md#stream). It reads a file line by line and stores that information. The <BrandName type="name"/> API lets you upload and store files onto it. So, file streaming is useful for retrieving the information from your own uploaded files (e.g. customer information). You could then use that to send out a campaign using another <BrandName type="name"/> endpoint. Learn how to access files stored in <BrandName type="name"/> with [this tutorial](./api-file-stream). This tutorial will just focus on the basics.
 
 You will learn the fundamentals of file streaming and file reading. You will also learn how to use a new condition operator `"in"`, how to use non-grouped conditions, and how to use condition modifiers.
 

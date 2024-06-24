@@ -13,7 +13,7 @@ import BrandName from '@site/src/components/BrandName';
 
 <div className="dubheader">Overview</div>
 
-When an action is performed in a <BrandName/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
+When an action is performed in a <BrandName type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
 
 <br/>
 
@@ -42,13 +42,6 @@ An event schema will define the "behaviour" of a custom event by specifying the 
 
 
 
-
-[comment]: <> (may add a flow chart here about how the backend is actually working - POST Request made, event schema validates it, event subscribers catch the request, subscribers relay it to another API endpoint. WIP)
-
-[comment]: <> (I should also include an example use case here about what is going on. WIP)
-
-[comment]: <> (wait why would I setup a custom event that sends it to an event subscriber and then to the endpoint instead of just skipping the middle man and making a request straight to the final endpoint? WIP)
-
 <br/>
 
 ## Initialisation
@@ -73,15 +66,10 @@ Creating a new event schema will meet you with the following JSON:
 ```jsx title="Event Schema JSON"
 {
   "type": "example.event.type.hierarchy",
-  "hierarchy": [
-    "examplePropertyTwo",
-    "examplePropertyOne"
-  ],
   "additionalProps": {
     "enabled": false,
     "types": []
   },
-  "priority": 2,
   "properties": {
     "examplePropertyOne": {
       "type": "string",
@@ -97,8 +85,6 @@ Creating a new event schema will meet you with the following JSON:
 
 Explanations of the above properties:
 - **type**: the name of the custom event. 
-- **hierarchy**: currently non-functional.
-- **priority**: WIP
 - **properties**: each property of this object describes a property that the API request body should include. For each property in this object:
     - the key is the name of the request body property. E.g. `"examplePropertyOne"`.
     - the `"type"` property is the data type of the request body property. E.g. `"string"`.
@@ -107,7 +93,7 @@ Explanations of the above properties:
   - `"enabled"`: boolean. `true` means the request body cannot include any properties not defined in `"properties"`. If the request body has additional properties, the event will be rejected. `false` means the request body can include extra properties.
   - `"type"`: an array of data types. These are the allowed data types for the request body's additional properties. The data types you can include are `"object"`, `"array"`, `"string"`, `"number"`, and `"*"`. `"*"` will allow all data types. If a request body has an additional property with an unsupported data type, the event will be rejected.
 
-[comment]: <> (are these all the allowed data types?)
+
 
 <br/>
 
@@ -167,9 +153,8 @@ An event name must be have all lowercase characters, no spaces, and no special c
 
 <div className="dubheader">Overview</div>
 
-To "trigger" an event, you need to make a POST request. The URL of this request must be formatted as `{{custodian-url}}/organisations/{{workspace-id}}/events/publish`. This same URL is used to trigger all the event schemas in your workspace. 
+To "trigger" an event, you need to make a POST request. The URL of this request must be formatted as "<BrandName type="custodian"/>/organisations/&#123;&#123;workspace-id&#125;&#125;/events/publish" where &#123;&#123;workspace-id&#125;&#125; is the ID of your workspace. This same URL is used to trigger all the event schemas in your workspace. 
 
-[comment]: <> (how do users find their custodian URL and workspace ID? WIP)
 
 <br/>
 
@@ -178,11 +163,11 @@ To "trigger" an event, you need to make a POST request. The URL of this request 
 To specify which event you are triggering, and its associated data, you need to include some extra properties in the body of your request:
 - `"type"`: the name of the event.
 - `"body"`: the associated data of the event. This is an object. It is the "request body" referred to in [Configuration](#configuration). This `"body"` should match the `"properties"` in the event schema.
-- `"linkId"`: the category of the event. This value is arbitrary. It is just used to group similar event triggers together. For example, events triggered by the same user may share the same link ID to indicate their association with the same user. In this context, you could make the link ID the user's ID. WIP
-- `"sessions"`: WIP
-- `"participants"`: WIP
+- `"linkId"`: the category of the event. This value is an arbitrary label. It is just used to group similar event triggers together. For example, events triggered by the same user may share the same link ID to indicate their association with the same user. In this context, you could make the link ID the user's ID. 
+- `"participants"`: array of userIDs involved in the event.
 
-[comment]: <> (check the wording and accuracy of the linkID. WIP)
+
+
 
 <br/>
 
@@ -199,13 +184,13 @@ Thus, events actually function in a three step process:
 
 Since these events are triggered by a POST request, they can be triggered wherever and whenever you want. This is the primary functionality of a custom event. You choose how the request is sent. You could set it up with a workflow, or maybe some external application. When one of your processes is activated, it could send this POST request and thus trigger one of your custom events. This custom event can then be used to trigger a webhook. Learn more about that in [Event Subscriptions](./event-subscriptions.md).
 
-[comment]: <> (Review this wording. WIP)
+
 
 <br/>
 
-<div className="dubheader"><BrandName/>'s Events</div>
+<div className="dubheader"><BrandName type="name"/>'s Events</div>
 
-<BrandName/>'s predefined events work in the exact same way. Each one has its own event schema. Then, when the relevant action is performed, <BrandName/> sends a POST request triggering the relevant event. This event is then validated by one of <BrandName/>'s event schemas. Since these schemas are global for all workspaces to use, event subscribers from any workspace can then catch these events.
+<BrandName type="name"/>'s predefined events work in the exact same way. Each one has its own event schema. Then, when the relevant action is performed, <BrandName type="name"/> sends a POST request triggering the relevant event. This event is then validated by one of <BrandName type="name"/>'s event schemas. Since these schemas are global for all workspaces to use, event subscribers from any workspace can then catch these events.
 
 <br/>
 

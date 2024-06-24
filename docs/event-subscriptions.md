@@ -13,7 +13,7 @@ import BrandName from '@site/src/components/BrandName';
 
 <div className="dubheader">Overview</div>
 
-When an action is performed in a <BrandName/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
+When an action is performed in a <BrandName type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
 
 <br/>
 
@@ -33,7 +33,7 @@ You can then catch and store this data using an Event Subscription. So:
 
 <div className="dubheader">Subscribing</div>
 
-Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <BrandName/> events or [custom events](./event-schemas.md). 
+Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <BrandName type="name"/> events or [custom events](./event-schemas.md). 
 
 <br/>
 
@@ -80,7 +80,7 @@ Creating a new event subscription will meet you with the following JSON:
 }
 ```
 
-[comment]: <> (The workflows.yabbr.io event subscription seems to have some extra properties. Investigate these and document them. WIP)
+
 
 Explanations of the above properties:
 - **destination**: the API endpoint to POST any received event bodies to.
@@ -92,45 +92,78 @@ Some extra properties that will appear after saving the subscription include:
 - **created**: the time of the subscription's creation.
 - **lastUpdated**: the last time the subscription was saved.
 - **headers**: the headers of the POST request.
-- **responses**: any POSTback responses. WIP
+- **responses**: see below.
 
-[comment]: <> (check that the headers and responses property descriptions are accurate. WIP)
+<div className = "dubheader">responses</div>
+
+An event is relayed to subscribers via an API request. The subscriber will thus return a HTTP status code to the event caller. If the request fails (eg status code 4xx), the request will be reattempted until one of three things happens:
+  - the attempt is successful
+  - the time limit is exceeded for reattempts
+  - the `"responses"` object catches one of the status codes
+
+To "catch" a status code, you include it as a property within the `"responses"` object. The value of this property is a link to send the data to instead of the subscriber. This data will also include the number of previous request attempts. 
+
+In summary, an event sends a request to a subscriber. It will keep attempting to send this request. If a specified status code is returned, the event will send the data to another specified link. The JSON may look something like this:
+
+```jsx title="responses"
+{
+  "responses": {
+    "2xx": "https://your.event.webhook.com",
+    "404":  "google.com"
+  }
+}
+```
+
+If the request is successful (2xx status code), the event data will be sent to `https://your.event.webhook.com`. If there is a 404 error, the event data will be sent to `google.com`. 
 
 <br/>
 
-<div className="dubheader"><BrandName/> events</div>
-
-An event subscription can either catch custom events defined by your [event schemas](./event-schemas.md), or it can catch events predefined by <BrandName/>. These <BrandName/> events will record information that is associated with the action that triggered them. For example, the `"chat.concluded"` event will record information about the chat session and its participants. This information can then be caught by an event subscriber.
-
-[comment]: <> (maybe talk about schema globalisation here? WIP)
-
-<br/>
-
-:::info Information
-- You can only catch <BrandName/> events that have been triggered from within your own workspace. 
-- Your Workflows and <BrandName/> App workspaces are connected. An event triggered in your <BrandName/> App workspace can be caught by an event subscription in your Workflows workspace.
+:::note NOTE
+Event data will also be sent to the `"destination"` property in the Event Subscriber JSON upon a successful (2xx) request.
 :::
 
 <br/>
 
-[comment]: <> (do workspaces have anymore than workflows and the yabbr app? WIP)
+:::tip TIP
+If a 404 is returned, it usually means that some data is missing or doesn't exist on the subscriber's end, so it would be wise to terminate the reattempt process and send the data elsewhere.
+:::
 
-These predefined events are triggered by various actions in your <BrandName/> App and Workflows workspace:
-- `"chat.concluded"`: a session in the <BrandName/> Chat is concluded.
-- `"contact.update"`: a customer's contact information is updated.
-- `"workflow.log.error"`: a workflow logs an error.
-- `"workflow.log.info"`: a workflow logs standard information.
-- `"workflow.log.warn"`: a workflow logs a warning.
 
-[comment]: <> (check that this information is accurate. I know there are more events than this. Try and find all the events and explain them here. WIP)
 
-[comment]: <> (I should also maybe include a brief description of the data that each event records. WIP)
+
+
+
+
 
 <br/>
 
-<div className="dubheader"><BrandName/> subscriptions</div>
+<div className="dubheader"><BrandName type="name"/> events</div>
 
-Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the `workflows.yabbr.io` subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <BrandName/> logs API endpoint.
+An event subscription can either catch custom events defined by your [event schemas](./event-schemas.md), or it can catch events predefined by <BrandName type="name"/>. These <BrandName type="name"/> events will record information that is associated with the action that triggered them. For example, the `"chat.concluded"` event will record information about the chat session and its participants. This information can then be caught by an event subscriber.
+
+You will find some event subscriptions that appear in your workspace by default. These will have the `"public": true` property. These are <BrandName type="name"/>'s default subscriptions that are in all workspaces. 
+
+<br/>
+
+:::info Information
+- You can only catch <BrandName type="name"/> events that have been triggered from within your own workspace. 
+- Your Workflows and <BrandName type="name"/> App workspaces are connected. An event triggered in your <BrandName type="name"/> App workspace can be caught by an event subscription in your Workflows workspace.
+:::
+
+<br/>
+
+These predefined events are triggered by various actions in your <BrandName type="name"/> App and Workflows workspace:
+- `"chat.concluded"`: a session in the <BrandName type="name"/> Chat is concluded.
+- `"contact.update"`: a customer's contact information is updated.
+
+You will find the properties associated with these events within their event schemas.
+
+
+<br/>
+
+<div className="dubheader"><BrandName type="name"/> subscriptions</div>
+
+Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the `workflows.yabbr.io` subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <BrandName type="name"/> logs API endpoint.
 
 <br/>
 
@@ -151,5 +184,3 @@ Click on an event subscription here to edit it.
 An event subscription's name will be some contraction of its `"destination"` URL.
 :::
 
-
-[comment]: <> (TODO: go through the event schema and subscription docs and address any of the WIPs. I know especially you need to look at the subscription properties because a lot of them are missing - headers, respones, lastUpdated, created etc.)

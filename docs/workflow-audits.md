@@ -30,7 +30,7 @@ If any of these factors do not align with expected results, an error is alerted.
 
 Audits will run according to a predetermined schedule. This schedule will run forever until the audit is deleted. So, if your schedule has your audit running once a day, then you will get daily updates on the functioning of your workflow. Additionally, it will only analyse the instances that occured since the last audit. If it is the first audit, it will analyse all instances since the creation of the audit. For example, if the schedule is running the audit once a day, then each audit will analyse the last 24 hours of instances.
 
-[comment]: <> (check the accuracy of this last sentence WIP)
+
 
 <br/>
 

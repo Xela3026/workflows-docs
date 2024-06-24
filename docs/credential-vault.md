@@ -65,9 +65,8 @@ The only property here you need to edit is the `"credentials"` property. This pr
 
 This object has three properties: `"name"`, `"value"`, and `"sensitive"`. 
 - `"name"` is the name of the credential you are storing. This name is used to reference the credential in your workflow. 
-- `"value"` is the credential you are storing 
+- `"value"` is the credential you are storing.
 
-[comment]: <> (can this be any data type like array, object, string, int, float etc WIP WIP WIP)
 
 - `"sensitive"` is a boolean. If it is true, when you save your credentials, this credential will be encrypted and censored within your vault. No one will be able to see its value. It will just look like a string of asterisks. 
 
@@ -122,7 +121,5 @@ Your credential set can now be used within your workflow.
 To reference specific credentials in your workflows using the [placeholder method](./workflows.md#placeholders), follow the format `{{CREDENTIAL.set-name.credential-name}}`. So, in the example from [Configuration](#configuration), to use the API key, you would use the placeholder `{{CREDENTIAL.Docs Example.api-key}}`.
 
 
-
-[comment]: <> (can you have spaces in the placeholder like that? WIP)
 
 

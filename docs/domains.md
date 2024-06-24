@@ -7,6 +7,7 @@ toc_max_heading_level: 5
 
 import Tag from '@site/src/components/Tag';
 import CustomisableImage from '@site/src/components/CustomisableImage';
+import BrandName from '@site/src/components/BrandName';
 
 # Domains
 
@@ -36,19 +37,14 @@ Give your new domain a name under 'New Domain Name'. This will be used when maki
 
 <br/>
 
-:::info Important
-The name of your domain cannot include any capital letters or spaces.
-:::
 
-[comment]: <> (Im sure theres other characters you cant include, but I forgot. What are they? WIP)
 
-<br/>
 
 
 ## Configuration
 
 
-Creating a new domain will meet you with the following JSON:
+Creating a new domain will give you with the following JSON:
 
 ```jsx title="Domain JSON"
 {
@@ -59,26 +55,26 @@ Creating a new domain will meet you with the following JSON:
 
 The `"body"` property is the data you are storing in the domain. You can store whatever properties and values you want in this object. 
 
-If a POST request is made to the domain (instead of GET), then the request will be forwarded to another API endpoint. The `"meta"` property describes this forwarding process.
+If a POST request is made to the domain (instead of GET), then the request will be forwarded to another API endpoint. The `"meta"` property describes this forwarding process. If this is empty, a POST request will do nothing.
 
-This object can have three properties:
+The `"meta"` object can have three properties:
 - `"execution"`: the API URL to forward the request to.
 - `"execMethod"`: the API method to make the forwarded request with. Defaults to "POST".
-- `"dataPassThrough"`: boolean. The domain receives a `"body"` from the POST request made to it. A `true` value here will use this body in the forwarded request. `false` will use an empty body in the forwarded request.
+- `"dataPassThrough"`: boolean. The domain receives a `"body"` from the POST request made to it. A `true` value here will combine the received `"body"` and the `"body"` stored in the domain. `false` will use just use the domain's stored `"body"` body in the forwarded request.
 
-[comment]: <> (check the accuracy of this false explanation. WIP. Also what are the other meta properties? currently I have just said it's functionality is for forwarding. Also what's the default value of dataPassThrough. And what happens if you make a POST request and the meta object is empty? If dataPassThrough is false and someone makes a POST request, is the body in the forwarded request empty, or does it use the body in the domain?)
+
 
 <br/>
 
 ## Accessing Data
 
-To access the data stored in a domain, make a GET request to it. The URL of this request will be formatted as `https://dms.yabbr.io/2022-05-31/namespaces?domain={{domain-name}}`, where `{{domain-name}}` is the name of the domain you are retrieving data from. Once you make this request with the proper authentication, the response to your request will include the `"body"` stored in the domain. 
+To access the data stored in a domain, make a GET request to it. The URL of this request will be formatted as "<BrandName type="dms"/>/namespaces?domain=&#123;&#123;domain-name&#125;&#125;", where &#123;&#123;domain-name&#125;&#125; is the name of the domain you are retrieving data from. Once you make this request with the proper authentication, the response to your request will include the `"body"` stored in the domain. 
 
-[comment]: <> (what is the actual beginning here of the request URL. I think it is some workflow URL? I have just used the Yabbr one here, but how would I display a generalised one? What would that look like? WIP)
+
 
 If you make a POST request instead, the domain will forward your request to the endpoint listed under `"execution"` in its `"meta"` property.
 
-[comment]: <> (Also check the wording of this passage here. It is really janky and incoherent. Reword it to be more concise, simple, and comprehensive. WIP WIP WIP)
+
 
 <br/>
 

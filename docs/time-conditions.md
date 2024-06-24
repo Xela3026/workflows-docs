@@ -7,4 +7,4 @@ toc_max_heading_level: 5
 
 # Time Conditions
 
-UI currently non functional - WIP
+delete - W1P
