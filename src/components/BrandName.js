@@ -3,17 +3,29 @@ import Interpolate from '@docusaurus/Interpolate';
 
 const BrandName = ({ type }) => {
   const values = {
-    name: 'Yabbr',
-    dms: 'dmstest',
-    workflow: 'https://workflows.yabbr.io/2022-02-14',
-    api: 'apitest',
-    custodian: 'custodiantest',
+    name: 'Yabbr', // your brand's name
+    lowerName: 'yabbr', // all lowercase brand name
+    dms: 'https://dms.yabbr.io/2022-05-31', // DMS API URL
+    workflow: 'https://workflows.yabbr.io/2022-02-14', // workflows API URL
+    core: 'https://api.yabbr.io/2019-01-23', // core API URL
+    custodian: 'https://custodian.yabbr.io/2022-02-02', // custodian API URL
+    "workflows-url": "https://workflows.yabbr.io/workflows/", // workflows URL
+    "details-page": "https://go.yabbr.io/#/workspace/details", // workspace details page URL
   };
-  // find the api urls for the others. All I can find are the dev URLs
+
+
+  if (type === 'workflows-url' || type === 'details-page') {
+    return (
+      
+      <a href={values[type]}>
+        {values[type]}
+      </a>
+    );
+  }
+
 
   return (
-    <Interpolate
-    >
+    <Interpolate>
       {values[type]}
     </Interpolate>
   );

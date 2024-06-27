@@ -81,11 +81,11 @@ If you make a POST request instead, the domain will forward your request to the 
 
 ## Management
 
-After configuring a domain or navigating to the Domains page using the sidebar, you will be met with the domains homepage (ID redacted):
+After configuring a domain or navigating to the Domains page using the sidebar, you will be met with the domains homepage:
 
 <CustomisableImage src="/img/domains-homepage.png" alt="Domains Homepage" width="700"/>
 
-The domains homepage will display all of your workspace's domains. The menu will just display the domain's name under 'Portal Address'. Open up the JSON of one of the domains by clicking on it.
+The domains homepage will display all of your workspace's domains. The menu will just display the domain's name under 'Portal Address' (not shown here). Open up the JSON of a domain by clicking on it.
 
 
 

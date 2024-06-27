@@ -11,7 +11,7 @@ import BrandName from '@site/src/components/BrandName';
 
 <BrandName type="name"/> provides your workspaces with an incredibly useful, comprehensive, and detailed automation program called Workflows. At its core, this tool lets you sequence together several repeatable tasks and processes involving the flow, communication, storage, and evaluation of data. 
 
-These sequenced processes are collated and connected via a ["Workflow"](./workflows). 
+These sequenced processes are collated and connected via a ["Workflow"](./workflows). You can find your workspace's workflows at <BrandName type="workflows-url"/>.
 
 <br/>
 
@@ -45,7 +45,7 @@ To get started with Workflows, it is recommended that you first learn the fundam
 <div className="bard-row">
     <div className="bards">
         <div className="img-bontainer">
-            <img alt="Workflows Icon" src="/img/workflow-icon.png" height="100%" width="auto"/>
+            <img alt="Workflows Icon" src="/img/workflow-icon.svg" height="100%" width="auto"/>
         </div>
             <div className="beader">Workflows</div><a href="./category/members" className="link"></a>Sequence together a series of "steps" to automate a process. Receive, store, evaluate, and pass data within these steps. Use placeholders and conditions to customise behaviour based on certain data. Use API requests to send and receive data. Use actions to send data to a new location.
         </div>
@@ -79,3 +79,11 @@ Once you have familiarised yourself with the major features, you can enhance you
     </div>
 
 </div>
+
+<br/><br/>
+
+For future reference, all of the API URLs required for using workflows are:
+- **Core**: <BrandName type="core"/>
+- **DMS**: <BrandName type="dms"/>
+- **Workflows**: <BrandName type="workflow"/>
+- **Custodian**: <BrandName type="custodian"/>

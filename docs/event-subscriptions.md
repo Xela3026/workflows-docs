@@ -163,13 +163,13 @@ You will find the properties associated with these events within their event sch
 
 <div className="dubheader"><BrandName type="name"/> subscriptions</div>
 
-Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the `workflows.yabbr.io` subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <BrandName type="name"/> logs API endpoint.
+Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the "workflows.<BrandName type="lowerName"/>.io" subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <BrandName type="name"/> logs API endpoint.
 
 <br/>
 
 ## Management
 
-After creating a subscription or navigating to the event subscriptions page using the sidebar, you will be met with the event subscriptions homepage (redacted ID):
+After creating a subscription or navigating to the event subscriptions page using the sidebar, you will be met with the event subscriptions homepage:
 
 <CustomisableImage src="/img/subs-homepage.png" alt="Event Subscriptions Homepage" width="700"/>
 

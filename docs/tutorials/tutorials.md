@@ -7,6 +7,7 @@ toc_max_heading_level: 5
 
 import CarouselCard from '@site/src/components/CarouselCard';
 import Carousel from '@site/src/components/Carousel';
+import BrandName from '@site/src/components/BrandName';
 
 # Tutorials 
 
@@ -30,8 +31,8 @@ Basic tutorials teach you how to use each feature
     <CarouselCard code='WIP' name="Tutorial 7: HTTPS Request" link="./basic/https-request">WIP</CarouselCard>
     <CarouselCard code='WIP' name="Tutorial 8: Repeating a Step" link="./basic/repeating-step">WIP</CarouselCard>
     <CarouselCard code='"message": "Payload is sufficient"' name="Tutorial 9: Execution Keys" link="./basic/execution-keys">Manage and use execution keys to communicate between two workflows.</CarouselCard>
-    <CarouselCard code='WIP' name="Tutorial 10: Fetch Request #2" link="./basic/fetch-request-two">Use the Credentials Vault to make requests to the Yabbr API.</CarouselCard>
-    <CarouselCard code='WIP' name="Tutorial 11: API File Stream" link="./basic/api-file-stream">Use the Yabbr API to read your own stored files.</CarouselCard>
+    <CarouselCard code='WIP' name="Tutorial 10: Fetch Request #2" link="./basic/fetch-request-two">Use the Credentials Vault to make requests to the <BrandName type="name"/> API.</CarouselCard>
+    <CarouselCard code='WIP' name="Tutorial 11: API File Stream" link="./basic/api-file-stream">Use the <BrandName type="name"/> API to read your own stored files.</CarouselCard>
 </Carousel>
 
 

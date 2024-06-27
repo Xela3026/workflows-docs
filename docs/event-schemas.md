@@ -153,7 +153,10 @@ An event name must be have all lowercase characters, no spaces, and no special c
 
 <div className="dubheader">Overview</div>
 
-To "trigger" an event, you need to make a POST request. The URL of this request must be formatted as "<BrandName type="custodian"/>/organisations/&#123;&#123;workspace-id&#125;&#125;/events/publish" where &#123;&#123;workspace-id&#125;&#125; is the ID of your workspace. This same URL is used to trigger all the event schemas in your workspace. 
+To "trigger" an event, you need to make a POST request. The URL of this request must be formatted as "<BrandName type="custodian"/>/organisations/&#123;&#123;workspace-id&#125;&#125;/events/publish" where &#123;&#123;workspace-id&#125;&#125; is the ID of your workspace. This same URL is used to trigger all the event schemas in your workspace. Access your workspace ID by navigating to the <BrandName type="name"/> App, clicking the workspace icon in the top right of your screen, and clicking on info. 
+
+[comment]: <> (Alternately, navigate to <BrandName type="details-page"/>.)
+
 
 
 <br/>
@@ -196,7 +199,7 @@ Since these events are triggered by a POST request, they can be triggered wherev
 
 ## Management
 
-After creating a schema or navigating to the event schema page using the sidebar, you will be met with the event schemas homepage (redacted ID):
+After creating a schema or navigating to the event schema page using the sidebar, you will be met with the event schemas homepage:
 
 <CustomisableImage src="/img/schema-homepage.png" alt="Event Schemas Homepage" width="700"/>
 

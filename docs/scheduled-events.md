@@ -39,14 +39,12 @@ Creating a new scheduled event will meet you with the following JSON:
 {
   "name": "",
   "scheduledTime": "2024-04-20T08:00:00.000Z",
-  "url": "https://workflows.yabbr.io/2022-02-14/start/",
+  "url": "",
   "method": "POST",
   "body": {},
   "headers": {}
 }
 ```
-
-[comment]: <> (replace the URLs for the whitelabels. W1P)
 
 Explanations of the above properties:
 - **name**: the name of the scheduled event. Used to identify different events within your workspace.
@@ -62,7 +60,7 @@ Most of these properties just follow standarad API request standards.
 
 ## Management
 
-After creating an event or navigating to the scheduled events page using the sidebar, you will be met with the scheduled events homepage (redacted ID):
+After creating an event or navigating to the scheduled events page using the sidebar, you will be met with the scheduled events homepage:
 
 <CustomisableImage src="/img/scheduled-event-homepage.png" alt="Scheduled Events Homepage" width="700"/>
 

@@ -14,7 +14,7 @@ import BrandName from '@site/src/components/BrandName';
 
 <div className="dubheader">Overview</div>
 
-A workflow is an automated set of tasks that are executed based on logic. A workflow is comprised of various 'steps'. Each step is a mini task that is executed. These steps are then sequenced together to automate a larger process. In general, a step has three phases:
+A workflow is an automated set of tasks that are executed based on logic. A workflow is comprised of various 'steps'. Each step is a mini task that is executed. These steps are then sequenced together to automate a larger process.  In general, a step has three phases:
 
 [comment]: <> (I should include some example use-cases for workflows here - what are the capababilities, possibilities, what can it do?)
 
@@ -81,7 +81,7 @@ All of the logic in the workflows is encoded as JSON. To configure a piece of JS
 
 <br/>
 
-:::danger Caution
+:::danger Danger
 Deleting a step from your workflow will also delete any steps that follow it.
 :::
 
@@ -398,7 +398,7 @@ When creating a new fetch request, the following JSON will appear:
 {
   "type": "https",
   "verb": "POST",
-  "url": "api.yabbr.io/2019-01-23/example",
+  "url": "",
   "headers": {
     "example-api-key": "apiKeyValue"
   },
@@ -410,7 +410,7 @@ When creating a new fetch request, the following JSON will appear:
 }
 ```
 
-[comment]: <> (Is it ok that I used the Yabbr name here in the url?)
+
 
 <br/>
 
@@ -430,9 +430,9 @@ Any other necessary properties follow standard API request standards.
 
 <div className="subheader">Extracting Data</div>
 
-The file streaming function will extract information from a file that you can use within a step. The only file types currently supported are 'txt' and 'csv'. However, note that a CSV file is just a TXT file where each "column" is separated by a comma (`","`), and each "row" is separated by a new line (`\n`).
+The file streaming function will extract data from a file to use within a step. The only file types currently supported are 'txt' and 'csv'. However, note that a CSV file is just a TXT file where each "column" is separated by a comma (`","`), and each "row" is separated by a new line (`\n`).
 
-A streamed file is read line by line. Every time a line is read, it is stored into `{{memory.record}}`. Thus, actions have to be executed on the file line by line. This process involves some looping logic. Learn more in this section.
+A streamed file is read line by line. Every time a new line is read, it overwrites the contents of `{{memory.record}}`. Thus, actions cannot be executed on an entire file at once. Actions must be executed on the file line by line. This process involves some looping logic. Learn more in this section.
 
 `{{memory.record}}` is an array. By default, the whole line is stored as a single string in this array. You can break up this string into different elements within the array by using a delimiter. See below.
 
@@ -497,7 +497,7 @@ Once the file has been fully streamed, it will return `{{memory.record}}` as:
 To just extract the email `"def456@example.com"` from the data, you can use `{{memory.record.2}}`. Alternately, by including `"headerIndex": 0` in the file stream JSON, you can use `{{memory.record.Email}}` to extract the desired data.
 
 :::info Important
-Since files are read line by line, `{{memory.record}}` will usually just return the last line in a file. To access every line, extra looping logic is required.
+Usually, a file is fully streamed first, and **then** actions are executed. Since each new line overwrites `{{memory.record}}`, accessing `{{memory.record}}` in the actions will usually only return the last line of hthe file. To access every line, extra looping logic is required.
 :::
 
 
@@ -643,6 +643,12 @@ Each type of action serves a unique purpose:
 Creates an API request. It is functionally identical to the earlier [fetch](#fetch) request. The data from this request is stored under `{{http}}` instead. `{{http}}` data is not cleared at the end of a step and will hold its value until overwritten. 
 
 If multiple HTTP requests are made in a workflow, then only the data from the latest request will be stored. To store multiple HTTP requests, you need to name them. To name a HTTP request, insert the `"name"` property into its JSON. The value of that property will be the name of your request. Then, to access that request's data, format your placeholder like "`{{http.request_name}}`". This action also supports the `"nextStep"` property. Learn more about it [here](#execution-keys).
+
+<br/>
+
+:::tip TIP
+HTTPS Requests are usually use to send data outside the workflow. A fetch request is usually used to bring data into the workflow.
+:::
 
 <br/>
 
@@ -939,7 +945,7 @@ This property is the same as the `"padStart"` property, except the filler text i
 
 Repeats a step. The JSON for this action is always empty. When it is run, the workflow will return to the beginning of the step and increment `{{memory.index}}` by 1. `{{memory.index}}` starts at 0 on the first execution of the step.
 
-:::warning Caution
+:::caution Caution
 There is no limit to this action. You must break the loop yourself. For example, you may move the Repeat action under a condition that will only run if `{{memory.index}}` is below a certain value. Then the step will stop repeating after that many loops.
 :::
 
@@ -1035,9 +1041,9 @@ Using similar methods, you can reference the number of lines in a file. If there
 
 <div className="dubheader">Overview</div>
 
-Once a workflow gets to the end of a step, it stops. In order to get to a new step, you need to use an execution key. Execution keys are unique encrypted strings that point to a step in a workflow. An execution key can only be generated within the workflow. A new execution key is generated in every instance of the workflow.
+Once a workflow gets to the end of a step, it stops. In order to get to a new step, you need to use an execution key. Execution keys are unique encrypted strings that point to a step in a workflow. An execution key can only be generated within the workflow. A new execution key is generated in every new instance of the workflow.
 
-When an API caller makes a POST request using an execution key, the workflow will start back up. It will start at the step within the workflow that the execution key pointed to. The body of the POST request will become the payload fed into this new step. It will also continue the exact same instance that the execution key was created in. This means all instance data will be the same, including the instance's ID.
+When an API caller makes a POST request using an execution key, the workflow will start back up. It will start at the step in the workflow that the execution key points to. The body of the POST request will become the payload fed into this new step. It will also resume the exact same instance that the execution key was created in. This means all instance data will be the same, including the instance's ID.
 
 Imagine it as this: A step generates an execution key pointing to the next step, and then the step ends. The workflow is now in a temporary stasis. Once an API caller makes a request using the execution key, the instance of the workflow resumes from where it left off, just at a new destination, with a new payload.
 
@@ -1072,7 +1078,7 @@ Here you can give the key a name (Key Name) and a destination (Step). You can ei
 <br/>
 
 :::info Important
-Even though the UI shows the execution key being generated **after** the action, in reality, the execution key is generated **before** the action. So, in the above example, the HTTPS request could reference the execution key below it.
+Even though the UI shows the execution key being generated **after** the action, in reality, the execution key is generated **before** the action. So, in the above example, the HTTPS request could reference the execution key that appears underneath it.
 :::
 
 <br/>
@@ -1083,16 +1089,16 @@ To remove an execution key, just click on its yellow icon and click <Tag colour=
 
 <div className="dubheader">Referencing Keys</div>
 
-To reference an execution key within your workflow, you can use the `{{execKeys}}` data store. Each execution key will have a name. Thus, to reference a specific execution key, format a placeholder like so: `{{execKeys.name}}`, where "name" is the name of the execution key. Thus, an example execution key URL may look like `https://{{CREDENTIAL.company-name.workflow-url}}/execute/{{execKeys.next}}`. This request will look for the "workflow-url" property in the "company-name" credential vault and replace that first placeholder with it. Then, it will search for any execution keys generated with the name "next", and replace that second placeholder with it. Then, it will send the full request to continue the workflow at the new destination.
+To reference an execution key within your workflow, you can use the `{{execKeys}}` data store. Each execution key will have a name. Thus, to reference a specific execution key, format a placeholder as `{{execKeys.name}}`, where "name" is the name you gave to the execution key. 
 
-Since execution keys can only be generated by the workflow, for an external destination to access an execution key, the workflow must send it out using a HTTP or fetch request. Then, this external destination can send a request back to the workflow using the execution key to continue the workflow at any time.
+Since execution keys can only be generated by the workflow, for an external destination to access and use an execution key, the workflow must send it out using a HTTPS request. The external destination can then use that key to reactivate the workflow. It is good practice to send out the full execution URL: `https://{{CREDENTIAL.company-name.workflow-url}}/execute/{{execKeys.next}}`. This example includes another common practice - including API URLs inside the credentials vault.
 
-If an execution key is generated with an Execute Step action, then it will automatically use the execution key and run the next step internally. The `"body"` of the Execute Step action becomes the body of the internal POST request to execute the next step, and thus becomes the payload for the next step.
+If an execution key is generated with an Execute Step action, then it will automatically use the execution key and run the next step internally. The `"body"` of the Execute Step action becomes the payload for the next step.
 
 <br/>
 
 :::caution Caution
-Any steps that have been started/run internally by an "Execute Step" action are unable to communicate with the original caller of the API request, so the "Return to Caller" action becomes unusable.
+Any steps that have been run internally by an Execute Step action are unable to communicate with the original caller of the API request. This renders the Return to Caller action unusable after an Execute Step action.
 :::
 
 <br/>
@@ -1111,7 +1117,7 @@ The property is an array. Each item in the array is an object. Each of these obj
 
 <div className="dubheader">Example</div>
 
-An example HTTPS request using this property may look like this:
+An example HTTPS request using this property may look like:
 
 ```jsx title="HTTPS Request Using Exec Keys"
 {
@@ -1123,7 +1129,7 @@ An example HTTPS request using this property may look like this:
   "body": {
     "executePathOne": "https://{{CREDENTIAL.company-name.workflow-url}}/execute/{{execKeys.firstOption}}",
     "executePathTwo": "https://{{CREDENTIAL.company-name.workflow-url}}/execute/{{execKeys.secondOption}}"
-  }
+  },
   "nextStep":[
     {
       "name": "firstOption",
@@ -1139,7 +1145,7 @@ An example HTTPS request using this property may look like this:
 
 <br/>
 
-The important properties to notice here are `"body"` and `"nextStep"`. The `"nextStep"` property is generating two execution keys to two different steps. Then, the HTTPS request is sending out the execution keys in the body of the request. The request is actually sending out the full API endpoint that needs to be requested in order to use the execution key to resume the workflow. `"example-url.com"` will receive both of these endpoints, and then can choose to make a POST request to one of them to resume the workflow at the new location.
+The important properties to notice here are `"body"` and `"nextStep"`. The `"nextStep"` property is generating two execution keys pointing to two different steps. Then, the HTTPS request sends the full execution URLs for these keys to `"example-url.com"`. `"example-url.com"` can then choose a URL to use to reactivate the workflow with. Each URL will reactivate the workflow from a different step.
 
 <br/>
 
@@ -1200,7 +1206,7 @@ For example, a log may show you that the result of your fetch request doesn't ac
 
 <div className="dubheader">Accessing the Logs</div>
 
-These logs can either be accessed when testing your workflow, or by navigating to the <Tag colour="#f0f0f0" borderColour="#f0f0f0" fontColour="#000000">LOGS</Tag> tab in your toolbar. The <Tag colour="#f0f0f0" borderColour="#f0f0f0" fontColour="#000000">LOGS</Tag> tab will open a menu that looks like this (IDs have been redacted):
+These logs can either be accessed when testing your workflow, or by navigating to the <Tag colour="#f0f0f0" borderColour="#f0f0f0" fontColour="#000000">LOGS</Tag> tab in your toolbar. The <Tag colour="#f0f0f0" borderColour="#f0f0f0" fontColour="#000000">LOGS</Tag> tab will open a menu that looks like this:
 
 <CustomisableImage src="/img/logs.png" alt="Logs Menu" width="680"/>
 
@@ -1390,9 +1396,6 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 
 
 
-[comment]: <> (api url beginnings - use placeholder, explain in API docs. in future, use an interpolator W1P. look for -url}})
-
-[commoent]: <> (add a page that lists every API URL - DMS, custodian, default etc. Use interpolators as well. W1P)
 
 
 

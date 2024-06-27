@@ -37,13 +37,11 @@ Audits will run according to a predetermined schedule. This schedule will run fo
 <div className="dubheader">Customisation</div>
 
 An audit allows you to customise:
-- checks for which steps in the workflow should be running
-- checks for the number of times a workflow should be executed
+- which steps in the workflow are checked
+- how many times the workflow is expected to run in a period of time
 - a schedule of how often the audit will run
 - emails to send audit results to
 
-
-[comment]: <> (allows you to automatically verify if your workflow is running correctly)
 
 <br/>
 

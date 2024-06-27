@@ -140,7 +140,7 @@ The delimiter includes a space after the period to remove the space at the start
 }
 ```
 
-:::warning Caution
+:::caution Caution
 This condition **must** come after the condition for the true case. Workflows evaluates conditions from left to right. If this condition comes first, it will always be evaluated as true no matter the contents of the file.
 :::
 
