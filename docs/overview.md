@@ -47,7 +47,7 @@ To get started with Workflows, it is recommended that you first learn the fundam
         <div className="img-bontainer">
             <img alt="Workflows Icon" src="/img/workflow-icon.svg" height="100%" width="auto"/>
         </div>
-            <div className="beader">Workflows</div><a href="./category/members" className="link"></a>Sequence together a series of "steps" to automate a process. Receive, store, evaluate, and pass data within these steps. Use placeholders and conditions to customise behaviour based on certain data. Use API requests to send and receive data. Use actions to send data to a new location.
+            <div className="beader">Workflows</div><a href="./workflows" className="link"></a>Sequence together a series of "steps" to automate a process. Receive, store, evaluate, and pass data within these steps. Use placeholders and conditions to customise behaviour based on certain data. Use API requests to send and receive data. Use actions to send data to a new location.
         </div>
 
 </div>
@@ -63,19 +63,19 @@ Once you have familiarised yourself with the major features, you can enhance you
         <div className="img-bontainer">
             <img alt="Workflow Audits Icon" src="/img/audit-icon.svg" height="100%" width="auto"/>
         </div>
-            <div className="beader">Workflow Audits</div>Receive regular updates about the performance and use of a workflow. Useful for debugging. <a href="./category/members" className="link"></a>
+            <div className="beader">Workflow Audits</div>Receive regular updates about the performance and use of a workflow. Useful for debugging. <a href="./workflow-audits" className="link"></a>
     </div>
     <div className="bards">
         <div className="img-bontainer">
             <img alt="Credential Vault Icon" src="/img/vault-icon.svg" height="100%" width="auto"/>
         </div>
-            <div className="beader">Credential Vault</div>Store important information to be accessible by any workflow. Optionally censor sensitive information.<a href="./category/members" className="link"></a>
+            <div className="beader">Credential Vault</div>Store important information to be accessible by any workflow. Optionally censor sensitive information.<a href="./credential-vault" className="link"></a>
     </div>
     <div className="bards">
         <div className="img-bontainer">
             <img alt="Scheduled Events Icon" src="/img/event-icon.svg" height="100%" width="auto"/>
         </div>
-            <div className="beader">Scheduled Events</div>Setup a schedule to automatically activate a workflow once or regularly. <a href="./category/members" className="link"></a>
+            <div className="beader">Scheduled Events</div>Setup a schedule to automatically activate a workflow once or regularly. <a href="./scheduled-events" className="link"></a>
     </div>
 
 </div>

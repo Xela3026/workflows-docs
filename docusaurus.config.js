@@ -68,7 +68,7 @@ const config = {
 
       },
       footer: {
-        style: 'dark',
+        style: 'light',
         links: [
           {
             title: 'Yabbr Products',
@@ -79,7 +79,7 @@ const config = {
               },
               {
                 label: 'Yabbr App',
-                to: 'https:/go.yabbr.io',
+                to: 'https://go.yabbr.io',
               },
               {
                 label: 'API Documentation',
