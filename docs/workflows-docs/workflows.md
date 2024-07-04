@@ -100,7 +100,7 @@ This menu is called the toolbar. Each button on this toolbar will help you start
 <div className="dubheader">Pencil Icon</div>
 
 Edit the properties of the workflow. These properties are global within the workflow. These properties are:
-- **credentials**: the credentials from the [Credential Vault](./credential-vault.md) that are used in the workflow. Learn more about credentials [here](./credential-vault.md).
+- **credentials**: the credentials from the [Credential Vault](./credential-vault) that are used in the workflow. Learn more about credentials [here](./credential-vault).
 - **logLevel**: the level of detail in the logs. The possible values are:
   - `"off"`: no logs.
   - `"error"`: only errors are logged.
@@ -261,7 +261,7 @@ These placeholders can point to two different types of data stores - static and 
 <div className="dubheader">Static Data Stores</div>
 
 - `{{store}}`: data added into the 'store' of the workflow. Read about the Edit Button in [Configuration](#configuration) for more details about the store.
-- `{{CREDENTIAL}}`: data stored in your [Credential Vault](./credential-vault.md). This is most commonly API keys or environment data.
+- `{{CREDENTIAL}}`: data stored in your [Credential Vault](./credential-vault). This is most commonly API keys or environment data.
 
 <br/>
 

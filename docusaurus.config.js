@@ -8,8 +8,8 @@ import {themes as prismThemes} from 'prism-react-renderer';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Workflows Documentation',
-  tagline: 'How to use Workflows',
+  title: 'Dev Docs',
+  tagline: 'How to use Dev Tools',
   favicon: 'img/yabbr.svg',
 
   // Set the production url of your site here
@@ -21,7 +21,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'Yabbr', // Usually your GitHub org/user name.
-  projectName: 'workflows-docs', // Usually your repo name.
+  projectName: 'dev-docs', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -33,6 +33,8 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+
 
   presets: [
     [
@@ -53,18 +55,29 @@ const config = {
     ],
   ],
 
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
 
+
       // Replace with your project's social card
       image: 'img/yabbr.svg',
       navbar: {
-        title: 'Documentation',
+        items: [
+
+          {to: '/', label: 'Workflows', position: 'left'},
+          {to: '/api-docs/testing', label: 'API', position: 'left'},
+
+
+
+        ],
         logo: {
           alt: 'Yabbr Site Logo',
           src: 'img/yabbr.svg',
         },
+        
+
 
       },
       footer: {

@@ -33,7 +33,7 @@ You can then catch and store this data using an Event Subscription. So:
 
 <div className="dubheader">Subscribing</div>
 
-Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <BrandName type="name"/> events or [custom events](./event-schemas.md). 
+Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <BrandName type="name"/> events or [custom events](./event-schemas). 
 
 <br/>
 
@@ -84,7 +84,7 @@ Creating a new event subscription will meet you with the following JSON:
 
 Explanations of the above properties:
 - **destination**: the API endpoint to POST any received event bodies to.
-- **whitelistedTypes**: all the events that the subscription will catch. This property is an array. Each item is the name of an event to whitelist. You can also reference an event prefix in this array to whitelist all events with that prefix. Learn more about event prefixes [here](./event-schemas.md#naming-an-event).
+- **whitelistedTypes**: all the events that the subscription will catch. This property is an array. Each item is the name of an event to whitelist. You can also reference an event prefix in this array to whitelist all events with that prefix. Learn more about event prefixes [here](./event-schemas#naming-an-event).
 - **blacklistedTypes**: all the events that the subscription will not catch. The same rules apply as `"whitelistedTypes"`.
 - **enabled**: boolean. `true` means the subscription is active and will catch event data. `false` means the subscription is inactive and will not catch event data.
 
@@ -139,7 +139,7 @@ If a 404 is returned, it usually means that some data is missing or doesn't exis
 
 <div className="dubheader"><BrandName type="name"/> events</div>
 
-An event subscription can either catch custom events defined by your [event schemas](./event-schemas.md), or it can catch events predefined by <BrandName type="name"/>. These <BrandName type="name"/> events will record information that is associated with the action that triggered them. For example, the `"chat.concluded"` event will record information about the chat session and its participants. This information can then be caught by an event subscriber.
+An event subscription can either catch custom events defined by your [event schemas](./event-schemas), or it can catch events predefined by <BrandName type="name"/>. These <BrandName type="name"/> events will record information that is associated with the action that triggered them. For example, the `"chat.concluded"` event will record information about the chat session and its participants. This information can then be caught by an event subscriber.
 
 You will find some event subscriptions that appear in your workspace by default. These will have the `"public": true` property. These are <BrandName type="name"/>'s default subscriptions that are in all workspaces. 
 

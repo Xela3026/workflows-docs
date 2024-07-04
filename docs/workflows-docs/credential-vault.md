@@ -10,7 +10,7 @@ import CustomisableImage from '@site/src/components/CustomisableImage';
 
 # Credential Vault
 
-The Credential Vault is a location where you can store constant information and data - 'credentials' - to be used in any of your workflows. It is most useful for storing things like API keys important IDs, or commonly used URLs. All of your credentials will be stored in the `{{CREDENTIAL}}` data store. To learn how to reference these credentials in your workflow using placeholders, see [here](./workflows.md#placeholders). 
+The Credential Vault is a location where you can store constant information and data - 'credentials' - to be used in any of your workflows. It is most useful for storing things like API keys important IDs, or commonly used URLs. All of your credentials will be stored in the `{{CREDENTIAL}}` data store. To learn how to reference these credentials in your workflow using placeholders, see [here](./workflows#placeholders). 
 
 This vault also supports the encryption of sensititive information to prevent it form being accessed by unwanted personnel.
 
@@ -55,7 +55,7 @@ The inside of an empty credentials set will look like:
 
 <br/>
 
-The Credential Vault uses Workflow's JSON editor. Learn more about how to use this editor [here](./workflows.md#configuration).
+The Credential Vault uses Workflow's JSON editor. Learn more about how to use this editor [here](./workflows#configuration).
 
 <br/>
 
@@ -118,7 +118,7 @@ The first step in using a credential set is importing it into your workflow. To 
 
 Your credential set can now be used within your workflow.
 
-To reference specific credentials in your workflows using the [placeholder method](./workflows.md#placeholders), follow the format `{{CREDENTIAL.set-name.credential-name}}`. So, in the example from [Configuration](#configuration), to use the API key, you would use the placeholder `{{CREDENTIAL.Docs Example.api-key}}`.
+To reference specific credentials in your workflows using the [placeholder method](./workflows#placeholders), follow the format `{{CREDENTIAL.set-name.credential-name}}`. So, in the example from [Configuration](#configuration), to use the API key, you would use the placeholder `{{CREDENTIAL.Docs Example.api-key}}`.
 
 
 

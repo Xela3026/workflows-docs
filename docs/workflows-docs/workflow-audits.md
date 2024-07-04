@@ -67,7 +67,7 @@ Creating a new audit will meet you with the following menu:
 Each field lets you customise your audit:
 - **Name**: the name of your audit. Used to identify the audit in the workspace.
 - **Workflow**: the workflow you want to run the audit on.
-- **Credential Store**: the credentials set in the [Credential Vault](./credential-vault.md) with the API key that the audit will use as authentication when it runs.
+- **Credential Store**: the credentials set in the [Credential Vault](./credential-vault) with the API key that the audit will use as authentication when it runs.
 - **API Key**: the data store in the credentials set that stores the API key that the audit will use as authentication when it runs.
 - **Schedule Frequency**: the number of time intervals to wait between audits. E.g. **3** days or **2** hours.
 - **Schedule Interval**: the time interval to use. E.g. 3 **days** or 2 **hours**. A schedule frequency of 1 and a schedule interval of days will run the audit once ever 24 hours. A schedule frequency of 3 and a schedule interval of hours will run the audit once every 3 hours.

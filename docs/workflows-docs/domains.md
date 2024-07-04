@@ -11,7 +11,7 @@ import BrandName from '@site/src/components/BrandName';
 
 # Domains
 
-Within Workflows, a Domain Metadata System (or Domain for short) is a way to store data in your workspace. You can either store data directly inside the domain, or have the domain point to an API endpoint. Unlike [credentials](./credential-vault.md), the data in these domains is accessed via a GET API request to the domain. Learn more about how these domains work on this page.
+Within Workflows, a Domain Metadata System (or Domain for short) is a way to store data in your workspace. You can either store data directly inside the domain, or have the domain point to an API endpoint. Unlike [credentials](./credential-vault), the data in these domains is accessed via a GET API request to the domain. Learn more about how these domains work on this page.
 
 Learn how to configure the domain JSON in [Configuration](#configuration).
 

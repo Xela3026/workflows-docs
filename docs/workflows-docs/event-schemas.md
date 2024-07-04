@@ -21,10 +21,10 @@ When an action is performed in a <BrandName type="name"/> service, it will trigg
 
 Each of these events also have some associated data. For example, when a chat is concluded, the triggered event will record the contact information of the chat participants.
 
-You can then catch and store this data using an [Event Subscription](./event-subscriptions.md). So:
+You can then catch and store this data using an [Event Subscription](./event-subscriptions). So:
 1. An action is executed. 
 2. An event is triggered. It will record information about the action.
-3. The information is relayed to all the event subscribers and used. Learn more about event subscriptions [here](./event-subscriptions.md).
+3. The information is relayed to all the event subscribers and used. Learn more about event subscriptions [here](./event-subscriptions).
 
 <br/>
 
@@ -137,9 +137,9 @@ The API request body to trigger this example event must look like:
 
 ### Naming An Event
 
-An API request must mention an event's name to trigger it. An [event subscriber](./event-subscriptions.md) must specify a list of event names for it to catch. So, it is important to name your event efficiently. 
+An API request must mention an event's name to trigger it. An [event subscriber](./event-subscriptions) must specify a list of event names for it to catch. So, it is important to name your event efficiently. 
 
-You can add prefixes to your event names to categorise them. For example, `chat.start` and `chat.finish` both share the `chat.` prefix. These prefixes can also be nested like `chat.messaging.react` and `chat.messaging.audio`. Event subscribers can then whitelist a specific prefix like `chat.` to catch all events with that prefix. Learn more about event subscribers and whitelisting [here](./event-subscriptions.md).
+You can add prefixes to your event names to categorise them. For example, `chat.start` and `chat.finish` both share the `chat.` prefix. These prefixes can also be nested like `chat.messaging.react` and `chat.messaging.audio`. Event subscribers can then whitelist a specific prefix like `chat.` to catch all events with that prefix. Learn more about event subscribers and whitelisting [here](./event-subscriptions).
 
 <br/>
 
@@ -185,7 +185,7 @@ Thus, events actually function in a three step process:
 
 <div className="dubheader">Sending the Request</div>
 
-Since these events are triggered by a POST request, they can be triggered wherever and whenever you want. This is the primary functionality of a custom event. You choose how the request is sent. You could set it up with a workflow, or maybe some external application. When one of your processes is activated, it could send this POST request and thus trigger one of your custom events. This custom event can then be used to trigger a webhook. Learn more about that in [Event Subscriptions](./event-subscriptions.md).
+Since these events are triggered by a POST request, they can be triggered wherever and whenever you want. This is the primary functionality of a custom event. You choose how the request is sent. You could set it up with a workflow, or maybe some external application. When one of your processes is activated, it could send this POST request and thus trigger one of your custom events. This custom event can then be used to trigger a webhook. Learn more about that in [Event Subscriptions](./event-subscriptions).
 
 
 
