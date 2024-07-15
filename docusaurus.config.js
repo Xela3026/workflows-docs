@@ -11,6 +11,7 @@ const config = {
   title: 'Dev Docs',
   tagline: 'How to use Dev Tools',
   favicon: 'img/yabbr.svg',
+  plugins: ['docusaurus-node-polyfills'],
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
