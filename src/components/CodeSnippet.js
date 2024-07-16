@@ -10,25 +10,43 @@ import TabItem from '@theme/TabItem';
 
 
 
-// environment.forEach(variable => {
-// const regex = new RegExp(`{{${variable.key}}}`, 'g');
-// snippet = snippet.replace(regex, variable.value);
-// });
 
 
 
-const CodeSnippet = ({request}) => {
+
+
+const CodeSnippet = ({request, environment}) => {
+  const envInterpolate = (string) => {
+    environment.forEach(variable => {
+    const regex = new RegExp(`{{${variable.key}}}`, 'g');
+    string = string.replace(regex, variable.value);
+    });
+    return string;
+  }
 
 
   const [snippets, setSnippets] = useState([]);
   const [error, setError] = useState(null);
+
+  // find out why C# language variants are not working - WIP
+
   const languages = [
+    ["C","libcurl"],
     ["cURL","cURL"],
+    ["Dart","http"],
+    ["Go","Native"],
+    ["HTTP","HTTP"],
+    ["Java","OkHttp"],
+    ["Java","Unirest"],
     ["JavaScript","Fetch"],
+    ["JavaScript","jQuery"],
+    ["JavaScript","XHR"],
     ["Python","Requests"],
     ["PHP","cURL"],
-    ["Java","OkHttp"]
+    
+
   ]
+
   const requestObject = new sdk.Request(request);
 
   let language;
@@ -56,8 +74,8 @@ const CodeSnippet = ({request}) => {
           setError('Error generating code snippet: ' + error);
 
         } else {
-
-          setSnippets(prevSnippets => [...prevSnippets, { language, snippet: "```\n" + snippet + "\n```" }]);
+          snippet = envInterpolate(snippet);
+          setSnippets(prevSnippets => [...prevSnippets, { snippet: "```\n" + snippet + "\n```" }]);
         }
       });
     });
