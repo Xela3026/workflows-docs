@@ -56,7 +56,9 @@ const Collection = ({record,collection}) => {
 
   if (docs && docs.item) {
     items = docs.item;
-  };
+  } else {
+    items = [];
+  }
 
 
 return (
@@ -66,7 +68,7 @@ return (
     {docs && !error && env && (
       <Environment environment = {env}>
         
-        <h1>{docs.name}</h1>
+        {/* <h1>{docs.name}</h1> */}
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown>
 
         {items.map((item, index) => (

@@ -71,7 +71,7 @@ const config = {
         items: [
 
           {to: '/', label: 'Workflows', position: 'left'},
-          {to: '/api-docs/testing', label: 'API', position: 'left'},
+          {to: '/api-docs/intro', label: 'API', position: 'left'},
 
 
 
