@@ -503,3 +503,42 @@ h6 {
   overflow-x: auto;
 }
 
+
+
+
+.table-of-contents {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 250px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+  border-left: 2px solid var(--ifm-color-primary);
+  padding-left: 10px
+}
+
+
+
+.table-of-contents__link {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  display: block;
+  padding: 5px 0;
+  font-weight: 500;
+}
+
+.table-of-contents__link:hover {
+  text-decoration: underline;
+}
+
+.table-of-contents__link--active {
+  font-weight: bold;
+
+}
+
+

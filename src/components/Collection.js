@@ -4,12 +4,17 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import CodeSnippet from './CodeSnippet.js';
 import Environment from './Environment.js';
+import TOCItemTree from '@theme/TOCItems/Tree';
+import TOCItems from '@theme/TOCItems';
 
 const Collection = ({record,collection}) => {
   const [docs, setDocs] = useState(null);
   const [env, setEnv] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [TOC, setTOC] = useState([]);
+
+  const h2Pattern = /^## (.*)$/gm;
 
 
   useEffect(() => {
@@ -48,7 +53,28 @@ const Collection = ({record,collection}) => {
     .catch(error => {
       setError(error);
     });
+
+    
+
   },[]);
+
+  useEffect(() => {
+    if (docs && docs.item) {
+      
+      let items = docs.item;
+      items.forEach(item => {
+        const header = item.request.method + ' ' + item.name;
+        const id = formatID(header);
+        setTOC(prevTOC => [...prevTOC, { id: id, value: header, children: [] }]);
+
+        
+      })
+    }
+  },[isLoading]);
+
+  const formatID = (name) => {
+    return name.toLowerCase().replace(/\s+/g, '-');
+  }
 
   
 
@@ -65,23 +91,26 @@ return (
 
   <div>
     {error && <div>{error.message}</div>}
-    {docs && !error && env && (
+    {docs && !error && env && (<div>
       <Environment environment = {env}>
         
         {/* <h1>{docs.name}</h1> */}
+        
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown>
 
         {items.map((item, index) => (
           <div>
-            <h1 key={index} style={{fontSize:"2em"}}>{item.request.method} {item.name}</h1>
+            <h1 key={index} style={{scrollMarginTop:"2em",fontSize: "2em"}}  id={formatID(item.request.method + ' ' + item.name)}>{item.request.method} {item.name} </h1>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} key={-1-index}>{`\`${item.request.url.raw}\``}</ReactMarkdown>
             <ReactMarkdown remarkPlugins={[remarkGfm]} key={-1-index}>{item.request.description}</ReactMarkdown>
             {item.request && <CodeSnippet request={item.request} environment ={env}/>}
             
           </div>
         ))}
 
+        
+      </Environment><TOCItemTree toc={TOC} className="table-of-contents" linkClassName="table-of-contents__link" /></div>
 
-      </Environment>
     )}
     {isLoading && !error && (
       <div>Loading...</div>
