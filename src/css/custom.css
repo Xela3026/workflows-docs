@@ -7,7 +7,7 @@
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #1582d8;
-  --ifm-color-primary-dark: #29784c;
+  --ifm-color-primary-dark: rgb(0, 112, 198);
   --ifm-color-primary-darker: #277148;
   --ifm-color-primary-darkest: #205d3b;
   --ifm-color-primary-light: #33925d;
@@ -15,15 +15,17 @@
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-color-dropdown-primary: #f9f9f9;
   --ifm-color-dropdown-secondary: #b9b9b9;
-
+  --ifm-color-text: black;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
   --ifm-color-primary: #7ec7ff;
-  --ifm-color-primary-dark: #21af90;
+  --ifm-color-primary-dark: #1582d8;
+  --ifm-color-text: white;
   --ifm-color-primary-darker: #1fa588;
   --ifm-color-primary-darkest: #1a8870;
   --ifm-color-primary-light: #29d5b0;
@@ -124,7 +126,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: bold;
   color: white;
   height: fit-content;
-  text-shadow: 2px 2px 5px black;
+  /* text-shadow: 2px 2px 5px black; */
   /* box-shadow: 2px 2px 5px black; */
   padding: 0.5em;
 }
@@ -134,7 +136,8 @@ h1 {
 }
 
 h2 {
-  background-color: #b1b1b1;
+  /* background-color: #b1b1b1; */
+  background-color: #909090;
 }
 
 h3 {
@@ -519,7 +522,8 @@ h6 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
   border-left: 2px solid var(--ifm-color-primary);
-  padding-left: 10px
+  padding-left: 10px;
+  background-color: var(--ifm-color-dropdown-primary);
 }
 
 
@@ -540,5 +544,104 @@ h6 {
   font-weight: bold;
 
 }
+
+details {
+  margin: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  padding: 1em;
+  transition: box-shadow 0.1s ease-in-out;
+  border-radius: 1em;
+}
+
+details:has(summary:hover) {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+summary {
+  cursor: pointer;
+}
+
+/* summary:hover {
+  text-decoration: underline;
+} */
+
+
+.post, .get, .delete {
+  
+  font-weight: bold;
+}
+
+.post {
+  /* color: rgb(255, 174, 0); */
+  color: rgb(255, 217, 0);
+}
+
+.get {
+  /* color: rgb(0, 166, 8); */
+  color: rgb(0, 214, 11);
+}
+
+.delete {
+  color: rgb(213, 0, 0);
+}
+
+details h1, details h2, details h3, details h4, details h5, details h6 {
+  text-align: left;
+  justify-content: left;
+  margin-left: 0;
+  padding-left: 0;
+  background-color: rgb(0,0,0,0);
+  color: var(--ifm-color-text);
+  text-shadow: none;
+  border: none;
+  
+}
+
+.intro h2 {
+  text-align: left;
+  justify-content: left;
+  margin-left: 0;
+  padding-left: 0;
+  background-color: rgb(0,0,0,0);
+  color: var(--ifm-color-text);
+  text-shadow: none;
+  border: none;
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+
+
+.copy-btn {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  background-color: var(--ifm-color-primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.copy-btn:hover {
+  background-color: var(--ifm-color-primary-dark);
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.code {
+  position: relative;
+}
+
+  
+
+
+
+
 
 

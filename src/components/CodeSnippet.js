@@ -1,12 +1,10 @@
-import React, {useState, useEffect} from 'react';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
+import React, {useState, useEffect, useRef} from 'react';
+// import ReactMarkdown from 'react-markdown';
+// import remarkGfm from 'remark-gfm';
 const codegen = require('postman-code-generators');
 const sdk = require('postman-collection');
-
-
-
-
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 
 
@@ -27,6 +25,9 @@ const CodeSnippet = ({request, environment}) => {
   const [snippets, setSnippets] = useState([]);
   const [error, setError] = useState(null);
   const [selected,setSelected] = useState(0);
+
+  const buttonRef = useRef(null);
+
 
   // find out why C# language variants are not working - WIP
 
@@ -89,7 +90,8 @@ const CodeSnippet = ({request, environment}) => {
 
         } else {
           snippet = envInterpolate(snippet);
-          setSnippets(prevSnippets => [...prevSnippets, { snippet: "```\n" + snippet + "\n```" }]);
+          
+          setSnippets(prevSnippets => [...prevSnippets, { snippet: snippet  }]);
         }
 
       });
@@ -99,6 +101,27 @@ const CodeSnippet = ({request, environment}) => {
   if (error) {
     return <div>{error}</div>;
   }
+
+
+  const copyToClipboard = () => {
+
+    const textToCopy = snippets[selected].snippet;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const button = buttonRef.current;
+      if (button) {
+        button.textContent = 'Copied';
+        button.classList.add('disabled');
+        setTimeout(() => {
+          button.textContent = 'Copy to Clipboard';
+          button.classList.remove('disabled');
+
+        }, 1000);
+      }
+    }).catch((err) => {
+      console.error('Error copying text: ', err);
+    });
+  };
+
 
   
   
@@ -124,7 +147,12 @@ const CodeSnippet = ({request, environment}) => {
         </div>
         </div>
         <div style={{'marginTop': "1em",}}>
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{snippets[selected].snippet}</ReactMarkdown>
+        {/* <ReactMarkdown remarkPlugins={[remarkGfm]}>{snippets[selected].snippet}</ReactMarkdown> */}
+        <div className='code'>
+          <SyntaxHighlighter language={languages[selected][0].toLowerCase()} style={docco} showLineNumbers={true} wrapLongLines={true}>{snippets[selected].snippet}</SyntaxHighlighter>
+
+          <button className="copy-btn" onClick={copyToClipboard} ref={buttonRef}>Copy to Clipboard</button>
+        </div>
         </div>
 
 </div>)}

@@ -92,20 +92,27 @@ return (
   <div>
     {error && <div>{error.message}</div>}
     {docs && !error && env && (<div>
-      <Environment environment = {env}>
+      <Environment environment = {env} class="api">
         
         {/* <h1>{docs.name}</h1> */}
         
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown>
 
         {items.map((item, index) => (
-          <div>
-            <h1 key={index} style={{scrollMarginTop:"2em",fontSize: "2em"}}  id={formatID(item.request.method + ' ' + item.name)}>{item.request.method} {item.name} </h1>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} key={-1-index}>{`\`${item.request.url.raw}\``}</ReactMarkdown>
-            <ReactMarkdown remarkPlugins={[remarkGfm]} key={-1-index}>{item.request.description}</ReactMarkdown>
-            {item.request && <CodeSnippet request={item.request} environment ={env}/>}
+          <details>
+            <summary  style={{scrollMarginTop:"2em",fontSize: "2em"}} id={formatID(item.request.method + ' ' + item.name)}>
+            <span className={item.request.method.toLowerCase()}>{item.request.method}</span> {item.name}
             
-          </div>
+              
+            </summary>
+
+            {/* <h1 key={index} style={{scrollMarginTop:"2em",fontSize: "2em"}}  id={formatID(item.request.method + ' ' + item.name)}>{item.request.method} {item.name} </h1> */}
+            <ReactMarkdown remarkPlugins={[remarkGfm]} key={-1-index}>{`\`${item.request.url.raw}\``}</ReactMarkdown>
+            <p style={{"font-weight":"bold"}}>Authentication Required: {item.request.header.length ? <span class="get">Yes</span> : <span class="delete">No</span>}</p>
+            <ReactMarkdown remarkPlugins={[remarkGfm]} key={-1-index}>{item.request.description}</ReactMarkdown>
+            {item.request && item.request.url.raw.startsWith("{{API-URL}}") && <CodeSnippet request={item.request} environment ={env}/>}
+
+          </details>
         ))}
 
         
