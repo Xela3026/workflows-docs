@@ -566,26 +566,35 @@ summary {
 } */
 
 
-.post, .get, .delete {
+.post, .get, .delete, .put {
   
   font-weight: bold;
 }
 
 .post {
   /* color: rgb(255, 174, 0); */
-  color: rgb(255, 217, 0);
+  color: rgb(240, 204, 0);
+  /* color: rgb(225, 197, 34); */
+  
 }
 
 .get {
   /* color: rgb(0, 166, 8); */
   color: rgb(0, 214, 11);
+  /* color: #8ec04f; */
 }
 
 .delete {
   color: rgb(213, 0, 0);
+  /* color: #e15951; */
 }
 
-details h1, details h2, details h3, details h4, details h5, details h6 {
+.put {
+  color: rgb(44, 109, 206);
+  /* color: #e15951; */
+}
+
+.request-item h1, .request-item h2, .request-item h3, .request-item h4, .request-item h5, .request-item h6 {
   text-align: left;
   justify-content: left;
   margin-left: 0;
