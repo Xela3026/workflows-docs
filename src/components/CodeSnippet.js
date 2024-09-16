@@ -1,6 +1,5 @@
+// import necessary libraries
 import React, {useState, useEffect, useRef} from 'react';
-// import ReactMarkdown from 'react-markdown';
-// import remarkGfm from 'remark-gfm';
 const codegen = require('postman-code-generators');
 const sdk = require('postman-collection');
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -13,6 +12,7 @@ import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 const CodeSnippet = ({request, environment}) => {
 
+  // runs the environment variable interpolator internally
   const envInterpolate = (string) => {
     environment.forEach(variable => {
     const regex = new RegExp(`{{${variable.key}}}`, 'g');
@@ -21,7 +21,7 @@ const CodeSnippet = ({request, environment}) => {
     return string;
   }
 
-
+  // initialise useState variables
   const [snippets, setSnippets] = useState([]);
   const [error, setError] = useState(null);
   const [selected,setSelected] = useState(0);
@@ -31,6 +31,7 @@ const CodeSnippet = ({request, environment}) => {
 
   // find out why C# language variants are not working - WIP
 
+  // all POSTman-supported languages
   const languages = [
     ["C","libcurl"],
     ["cURL","cURL"],
@@ -62,12 +63,9 @@ const CodeSnippet = ({request, environment}) => {
     ["Shell","Httpie"],
     ["Shell","wget"],
     ["Swift","URLSession"],
-    
-    
-
   ]
 
-
+  // formatting for the code snippet
   var options = {
     indentCount: 3,
     indentType: 'Space',
@@ -76,12 +74,13 @@ const CodeSnippet = ({request, environment}) => {
   };
 
   
-  
+  // generates all the code snippets for each language and stores them
+  // doesn't work without being in a useEffect
   useEffect(() => {
     
     const requestObject = new sdk.Request(request);
 
-
+    // loops over every language, runs it through the code generator with the inputted request object, and stores the output
     languages.forEach(group => {
       const [language, variant] = group;
       codegen.convert(language, variant, requestObject, options, (error, snippet) => {
@@ -98,11 +97,14 @@ const CodeSnippet = ({request, environment}) => {
     });
   }, [selected]);
 
+  // error handling
   if (error) {
     return <div>{error}</div>;
   }
 
-
+  // 1. temporarily disables the copy button
+  // 2. copies the code snippet to clipboard
+  // 3. re-enables the copy button
   const copyToClipboard = () => {
 
     const textToCopy = snippets[selected].snippet;
@@ -127,30 +129,29 @@ const CodeSnippet = ({request, environment}) => {
   
   return (
     <div>
+      {/* error handling */}
       {error && <div>{error.message}</div>}
-      {/* {snippets && snippets.length > 0 && !error && (<div>
-        <Dropdown list={languages} />
-        <Tabs>
-        {snippets.map((snippet, index) => (
-          <TabItem value={`${languages[index][0]} - ${languages[index][1]}`} label={`${languages[index][0]} - ${languages[index][1]}`} default key={index}>
-            <ReactMarkdown remarkPlugins={[remarkGfm]}  key={index}>{snippet.snippet}</ReactMarkdown>
-          </TabItem>
-        ))}
-      </Tabs></div>)} */}
+
+      {/* if the snippet exists */}
       {snippets && snippets.length > 0 && !error && (<div>
+        {/* generates the drop-down menu with all the language options */}
         <div className={'dropdown'}>
+        {/* displays the selected language */}
         <div className={'prefix'}>{languages[selected][0]} - {languages[selected][1]}</div>
         <div className={'dropdown-content'}>
+        {/* generate all the language options, and handle language selection on click */}
         {languages.map((item, index) => (
           <p key={index} onClick={() => setSelected(index)} className={selected === index ? 'selected' : ''}>{item[0]} - {item[1]}</p>
         ))}
         </div>
         </div>
         <div style={{'marginTop': "1em",}}>
-        {/* <ReactMarkdown remarkPlugins={[remarkGfm]}>{snippets[selected].snippet}</ReactMarkdown> */}
+
+        {/* display the code in the selected language */}
         <div className='code'>
           <SyntaxHighlighter language={languages[selected][0].toLowerCase()} style={docco} showLineNumbers={true} wrapLongLines={true}>{snippets[selected].snippet}</SyntaxHighlighter>
 
+          {/* copy-to-clipboard button */}
           <button className="copy-btn" onClick={copyToClipboard} ref={buttonRef}>Copy to Clipboard</button>
         </div>
         </div>

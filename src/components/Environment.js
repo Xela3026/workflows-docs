@@ -12,10 +12,6 @@ const Environment = ({ children, environment }) => {
       string = string.replace(regex, variable.value);
     });
 
-    // const jsonPattern = /``` json([\s\S]*?)```/g;
-    // string = string.replace(jsonPattern, (match, p1) => {
-    //   return `<h1>${p1.trim()}</h1>`;
-    // });
 
     return string;
   }
@@ -28,17 +24,15 @@ const Environment = ({ children, environment }) => {
       
       const modifiedText = envInterpolate(child);
       // interpret string as HTML
-
-      // ------------------- line of interest ------------------------
       return <span dangerouslySetInnerHTML={{ __html: modifiedText }} />;
-      // -------------------------------------------------------------
+
     };
-    // child has more children
+    // if child has more children
     if (React.isValidElement(child) && child.props.children) {
 
         // child's child is a string that can be interpolated
         if (typeof child.props.children === 'string') {
-            
+          // interpolate the text and create new child with the new text
           const modifiedText = envInterpolate(child.props.children);
           return cloneElement(child, {}, modifiedText);
         }
@@ -52,7 +46,7 @@ const Environment = ({ children, environment }) => {
     return child;
     };
 
-
+  // run recursive env interpolator on all children in the Environment component
   const processedChildren = Children.map(children, processChildren);
 
   return <div>{processedChildren}</div>;
