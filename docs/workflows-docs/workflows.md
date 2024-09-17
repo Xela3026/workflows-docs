@@ -81,8 +81,8 @@ All of the logic in the workflows is encoded as JSON. To configure a piece of JS
 
 <br/>
 
-:::danger Danger
-Deleting a step from your workflow will also delete any steps that follow it.
+:::info INFO
+Deleting a step from your workflow will move all subsequent steps to the unassigned tab.
 :::
 
 <br/>
