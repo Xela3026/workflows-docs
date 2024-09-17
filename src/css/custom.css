@@ -141,14 +141,16 @@ h2 {
 }
 
 h3 {
-  border: 2px solid var(--ifm-color-primary);
+  border-top: 2px solid var(--ifm-color-primary);
+  border-bottom: 2px solid var(--ifm-color-primary);
   color: var(--ifm-color-primary);
   text-shadow: none;
 }
 
 h4 {
   font-size: 1.3em;
-  border: 2px solid var(--ifm-color-primary);
+  border-top: 2px solid var(--ifm-color-primary);
+  border-bottom: 2px solid var(--ifm-color-primary);
   color: black;
   text-shadow: none;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
@@ -156,7 +158,8 @@ h4 {
 
 h5 {
   font-size: 1em;
-  border: 2px solid black;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
   color: black;
   text-shadow: none;
   text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
