@@ -15,7 +15,7 @@ import BrandName from '@site/src/components/BrandName';
 
 When an action is performed in a <BrandName type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
 
-<br/>
+
 
 <div className="dubheader">Catching Data</div>
 
@@ -29,13 +29,13 @@ You can then catch and store this data using an Event Subscription. So:
 3. The information is relayed to all the event subscribers.
 4. The event subscriber relays the information to some API endpoint (usually acting as a webhook).
 
-<br/>
+
 
 <div className="dubheader">Subscribing</div>
 
 Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <BrandName type="name"/> events or [custom events](./event-schemas). 
 
-<br/>
+
 
 <div className="dubheader">Relaying</div>
 
@@ -45,7 +45,7 @@ You could also use the URL to store the data for a later use.
 
 [comment]: <> (check that these use cases are accurate.)
 
-<br/>
+---
 
 ## Initialisation
 
@@ -58,7 +58,7 @@ Then, click on '+ Create Event Subscription':
 <CustomisableImage src="/img/new-subscription.png" alt="New Subscription" width="600"/>
 
 
-<br/>
+---
 
 ## Configuration
 
@@ -135,7 +135,7 @@ If a 404 is returned, it usually means that some data is missing or doesn't exis
 
 
 
-<br/>
+
 
 <div className="dubheader"><BrandName type="name"/> events</div>
 
@@ -159,13 +159,13 @@ These predefined events are triggered by various actions in your <BrandName type
 You will find the properties associated with these events within their event schemas.
 
 
-<br/>
+
 
 <div className="dubheader"><BrandName type="name"/> subscriptions</div>
 
 Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the "workflows.<BrandName type="lowerName"/>.io" subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <BrandName type="name"/> logs API endpoint.
 
-<br/>
+---
 
 ## Management
 

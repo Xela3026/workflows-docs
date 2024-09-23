@@ -14,7 +14,7 @@ A scheduled event lets you make a timed API request. All you need to do is setup
 
 This is most useful for activating your workflows. By using the start endpoint of a workflow, you can schedule the workflow to activate automatically at whatever time you want. Additionally, you could use the execute endpoint of a workflow so that you can resume a workflow at a designated time.
 
-<br/>
+---
 
 ## Initialisation
 
@@ -27,7 +27,7 @@ Then, click on '+ New Event':
 <CustomisableImage src="/img/new-event.png" alt="New Event" width="500"/>
 
 
-<br/>
+---
 
 ## Configuration
 
@@ -56,7 +56,7 @@ Explanations of the above properties:
 
 Most of these properties just follow standarad API request standards. 
 
-<br/>
+---
 
 ## Management
 

@@ -1,11 +1,10 @@
 // import necessary libraries
 import React, {useState, useEffect, useRef} from 'react';
-const codegen = require('postman-code-generators');
-const sdk = require('postman-collection');
+import codegen from 'postman-code-generators';
+import sdk from 'postman-collection';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { docco } from 'react-syntax-highlighter/dist/esm/styles/hljs';
-
-
+import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import IsDarkMode from './IsDarkMode.js';
 
 
 
@@ -24,8 +23,8 @@ const CodeSnippet = ({request, environment}) => {
   // initialise useState variables
   const [snippets, setSnippets] = useState([]);
   const [error, setError] = useState(null);
-  const [selected,setSelected] = useState(0);
-
+  const [selected,setSelected] = useState(localStorage.getItem('code-preference') || 0);
+  const isDarkMode = IsDarkMode();
   const buttonRef = useRef(null);
 
 
@@ -97,6 +96,29 @@ const CodeSnippet = ({request, environment}) => {
     });
   }, [selected]);
 
+  useEffect(() => {
+    // Function to update the state when localStorage changes
+    const handleStorageChange = () => {
+      setSelected(localStorage.getItem('code-preference'));
+    };
+
+    // Listen for the custom event in the same tab
+    window.addEventListener('storage-change', handleStorageChange);
+
+    // Listen for storage changes across different tabs
+    window.addEventListener('storage', (event) => {
+      if (event.key === 'code-preference') {
+        handleStorageChange();
+      }
+    });
+
+    // Cleanup the event listeners
+    return () => {
+      window.removeEventListener('storage-change', handleStorageChange);
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   // error handling
   if (error) {
     return <div>{error}</div>;
@@ -124,6 +146,8 @@ const CodeSnippet = ({request, environment}) => {
     });
   };
 
+  
+
 
   
   
@@ -131,7 +155,6 @@ const CodeSnippet = ({request, environment}) => {
     <div>
       {/* error handling */}
       {error && <div>{error.message}</div>}
-
       {/* if the snippet exists */}
       {snippets && snippets.length > 0 && !error && (<div>
         {/* generates the drop-down menu with all the language options */}
@@ -141,7 +164,12 @@ const CodeSnippet = ({request, environment}) => {
         <div className={'dropdown-content'}>
         {/* generate all the language options, and handle language selection on click */}
         {languages.map((item, index) => (
-          <p key={index} onClick={() => setSelected(index)} className={selected === index ? 'selected' : ''}>{item[0]} - {item[1]}</p>
+          <p key={index} onClick={() => {
+            setSelected(index); 
+            localStorage.setItem('code-preference',index);
+            const event = new Event('storage-change');
+            window.dispatchEvent(event);
+            }} className={selected === index ? 'selected' : ''}>{item[0]} - {item[1]}</p>
         ))}
         </div>
         </div>
@@ -149,7 +177,7 @@ const CodeSnippet = ({request, environment}) => {
 
         {/* display the code in the selected language */}
         <div className='code'>
-          <SyntaxHighlighter language={languages[selected][0].toLowerCase()} style={docco} showLineNumbers={true} wrapLongLines={true}>{snippets[selected].snippet}</SyntaxHighlighter>
+          <SyntaxHighlighter language={languages[selected][0].toLowerCase()} style={isDarkMode ? darkCodeStyle:lightCodeStyle} showLineNumbers={true} wrapLongLines={true}>{snippets[selected].snippet}</SyntaxHighlighter>
 
           {/* copy-to-clipboard button */}
           <button className="copy-btn" onClick={copyToClipboard} ref={buttonRef}>Copy to Clipboard</button>

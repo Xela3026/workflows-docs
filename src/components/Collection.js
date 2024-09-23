@@ -6,56 +6,42 @@ import CodeSnippet from './CodeSnippet.js';
 import Environment from './Environment.js';
 import TOCItemTree from '@theme/TOCItems/Tree';
 import TOCItems from '@theme/TOCItems';
+import Skeleton from 'react-loading-skeleton';
+import 'react-loading-skeleton/dist/skeleton.css';
+import IsDarkMode from './IsDarkMode.js';
+import { fetchDMS } from './fetchDMS.js';
 
 const Collection = ({record,collection}) => {
   // initialise useState variables
   const [docs, setDocs] = useState(null);
   const [env, setEnv] = useState(null);
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(0);
   const [TOC, setTOC] = useState([]);
-
+  const isDarkMode = IsDarkMode();
 
 
   // fetch the API docs from DMS
   useEffect(() => {
-    fetch(`https://dms.yabbr.io/2022-05-31/namespaces?domain=8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_${collection}/${record}`, {
-        method: 'GET',
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Request Error: ' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      setDocs(data.dms.docs);
-      // handle loading times
-      setIsLoading(false);
-    })
-    .catch(error => {
-      setError(error);
-      setIsLoading(false);
-    });
-    
-    // fetch the environment variables from DMS
-    fetch(`https://dms.yabbr.io/2022-05-31/namespaces?domain=8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_environment`, {
-      method: 'GET',
-    })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Request Error: ' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => {
-      setEnv(data.dms.docs.environment.values);
-    })
-    .catch(error => {
-      setError(error);
-    });
-
-    
+    setLoading(prev => prev + 1);
+    fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_${collection}/${record}`, { method: 'GET' })
+      .then(data => {
+        setDocs(data.dms.docs);
+      })
+      .catch(err => {
+        setError(err);
+      }) 
+      .finally(() => setLoading(prev => prev - 1));
+  
+      setLoading(prev => prev + 1);
+    fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_environment`, { method: 'GET' })
+      .then(data => {
+        setEnv(data.dms.docs.environment.values);
+      })
+      .catch(err => {
+        setError(err);
+      })
+      .finally(() => setLoading(prev => prev - 1));
 
   },[]);
 
@@ -71,7 +57,7 @@ const Collection = ({record,collection}) => {
         setTOC(prevTOC => [...prevTOC, { id: id, value: header, children: [] }]);
       })
     }
-  },[isLoading]);
+  },[loading]);
 
   // converts request titles to valid anchor IDs for the TOC
   const formatID = (name) => {
@@ -96,12 +82,12 @@ return (
     {error && <div>{error.message}</div>}
 
     {/* display API docs */}
-    {docs && !error && env && (<div>
+    {loading === 0 && docs && !error && env && (<div>
       {/* interpolates the docs with the environemtn variables */}
       <Environment environment = {env} class="api">
         
         {/* converts markdown input to HTML */}
-        <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown><br/>
 
         {/* formats the info about each request */}
         {items.map((item, index) => (
@@ -110,7 +96,7 @@ return (
             {/* converts the title into an anchor ID for TOC */}
             <h1  style={{scrollMarginTop:"2em",fontSize: "2em"}} id={formatID(item.request.method + ' ' + item.name)} key={`title-${index}`}>
             {/* colour-codes the request method and displays the full request name */}
-            <span className={item.request.method.toLowerCase()} key={`method-${index}`}>{item.request.method}&nbsp;</span> {item.name}
+            <span className={item.request.method.toLowerCase()} key={`method-${index}`}>{item.request.method}&nbsp;</span>{item.name}
             </h1>
 
             {/* display endpoint URL */}
@@ -122,7 +108,8 @@ return (
             {/* generate a code snippet for the request for valid endpoints */}
             {item.request && item.request.url.raw.startsWith("{{") && <CodeSnippet request={item.request} environment ={env} key={`code-${index}`}/>}
             {/* divider between requests */}
-            <ReactMarkdown remarkPlugins={[remarkGfm]} key={`divider-${index}`}>---</ReactMarkdown>
+            {index + 1 !== items.length && <ReactMarkdown remarkPlugins={[remarkGfm]} key={`divider-${index}`}>---</ReactMarkdown>}
+            
           </div>
         ))}
 
@@ -133,8 +120,15 @@ return (
 
     )}
     {/* handle request loading */}
-    {isLoading && !error && (
-      <div>Loading...</div>
+    {loading > 0 && !error && (<div>
+      <p><Skeleton count={1.5} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p><br/>
+      <p><Skeleton count={1} height={"3em"} width={"50%"} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
+      <p><Skeleton count={4.2} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
+      <p><Skeleton count={1} height={"2em"} width={"50%"} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
+      <p><Skeleton count={7.8} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
+
+      
+      </div>
     )}
   </div>
 );

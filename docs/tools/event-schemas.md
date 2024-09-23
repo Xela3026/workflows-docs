@@ -15,7 +15,7 @@ import BrandName from '@site/src/components/BrandName';
 
 When an action is performed in a <BrandName type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
 
-<br/>
+
 
 <div className="dubheader">Catching Data</div>
 
@@ -26,7 +26,7 @@ You can then catch and store this data using an [Event Subscription](./event-sub
 2. An event is triggered. It will record information about the action.
 3. The information is relayed to all the event subscribers and used. Learn more about event subscriptions [here](./event-subscriptions).
 
-<br/>
+
 
 <div className="dubheader">Custom Events</div>
 
@@ -42,7 +42,7 @@ An event schema will define the "behaviour" of a custom event by specifying the 
 
 
 
-<br/>
+---
 
 ## Initialisation
 
@@ -55,7 +55,7 @@ Then, click on '+ Create New Schema':
 <CustomisableImage src="/img/new-schema.png" alt="New Schema" width="600"/>
 
 
-<br/>
+---
 
 ## Configuration
 
@@ -95,7 +95,7 @@ Explanations of the above properties:
 
 
 
-<br/>
+
 
 <div className="dubheader">Example</div>
 
@@ -133,7 +133,7 @@ The API request body to trigger this example event must look like:
 }
 ```
 
-<br/>
+---
 
 ### Naming An Event
 
@@ -147,7 +147,7 @@ You can add prefixes to your event names to categorise them. For example, `chat.
 An event name must be have all lowercase characters, no spaces, and no special characters.
 :::
 
-<br/>
+---
 
 ## Triggering an Event
 
@@ -159,7 +159,7 @@ To "trigger" an event, you need to make a POST request. The URL of this request 
 
 
 
-<br/>
+
 
 <div className="dubheader">Request Body</div>
 
@@ -172,7 +172,7 @@ To specify which event you are triggering, and its associated data, you need to 
 
 
 
-<br/>
+
 
 <div className="dubheader">Behind the Scenes</div>
 
@@ -181,7 +181,7 @@ Thus, events actually function in a three step process:
 2. The event schema with the requested name validates the request to ensure data is correctly formatted.
 3. The event subscriber catches the data from the POST request.
 
-<br/>
+
 
 <div className="dubheader">Sending the Request</div>
 
@@ -189,13 +189,13 @@ Since these events are triggered by a POST request, they can be triggered wherev
 
 
 
-<br/>
+
 
 <div className="dubheader"><BrandName type="name"/>'s Events</div>
 
 <BrandName type="name"/>'s predefined events work in the exact same way. Each one has its own event schema. Then, when the relevant action is performed, <BrandName type="name"/> sends a POST request triggering the relevant event. This event is then validated by one of <BrandName type="name"/>'s event schemas. Since these schemas are global for all workspaces to use, event subscribers from any workspace can then catch these events.
 
-<br/>
+---
 
 ## Management
 

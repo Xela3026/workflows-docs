@@ -17,7 +17,7 @@ Learn how to configure the domain JSON in [Configuration](#configuration).
 
 Learn how to access the data in a domain in [Accessing Data](#accessing-data).
 
-<br/>
+---
 
 ## Initialisation
 
@@ -35,11 +35,9 @@ Clicking that button will open this menu:
 
 Give your new domain a name under 'New Domain Name'. This will be used when making the GET request to the domain. Finally, click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">CREATE</Tag> to finalise the initialisation of your new domain.
 
-<br/>
 
 
-
-
+---
 
 ## Configuration
 
@@ -64,7 +62,7 @@ The `"meta"` object can have three properties:
 
 
 
-<br/>
+---
 
 ## Accessing Data
 
@@ -76,7 +74,7 @@ If you make a POST request instead, the domain will forward your request to the 
 
 
 
-<br/>
+---
 
 
 ## Management

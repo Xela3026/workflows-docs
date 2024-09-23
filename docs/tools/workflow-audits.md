@@ -14,8 +14,6 @@ import CustomisableImage from '@site/src/components/CustomisableImage';
 
 A Workflow Audit allows you to check that a workflow is running correctly. When an audit is run on a workflow, it will analyse all the recent instances of the workflow. If the analysis shows that the workflow is running abnormally, the audit will alert you with an email. 
 
-<br/>
-
 <div className="dubheader">Verifying Functionality</div>
 
 An audit will analyse two things in the recent instsances:
@@ -24,15 +22,12 @@ An audit will analyse two things in the recent instsances:
 
 If any of these factors do not align with expected results, an error is alerted. You can customise these "expected results" in the audit.
 
-<br/>
 
 <div className="dubheader">Scheduling</div>
 
 Audits will run according to a predetermined schedule. This schedule will run forever until the audit is deleted. So, if your schedule has your audit running once a day, then you will get daily updates on the functioning of your workflow. Additionally, it will only analyse the instances that occured since the last audit. If it is the first audit, it will analyse all instances since the creation of the audit. For example, if the schedule is running the audit once a day, then each audit will analyse the last 24 hours of instances.
 
 
-
-<br/>
 
 <div className="dubheader">Customisation</div>
 
@@ -43,7 +38,7 @@ An audit allows you to customise:
 - emails to send audit results to
 
 
-<br/>
+---
 
 ## Initialisation
 
@@ -56,7 +51,7 @@ Then, click on '+ New Audit':
 <CustomisableImage src="/img/new-audit.png" alt="New Audit" width="500"/>
 
 
-<br/>
+---
 
 ## Configuration
 
@@ -85,6 +80,8 @@ Before you can enable the new auditor, you need to set a time for the first audi
 3. Click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">SET SCHEDULE</Tag>.
 
 Finally, to enable your auditor, click the <Tag colour="#FFFFFF" borderColour="#1582d8" fontColour="#1582d8">SCHEDULE</Tag> button in the top right.
+
+---
 
 ## Labelling a step
 
@@ -118,7 +115,7 @@ If multiple steps have the same label, then an audit will only check for the fir
 - If neither step is executed, an error is alerted.
 However, this may be useful if your workflow splits into two paths. Two steps with the same label but on separate paths would not encounter the previous problem.
 
-<br/>
+---
 
 [comment]: <> (check that this information is accurate.)
 

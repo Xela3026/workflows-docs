@@ -47,7 +47,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
-          routeBasePath: '/', // Set this value to '/'.
+          routeBasePath: '/',
 
         },
 
@@ -69,9 +69,9 @@ const config = {
       image: 'img/yabbr.svg',
       navbar: {
         items: [
-
-          {to: '/', label: 'Workflows', position: 'left'},
-          {to: '/api-docs/intro', label: 'API', position: 'left'},
+          {to: '/api', label: 'API', position: 'left'},
+          {to: '/tools', label: 'Workflows', position: 'left'},
+          
 
 
 

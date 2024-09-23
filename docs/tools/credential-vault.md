@@ -16,7 +16,7 @@ This vault also supports the encryption of sensititive information to prevent it
 
 The Credential Vault also sorts your information into sets of credentials. Each set of credentials usually contains related information. For example, you may create a set of credentials for API keys called "API Keys", and then store all of your API keys in that set and then encrypt them for safety.
 
-<br/>
+---
 
 ## Initialisation
 
@@ -34,7 +34,7 @@ Clicking that button will open this menu:
 
 Give your new credential set a name under 'Credential Set Name'. This will be used to help identify your credential set within your workspace. Then provide a short explanation of what the credentials set is for under 'Description'. Finally, click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">SET</Tag> to finalise the initialisation of your new credential set.
 
-<br/>
+---
 
 ## Configuration
 
@@ -57,7 +57,7 @@ The inside of an empty credentials set will look like:
 
 The Credential Vault uses Workflow's JSON editor. Learn more about how to use this editor [here](./workflows#configuration).
 
-<br/>
+
 
 <div className="dubheader">Storing Data</div>
 
@@ -70,7 +70,7 @@ This object has three properties: `"name"`, `"value"`, and `"sensitive"`.
 
 - `"sensitive"` is a boolean. If it is true, when you save your credentials, this credential will be encrypted and censored within your vault. No one will be able to see its value. It will just look like a string of asterisks. 
 
-<br/>
+
 
 <div className="dubheader">Example</div>
 
@@ -98,7 +98,7 @@ The following is what one credentials set may look like:
 
 The `"api-key"` credential would have had a visible value when created, but once the credentials set was saved and closed, its value was hidden by asterisks as shown.
 
-<br/>
+---
 
 ## Using Credentials
 

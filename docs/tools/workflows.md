@@ -28,7 +28,7 @@ The first phase collects data using a [fetch request](#fetch) or a [file stream]
 
 
 
-<br/>
+
 
 <div className="dubheader">Activation</div>
 
@@ -40,14 +40,14 @@ Once it is activated, it creates a new 'instance' of the workflow. An instance i
 
 Each instance of the workflow is stored in the [logs](#logs). These instances have their own ID (accessed via the logs or [placeholders](#placeholders)). You can store data within a specific instance so that it can only be accessed from within the same instance.
 
-<br/>
+
 
 <div className="dubheader">Execution</div>
 
 Once the workflow gets to the end of a step, it actually stops and goes into a temporary stasis. A new step can only be reached by using an execution key. Learn more about execution keys [here](#execution-keys).
 
 
-<br/>
+---
 
 ## Initialisation
 
@@ -65,11 +65,11 @@ Clicking that button will open this menu:
 
 Give your new workflow a name under 'Workflow Name'. This will be used to help identify your workflow within your workspace. Finally, click <Tag colour="#1582d8" borderColour="#1582d8" fontColour="#FFFFFF">Create</Tag> to finalise the initialisation of your new workflow.
 
-<br/>
+---
 
 ## Configuration
 
-<div className="subheader">JSON Editor</div>
+<div className="dubheader">JSON Editor</div>
 
 All of the logic in the workflows is encoded as JSON. To configure a piece of JSON logic in your workflow:
 
@@ -85,9 +85,9 @@ All of the logic in the workflows is encoded as JSON. To configure a piece of JS
 Deleting a step from your workflow will move all subsequent steps to the unassigned tab.
 :::
 
-<br/>
 
-<div className="subheader">Toolbar</div>
+
+<div className="dubheader">Toolbar</div>
 
 Your workflow will start empty. It will look like this:
 
@@ -95,7 +95,7 @@ Your workflow will start empty. It will look like this:
 
 This menu is called the toolbar. Each button on this toolbar will help you start creating and customising your workflow. From top to bottom and left to right, these buttons are:
 
-<br/>
+
 
 <div className="dubheader">Pencil Icon</div>
 
@@ -121,13 +121,13 @@ Edit the properties of the workflow. These properties are global within the work
 The `"debug"` logLevel can impact performance and could possibly log sensitive information.
 :::
 
-<br/>
+
 
 <div className="dubheader">Power Button</div>
 
 Runs the workflow with test data. Used for testing the workflow. Learn more [here](#testing-the-workflow).
 
-<br/>
+
 
 <div className="dubheader">Upload Button</div>
 
@@ -145,19 +145,19 @@ Upload steps into workflow. Delete the curly braces that are present by default.
 
 These steps will automatically be sent to the "Unassigned" tab. You may also need to refresh to see them.
 
-<br/>
+
 
 <div className="dubheader">Download Button</div>
 
 An overview of the JSON of the entire workflow. It is an array where each item is the JSON of a single step. Formatted as above.
 
-<br/>
+
 
 <div className="dubheader">Add (+) Button</div>
 
 Adds a new step to the workflow. Learn more about steps [here](#steps-and-workflow-logic).
 
-<br/>
+
 
 <div className="dubheader">Save Icon</div>
 
@@ -169,39 +169,39 @@ View all recent changes to the workflow. Click <Tag colour="#1582d8" borderColou
 Any changes made to a workflow will be lost if you do not save them.
 :::
 
-<br/>
+
 
 <div className="dubheader">Active</div> 
 
 All steps that are currently being used within the workflow.
 
-<br/>
+
 
 <div className="dubheader">Unassigned</div> 
 
 All steps that are **not** currently being used within the workflow. New steps that have not been allocated a location in the workflow will appear here.
 
-<br/>
+
 
 <div className="dubheader">Logs</div> 
 
 Records the details of every instance. Learn more about the logs [here](#logs).
 
-<br/>
+
 
 <div className="dubheader">Question Mark</div> 
 
 The workflow will try to determine where it is being triggered and activated from. It will display those locations here. If it cannot find any, it will display a question mark.
 
-<br/>
+
 
 <div className="dubheader">Lock Button</div> 
 
 Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without <BrandName type="name"/> API authentication. If it is 'locked', then a <BrandName type="name"/> API authentication is required to activate the workflow.
 
-<br/>
 
 
+---
 
 ### Steps and Workflow Logic
 
@@ -239,7 +239,7 @@ The `{...}` button will display an overview of the JSON for the entire step (inc
 A step will usually follow the same format comprised of three stages. It will gather data (fetch and stream), evaluate the data (condition), and then make decisions based on the evaluation (actions).
 :::
 
-<br/>
+---
 
 #### Placeholders
 
@@ -256,14 +256,14 @@ When placeholders point to objects, to access the values of the object's propert
 
 These placeholders can point to two different types of data stores - static and dynamic. Static data stores do not change; they are predetermined. Dynamic data stores will change depending on the outcomes of steps in the workflow. There are two static data stores and seven dynamic data stores you can use in a workflow:
 
-<br/>
+
 
 <div className="dubheader">Static Data Stores</div>
 
 - `{{store}}`: data added into the 'store' of the workflow. Read about the Edit Button in [Configuration](#configuration) for more details about the store.
 - `{{CREDENTIAL}}`: data stored in your [Credential Vault](./credential-vault). This is most commonly API keys or environment data.
 
-<br/>
+
 
 <div className="dubheader">Dynamic Data Stores</div>
 
@@ -287,7 +287,7 @@ These placeholders can point to two different types of data stores - static and 
 
 [comment]: <> (could make an interactive placeholder example here.)
 
-<div className="subheader">Example</div>
+<div className="dubheader">Example</div>
 
 Consider the example below. The "value1" property has value "`{{fetched.status}}`". 
 
@@ -323,9 +323,9 @@ If the HTTP status code of the fetch request was 200, then the workflow will eva
 }
 ```
 
-<br/>
 
-<div className="subheader">Undefined Placeholders</div>
+
+<div className="dubheader">Undefined Placeholders</div>
 
 If the value of a placeholder cannot be found, it will return the placeholder name as a string. However, this will also prevent the JSON from being evaluated. To override this failsafe and evaluate the JSON anyways, add the `“permitUndefinedExecution”: true` property to the JSON.
 
@@ -340,28 +340,30 @@ The payload for the first step of a workflow is the body of the POST request to 
 
 [comment]: <> (check the wording of this whole section. Also do the same for #Workflows and ##Activating a Workflow)
 
+---
+
 #### Other Substitutions
 
 While placeholders are subtitutes for data stores, a workflow can also have subsitutes for maths, random values, and dates.
 
-<br/>
+
 
 <div className="dubheader">Math Expression</div>
 A math expression takes the form `M{maths_goes_here}`. For example, the expression `M{2 * (1 + 3)}` would be a subtitute for 8. This substitution supports the standard maths operations: +, -, *, /, **, %.
 
-<br/>
+
 
 <div className="dubheader">Random Integer</div>
 
 A random integer can be expressed as `R{lower_bound,upper_bound}`. In the workflow, this expression will be evaluated as a random integer from the lower bound to the upper bound. If not given, the default lower bound is 0, and the default upper bound is 100.
 
-<br/>
+
 
 <div className="dubheader">Random Boolean</div>
 
 A random boolean expression will be randomly evaluated as either true or false. The chance of it being true or false can be also be defined. The full expression for a random boolean is `RB{chance_of_true}` where chance_of_true is the likelihood on a scale from 0 to 1 that the expression is evaluated as true. The complement of that chance is the chance the expression is evaluated as false.
 
-<br/>
+
 
 <div className="dubheader">Date</div>
 
@@ -384,7 +386,7 @@ This will be evaluated as the time when the workflow started running in Brisbane
 You can combine forms of subtitution. For example, you could perform mathematical operations on a placeholder value: `M{{{payload.price}} * 0.95}`.
 :::
 
-<br/>
+---
 
 #### Fetch
 
@@ -424,11 +426,11 @@ Explanations of the above properties:
 
 Any other necessary properties follow standard API request standards.
 
-<br/>
+---
 
 #### Stream
 
-<div className="subheader">Extracting Data</div>
+<div className="dubheader">Extracting Data</div>
 
 The file streaming function will extract data from a file to use within a step. The only file types currently supported are 'txt' and 'csv'. However, note that a CSV file is just a TXT file where each "column" is separated by a comma (`","`), and each "row" is separated by a new line (`\n`).
 
@@ -467,16 +469,16 @@ Explanations of the above properties:
 Since CSV file columns are separated by a `","` when read, using `","` as a delimiter is highly recommended. This will separate a row into each column.
 :::
 
-<br/>
 
-<div className="subheader">Accessing Data</div>
+
+<div className="dubheader">Accessing Data</div>
 
 As previously mentioned, a line of the file is stored in `{{memory.record}}`. To access a specific item in this array, reference the index of the item. For example, `{{memory.record.2}}` would return the third item in the array. In the case of a CSV file, this would be the third column in the row.
 
 For CSV files, if you specify the `"headerIndex"` property, then you can reference columns using their column title. For example, to access the value in the "email" column, you would reference `{{memory.record.email}}`.
 
 
-<br/>
+
 
 <div className="dubheader">Example Reading</div>
 
@@ -502,7 +504,7 @@ Usually, a file is fully streamed first, and **then** actions are executed. Sinc
 
 
 
-<br/>
+
 
 <div className="dubheader">Using Every Line</div>
 
@@ -550,6 +552,8 @@ To store a CSV file within <BrandName type="name"/>, use the [Stream To](#stream
 
 
 
+
+---
 
 #### Conditions
 
@@ -602,6 +606,8 @@ Conditions are evaluated left to right and are asynchronous. This means that the
 <br/>
 
 
+---
+
 ##### Operators
 
 The operators follow javascript conventions. For example "&#62;" can compare the value of two numbers or the alphabetic order of two strings.
@@ -626,7 +632,7 @@ The operators you can use within a condition are:
 - **tr**: value1 is truthy
 - **!tr**: value1 is not truthy
 
-<br/>
+---
 
 #### Actions
 
@@ -636,7 +642,7 @@ After creating a condition, an extra option will appear at the bottom of the ste
 
 Each type of action serves a unique purpose:
 
-<br/>
+---
 
 ##### HTTPS Request
 
@@ -650,7 +656,7 @@ If multiple HTTP requests are made in a workflow, then only the data from the la
 HTTPS Requests are usually use to send data outside the workflow. A fetch request is usually used to bring data into the workflow.
 :::
 
-<br/>
+---
 
 ##### Return to Caller
 
@@ -668,7 +674,7 @@ Sends data to the sender of the POST request that activated the workflow. The JS
 
 The `"body"` object is the data being sent. You can put any JSON data inside this object. Learn more about the `"nextStep"` property [here](#execution-keys).
 
-<br/>
+---
 
 ##### Save to Instance
 
@@ -709,7 +715,7 @@ The second item in the array is the data you are saving. This does not have to b
 
 The third item is an object. Within this object, you can create some "flags" to give the program some extra instructions on how you want the data to be saved. This object can have the following properties:
 
-<br/>
+
 
 <div className="dubheader">"push"</div>
 
@@ -717,13 +723,13 @@ Boolean. If `true`: adds data as an element within the array of the property. Wi
 
 
 
-<br/>
+
 
 <div className="dubheader">"spread"</div>
 
 Boolean. Adds data as an array within the array of the property. Will only work if both the data and the data storage location is an array.  If the data storage location does not exist, it will create it as an array. If this flag is false, it is functionally the same as the flag not existing.
 
-<br/>
+
 
 <div className="dubheader">"remove"</div>
 
@@ -745,7 +751,7 @@ Boolean. Removes a property from an object. The first item in the array is the p
 
 In this example, the `instance` data store will lose the `example` property. If the `"remove"` flag is false, it is functionally the same as the flag not existing.
 
-<br/>
+
 
 <div className="dubheader">"split"</div>
 
@@ -773,7 +779,7 @@ Here, the value of `{{instance.example}}` would be `["Example 1", " Example 2", 
 The character that you are splitting on is not included in the resultant array.
 :::
 
-<br/>
+
 
 <div className="dubheader">"slice"</div>
 
@@ -795,7 +801,7 @@ Returns a small chunk from the middle of a string or array. The value of this pr
 
 Here, the value of `{{instance.example}}` would be `[2, 3, 4]`.
 
-<br/>
+
 
 <div className="dubheader">"truncate"</div>
 
@@ -820,7 +826,7 @@ Returns the beginning of a string and adds a suffix. This flag is an object with
 
 Here, the value of `{{instance.example}}` would be `"Elephants are wonderful cre---"`.
 
-<br/>
+
 
 <div className="dubheader">"join"</div>
 
@@ -842,7 +848,7 @@ Returns an array as a string. Each item in the array is joined to the next using
 
 Here, the value of `{{instance.example}}` would be `"one and two and three and four"`.
 
-<br/>
+
 
 <div className="dubheader">"replace"</div>
 
@@ -868,13 +874,13 @@ Replaces certain characters with a new character. This flag is an object with th
 
 Here, the value of `{{instance.example}}` would be `"whe African Elephanws are wonderful creawures whaw can do amazing whings."`.
 
-<br/>
+
 
 <div className="dubheader">"parse"</div>
 
 Convert a string into a different data type. This property only currently supports the value `"json"` which will convert a string of a JSON object into a JSON object.
 
-<br/>
+
 
 <div className="dubheader">"increment"</div>
 
@@ -896,7 +902,7 @@ Increases an existing number by the given amount. For example, `"increment: 2"` 
 
 If the previous value of `{{instance.example}}` was 5, then its new value will be 7. If `{{instance.example}}` has no previous value, then this expression will fail.
 
-<br/>
+
 
 <div className="dubheader">"padStart"</div>
 
@@ -922,7 +928,7 @@ Add some text to the start of a string to inflate its length. This flag is an ob
 Here, the value of `{{instance.example}}` would be `"00042"`. This flag is useful when you need a specific length for a string. In this case a 5-digit number was needed.
 
 
-<br/>
+
 
 <div className="dubheader">"padEnd"</div>
 
@@ -941,6 +947,8 @@ This property is the same as the `"padStart"` property, except the filler text i
 <br/>
 
 
+---
+
 ##### Repeat Eval
 
 Repeats a step. The JSON for this action is always empty. When it is run, the workflow will return to the beginning of the step and increment `{{memory.index}}` by 1. `{{memory.index}}` starts at 0 on the first execution of the step.
@@ -950,7 +958,7 @@ There is no limit to this action. You must break the loop yourself. For example,
 :::
 
 
-<br/>
+---
 
 ##### Execute Step
 
@@ -962,7 +970,7 @@ Passes a new payload to the next step. It is functionally the same as the 'Retur
 Whilst the "Return to Caller" action will send the data to the API caller by default, without needing to generate an execution key, the "Execute Step" action has no default functionality. Without an execution key, it will not do anything. Learn more about execution keys [here](#execution-keys).
 :::
 
-<br/>
+---
 
 ##### Stream To
 
@@ -1010,7 +1018,7 @@ In order to recreate this with the Stream To action, you would use the following
 }
 ```
 
-<br/>
+
 
 <div className="dubheader">Iteration</div>
 
@@ -1021,7 +1029,7 @@ Use `"ignoreAutoAppendNewLine": true` so that each repetition of the action does
 :::
 
 
-<br/>
+
 
 <div className="dubheader">File Storage</div>
 
@@ -1036,6 +1044,8 @@ Using similar methods, you can reference the number of lines in a file. If there
 
 <br/>
 
+
+---
 
 #### Execution Keys
 
@@ -1057,7 +1067,7 @@ Once an execution key has been used, it cannot be used again.
 Execution keys only last for 90 days. 90 days after an execution key has been generated, you will no longer be able to use it to continue a workflow.
 :::
 
-<br/>
+
 
 <div className="dubheader">Creating Keys</div>
 
@@ -1085,7 +1095,7 @@ Even though the UI shows the execution key being generated **after** the action,
 
 To remove an execution key, just click on its yellow icon and click <Tag colour="#ff5252" borderColour="#ff5252" fontColour="#FFFFFF">REMOVE</Tag>. You can generate multiple execution keys with one action.
 
-<br/>
+
 
 <div className="dubheader">Referencing Keys</div>
 
@@ -1105,6 +1115,8 @@ Any steps that have been run internally by an Execute Step action are unable to 
 
 
 
+---
+
 ##### nextStep Property
 
 <div className="dubheader">Overview</div>
@@ -1113,7 +1125,7 @@ The `"nextStep"` property is another way of generating execution keys besides th
 
 The property is an array. Each item in the array is an object. Each of these objects provides instructions for the generation of an execution key. These instructions have two properties - `"name"` and `"id"`. `"name"` is the name of the execution key, and `"id"` is the ID of the step that the execution key is pointing to. Since you can generate multiple execution keys at once, you can include multiple objects in this array, each generating a different execution key. 
 
-<br/>
+
 
 <div className="dubheader">Example</div>
 
@@ -1147,7 +1159,7 @@ An example HTTPS request using this property may look like:
 
 The important properties to notice here are `"body"` and `"nextStep"`. The `"nextStep"` property is generating two execution keys pointing to two different steps. Then, the HTTPS request sends the full execution URLs for these keys to `"example-url.com"`. `"example-url.com"` can then choose a URL to use to reactivate the workflow with. Each URL will reactivate the workflow from a different step.
 
-<br/>
+
 
 <div className="dubheader">Execute Step</div>
 
@@ -1165,7 +1177,7 @@ Once the JSON has been saved, the "nextStep" property will become invisible if y
 However, you can still find the original `"nextStep"` property in the overall step JSON under the `{...}` button. 
 :::
 
-<br/>
+---
 
 ## Testing the Workflow
 
@@ -1173,26 +1185,26 @@ To test your workflow, you can get your machine to act as the caller of the POST
 
 <CustomisableImage src="/img/workflows-testing.png" alt="Workflows Testing Menu" width="680"/>
 
-<br/>
+
 
 <div className="dubheader">Start</div>
 
 The configurable JSON under 'Start' will be the body of your request. This will be the `{{payload}}` data store for the first step. Once you have configured the body of your request, click 'Test' to send the request and activate the workflow. It will go through its steps and logic, and then will send data back to the caller (you) when it is completed. You can also configure this response in your workflow using the "Return to Caller" action. 
 
-<br/>
+
 
 <div className="dubheader">Response</div>
 
 The returned data will appear under 'Response'. This allows you to validate your workflow's functionality.
 
 
-<br/>
+
 
 <div className="dubheader">Logs</div>
 
 For a more detailed view of the functioning of your workflow, you can view the [Logs](#logs). This will document the execution of the workflow. The level of detail in these logs is determined by the value of `"logLevel"` in your workflow's properties (under the pencil icon in the toolbar).
 
-<br/>
+---
 
 ### Logs
 
@@ -1202,7 +1214,7 @@ Depending on the `"logLevel"` property, a new set of logs is created for every n
 
 For example, a log may show you that the result of your fetch request doesn't actually include all the data that you needed. By searching through the logs for each step and process, you can pinpoint any logical errors, formatting mistakes, incomplete requests and more.
 
-<br/>
+
 
 <div className="dubheader">Accessing the Logs</div>
 
@@ -1218,7 +1230,7 @@ This view will be the same as what appears under the "Logs" section when testing
 
 <CustomisableImage src="/img/logs-menu.png" alt="Logs" width="680"/>
 
-<br/>
+
 
 <div className="dubheader">Using the Logs</div>
 
@@ -1240,7 +1252,7 @@ To quickly start a new instance of the workflow again with the same payload, cli
 
 <CustomisableImage src="/img/logs-menu-start.png" alt="Restart Workflow" width="680"/>
 
-<br/>
+---
 
 ## Activating the Workflow
 
@@ -1250,7 +1262,7 @@ To start a new instance of a workflow, you need to make a POST request to the wo
 
 When you make a POST request to this endpoint, it will start a new instance of the workflow, starting at the first step. The body of your POST request becomes the payload of this first step.
 
-<br/>
+
 
 <div className="dubheader">Keys</div>
 
@@ -1262,7 +1274,7 @@ You can also add a "key" to this request. The start endpoint with a key will loo
 The ID of your workflow can be found on the workflows homepage. Learn more about this [here](#management).
 :::
 
-<br/>
+---
 
 ## Management
 
