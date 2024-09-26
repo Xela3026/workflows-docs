@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Dev Docs',
   tagline: 'How to use Dev Tools',
-  favicon: 'img/yabbr.svg',
+  favicon: 'img/fav.ico',
   plugins: ['polyfill'],
   
 

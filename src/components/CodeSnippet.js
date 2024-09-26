@@ -5,6 +5,8 @@ import sdk from 'postman-collection';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import IsDarkMode from './IsDarkMode.js';
+import { useSelector, useDispatch } from 'react-redux'
+import { setPreference } from './snippetSlice.js'
 
 
 
@@ -23,9 +25,12 @@ const CodeSnippet = ({request, environment}) => {
   // initialise useState variables
   const [snippets, setSnippets] = useState([]);
   const [error, setError] = useState(null);
-  const [selected,setSelected] = useState(localStorage.getItem('code-preference') || 0);
+  // const [selected,setSelected] = useState(localStorage.getItem('code-preference') || 0);
   const isDarkMode = IsDarkMode();
   const buttonRef = useRef(null);
+
+  const selected = useSelector((state) => state.snippet.preference);
+  const dispatch = useDispatch();
 
 
   // find out why C# language variants are not working - WIP
@@ -96,29 +101,7 @@ const CodeSnippet = ({request, environment}) => {
     });
   }, [selected]);
 
-  useEffect(() => {
-    // Function to update the state when localStorage changes
-    const handleStorageChange = () => {
-      setSelected(localStorage.getItem('code-preference'));
-    };
-
-    // Listen for the custom event in the same tab
-    window.addEventListener('storage-change', handleStorageChange);
-
-    // Listen for storage changes across different tabs
-    window.addEventListener('storage', (event) => {
-      if (event.key === 'code-preference') {
-        handleStorageChange();
-      }
-    });
-
-    // Cleanup the event listeners
-    return () => {
-      window.removeEventListener('storage-change', handleStorageChange);
-      window.removeEventListener('storage', handleStorageChange);
-    };
-  }, []);
-
+  
   // error handling
   if (error) {
     return <div>{error}</div>;
@@ -132,15 +115,16 @@ const CodeSnippet = ({request, environment}) => {
     const textToCopy = snippets[selected].snippet;
     navigator.clipboard.writeText(textToCopy).then(() => {
       const button = buttonRef.current;
-      if (button) {
-        button.textContent = 'Copied';
-        button.classList.add('disabled');
-        setTimeout(() => {
-          button.textContent = 'Copy to Clipboard';
-          button.classList.remove('disabled');
+      if (!button) {return;}
 
-        }, 1000);
-      }
+      button.textContent = 'Copied';
+      button.classList.add('disabled');
+      setTimeout(() => {
+        button.textContent = 'Copy to Clipboard';
+        button.classList.remove('disabled');
+
+      }, 1000);
+      
     }).catch((err) => {
       console.error('Error copying text: ', err);
     });
@@ -165,10 +149,8 @@ const CodeSnippet = ({request, environment}) => {
         {/* generate all the language options, and handle language selection on click */}
         {languages.map((item, index) => (
           <p key={index} onClick={() => {
-            setSelected(index); 
-            localStorage.setItem('code-preference',index);
-            const event = new Event('storage-change');
-            window.dispatchEvent(event);
+            dispatch(setPreference(index)); 
+            
             }} className={selected === index ? 'selected' : ''}>{item[0]} - {item[1]}</p>
         ))}
         </div>

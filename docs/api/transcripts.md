@@ -3,10 +3,10 @@ sidebar_position: 8
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Transcripts
 
-<Collection record="transcripts" collection="core" />
+<CollectionWrapper record="transcripts" collection="core" />
 
 

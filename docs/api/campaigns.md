@@ -3,10 +3,10 @@ sidebar_position: 4
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Campaigns
 
-<Collection record="campaigns" collection="core" />
+<CollectionWrapper record="campaigns" collection="core" />
 
 

@@ -3,10 +3,10 @@ sidebar_position: 3
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Messages
 
-<Collection class="api" record="messages" collection="core" />
+<CollectionWrapper class="api" record="messages" collection="core" />
 
 

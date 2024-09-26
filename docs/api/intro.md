@@ -4,12 +4,15 @@ sidebar_position: 1
 slug: "/api"
 ---
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
+
 
 # Yabbr Core
 
 <div className="intro">
 
-<Collection record="intro" collection="core" />
+
+<CollectionWrapper record="intro" collection="core" />
+
 
 </div>

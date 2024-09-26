@@ -3,10 +3,10 @@ sidebar_position: 11
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Validation
 
-<Collection record="validation" collection="core" />
+<CollectionWrapper record="validation" collection="core" />
 
 

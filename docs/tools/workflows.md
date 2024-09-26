@@ -18,7 +18,7 @@ A workflow is an automated set of tasks that are executed based on logic. A work
 
 [comment]: <> (I should include some example use-cases for workflows here - what are the capababilities, possibilities, what can it do?)
 
-1. Data Collection
+1. Data CollectionWrapper
 2. Evaluation of Data
 3. Execution of Actions Based on Evaluation
 
@@ -582,7 +582,7 @@ Upon creating a new condition, you will be met with the following JSON:
 
 Explanations of the above properties:
 - **conditionCombiner**: if you have multiple conditions, this is the logical operator used to combine them into one condition. "&&" is an AND logical operator (all conditions must be met), and "||" is an OR logical operator (at least one condition must be met).
-- **group**: the group that the condition belongs to. Groups are collections of conditions. Two conditions belong to the same group if their `"group"` value is the same. Conditions are evaluated from left to right in a step. If multiple conditions are satisfied but belong to the same group, only the first satisfied condition will be run. In other words, conditions in the same group act as a chain of `else if` statements.
+- **group**: the group that the condition belongs to. Groups are CollectionWrappers of conditions. Two conditions belong to the same group if their `"group"` value is the same. Conditions are evaluated from left to right in a step. If multiple conditions are satisfied but belong to the same group, only the first satisfied condition will be run. In other words, conditions in the same group act as a chain of `else if` statements.
 - **conditions**: the data comparisons/conditions. This is an array of objects. Each condition is a separate object. To add a new condition, add a new object within this array. All objects must be separated by commas.
     - **value2**: one value being compared.
     - **value1**: another value being compared.
@@ -1042,8 +1042,6 @@ There are two ways to access the file ID. If the file did not have the `"id"` pr
 Using similar methods, you can reference the number of lines in a file. If there is no `"id"` property, you reference it with `{{memory.nameCsvLines}}` where  where `name.csv` is the name of the file. If there is an `"id"` property, you reference it with `{{memory.nameLines}}` where `"name"` is the value of the `"id"` property.
 
 
-<br/>
-
 
 ---
 
@@ -1111,7 +1109,6 @@ If an execution key is generated with an Execute Step action, then it will autom
 Any steps that have been run internally by an Execute Step action are unable to communicate with the original caller of the API request. This renders the Return to Caller action unusable after an Execute Step action.
 :::
 
-<br/>
 
 
 
@@ -1322,7 +1319,7 @@ You can click on the headers "Name", "Tags", and "ID" to sort the workflows by t
 
 [comment]: <> (docs are great and all, but I should also really create like a Getting Started tutorial. Eg setting up your first workflow, setting up basic logic and requests etc. Saying Hello World, creating different things etc etc)
 
-[comment]: <> (yeah Logan gave a thumbs up for this idea. A collection of basic workflows which demonstrate core concepts.)
+[comment]: <> (yeah Logan gave a thumbs up for this idea. A CollectionWrapper of basic workflows which demonstrate core concepts.)
 
 [comment]: <> (condition modifiers need to be done still)
 

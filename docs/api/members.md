@@ -3,10 +3,10 @@ sidebar_position: 9
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Members
 
-<Collection record="members" collection="core" />
+<CollectionWrapper record="members" collection="core" />
 
 

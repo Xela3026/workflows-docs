@@ -3,10 +3,10 @@ sidebar_position: 5
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Templates
 
-<Collection record="cmrs" collection="core" />
+<CollectionWrapper record="cmrs" collection="core" />
 
 

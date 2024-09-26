@@ -12,6 +12,9 @@ const Environment = ({ children, environment }) => {
       string = string.replace(regex, variable.value);
     });
 
+    
+
+
 
     return string;
   }

@@ -3,12 +3,12 @@ sidebar_position: 2
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Authentication
 
 <div className="intro">
 
-<Collection record="auth" collection="core" />
+<CollectionWrapper record="auth" collection="core" />
 
 </div>

@@ -5,43 +5,62 @@ import remarkGfm from 'remark-gfm';
 import CodeSnippet from './CodeSnippet.js';
 import Environment from './Environment.js';
 import TOCItemTree from '@theme/TOCItems/Tree';
-import TOCItems from '@theme/TOCItems';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import IsDarkMode from './IsDarkMode.js';
+import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import SyntaxHighlighter from 'react-syntax-highlighter';
 import { fetchDMS } from './fetchDMS.js';
+
+
+import { useSelector, useDispatch } from 'react-redux'
+import { setEnv, setDocs } from './collectionSlice.js'
 
 const Collection = ({record,collection}) => {
   // initialise useState variables
-  const [docs, setDocs] = useState(null);
-  const [env, setEnv] = useState(null);
+  // const [docs, setDocs] = useState(null);
+  // const [env, setEnv] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(0);
   const [TOC, setTOC] = useState([]);
   const isDarkMode = IsDarkMode();
+  const [collapsed, setCollapsed] = useState(true);
+
+  const env = useSelector((state) => state.collection.env);
+
+  const docs = useSelector((state) => state.collection.docs[`${record}_${collection}`])
+  const dispatch = useDispatch();
 
 
   // fetch the API docs from DMS
   useEffect(() => {
-    setLoading(prev => prev + 1);
-    fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_${collection}/${record}`, { method: 'GET' })
-      .then(data => {
-        setDocs(data.dms.docs);
-      })
-      .catch(err => {
-        setError(err);
-      }) 
-      .finally(() => setLoading(prev => prev - 1));
-  
+    if (!docs || Object.keys(docs).length === 0) {
       setLoading(prev => prev + 1);
-    fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_environment`, { method: 'GET' })
-      .then(data => {
-        setEnv(data.dms.docs.environment.values);
-      })
-      .catch(err => {
-        setError(err);
-      })
-      .finally(() => setLoading(prev => prev - 1));
+      fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_${collection}/${record}`, { method: 'GET' })
+        .then(data => {
+          dispatch(setDocs({
+            "data": data.dms.docs,
+            "record": record,
+            "collection": collection,
+          }));
+        })
+        .catch(err => {
+          setError(err);
+        }) 
+        .finally(() => setLoading(prev => prev - 1));
+    }
+      
+    if (Object.keys(env).length === 0) {
+      setLoading(prev => prev + 1);
+      fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_environment`, { method: 'GET' })
+        .then(data => {
+          dispatch(setEnv(data.dms.docs.environment.values));
+        })
+        .catch(err => {
+          setError(err);
+        })
+        .finally(() => setLoading(prev => prev - 1));
+    }
 
   },[]);
 
@@ -50,12 +69,13 @@ const Collection = ({record,collection}) => {
     if (docs && docs.item) {
       
       let items = docs.item;
-      // loop over each item in the API docs and make it an item in the table of contents
-      items.forEach(item => {
+      // map each item to a part of the TOC
+      const newTOC = items.map(item=>{
         const header = item.request.method + ' ' + item.name;
         const id = formatID(header);
-        setTOC(prevTOC => [...prevTOC, { id: id, value: header, children: [] }]);
+        return { id: id, value: header, children: [] }
       })
+      setTOC(newTOC);
     }
   },[loading]);
 
@@ -75,6 +95,7 @@ const Collection = ({record,collection}) => {
   }
 
 
+
 return (
 
   <div>
@@ -85,7 +106,9 @@ return (
     {loading === 0 && docs && !error && env && (<div>
       {/* interpolates the docs with the environemtn variables */}
       <Environment environment = {env} class="api">
-        
+        <div onClick={() => setCollapsed(!collapsed)} className={`collapsible ${collapsed ? 'closed': 'open'}`}>On this page</div>
+        {/* generate the table of contents for the requests */}
+        <TOCItemTree toc={TOC} className={`new-table-of-contents ${collapsed ? 'hidden': ''}`} linkClassName="new-table-of-contents__link" id="toc" />
         {/* converts markdown input to HTML */}
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown><br/>
 
@@ -103,8 +126,29 @@ return (
             <ReactMarkdown remarkPlugins={[remarkGfm]} key={`url-${index}`}>{`\`${item.request.url.raw}\``}</ReactMarkdown>
             {/* display auth requirements depending on presence of auth in request details */}
             <p style={{"font-weight":"bold"}} key={`auth-${index}`}>Authentication Required: {item.request.header.length ? <span class="get" key={`yes-${index}`}>Yes</span> : <span class="delete" key={`no-${index}`}>No</span>}</p>
-            {/* display endpoint description */}
-            <ReactMarkdown remarkPlugins={[remarkGfm]} key={`description-${index}`}>{item.request.description}</ReactMarkdown>
+            {/* display endpoint description and put syntax-highlighting on the JSON */}
+            <ReactMarkdown remarkPlugins={[remarkGfm]} key={`description-${index}`} 
+            components={{
+              code(props) {
+                const {children, className, node, ...rest} = props
+                const match = /language-(\w+)/.exec(className || '')
+                return match ? (
+                  <SyntaxHighlighter
+                    {...rest}
+                    PreTag="div"
+                    children={String(children).replace(/\n$/, '')}
+                    language={match[1]}
+                    style={isDarkMode ? darkCodeStyle : lightCodeStyle}
+                  />
+                ) : (
+                  <code {...rest} className={className}>
+                    {children}
+                  </code>
+                )
+              }
+            }}>
+                {item.request.description}
+            </ReactMarkdown>
             {/* generate a code snippet for the request for valid endpoints */}
             {item.request && item.request.url.raw.startsWith("{{") && <CodeSnippet request={item.request} environment ={env} key={`code-${index}`}/>}
             {/* divider between requests */}
@@ -115,8 +159,9 @@ return (
 
         
       </Environment>
-      {/* generate the table of contents for the requests */}
-      <TOCItemTree toc={TOC} className="table-of-contents" linkClassName="table-of-contents__link" /></div>
+      
+      
+      </div>
 
     )}
     {/* handle request loading */}

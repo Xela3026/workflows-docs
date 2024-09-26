@@ -3,10 +3,10 @@ sidebar_position: 12
 ---
 
 
-import Collection from '@site/src/components/Collection';
+import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 # Files
 
-<Collection record="files" collection="core" />
+<CollectionWrapper record="files" collection="core" />
 
 
