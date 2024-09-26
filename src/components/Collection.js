@@ -106,10 +106,11 @@ return (
     {loading === 0 && docs && !error && env && (<div>
       {/* interpolates the docs with the environemtn variables */}
       <Environment environment = {env} class="api">
-        <div onClick={() => setCollapsed(!collapsed)} className={`collapsible ${collapsed ? 'closed': 'open'}`}>On this page</div>
+        {Object.keys(TOC).length !== 0 && <div onClick={() => setCollapsed(!collapsed)} className={`collapsible ${collapsed ? 'closed': 'open'}`}>On this page</div>}
         {/* generate the table of contents for the requests */}
         <TOCItemTree toc={TOC} className={`new-table-of-contents ${collapsed ? 'hidden': ''}`} linkClassName="new-table-of-contents__link" id="toc" />
         {/* converts markdown input to HTML */}
+        <h1>{docs.name}</h1>
         <ReactMarkdown remarkPlugins={[remarkGfm]}>{docs.description}</ReactMarkdown><br/>
 
         {/* formats the info about each request */}
@@ -117,7 +118,7 @@ return (
           <div class='request-item' key={index}>
             {/* request title with some scroll padding for the TOC */}
             {/* converts the title into an anchor ID for TOC */}
-            <h1  style={{scrollMarginTop:"2em",fontSize: "2em"}} id={formatID(item.request.method + ' ' + item.name)} key={`title-${index}`}>
+            <h1  className={"scroll-buffer"} id={formatID(item.request.method + ' ' + item.name)} key={`title-${index}`}>
             {/* colour-codes the request method and displays the full request name */}
             <span className={item.request.method.toLowerCase()} key={`method-${index}`}>{item.request.method}&nbsp;</span>{item.name}
             </h1>
@@ -125,7 +126,7 @@ return (
             {/* display endpoint URL */}
             <ReactMarkdown remarkPlugins={[remarkGfm]} key={`url-${index}`}>{`\`${item.request.url.raw}\``}</ReactMarkdown>
             {/* display auth requirements depending on presence of auth in request details */}
-            <p style={{"font-weight":"bold"}} key={`auth-${index}`}>Authentication Required: {item.request.header.length ? <span class="get" key={`yes-${index}`}>Yes</span> : <span class="delete" key={`no-${index}`}>No</span>}</p>
+            <p className={"bold"} key={`auth-${index}`}>Authentication Required: {item.request.header.length ? <span class="get" key={`yes-${index}`}>Yes</span> : <span class="delete" key={`no-${index}`}>No</span>}</p>
             {/* display endpoint description and put syntax-highlighting on the JSON */}
             <ReactMarkdown remarkPlugins={[remarkGfm]} key={`description-${index}`} 
             components={{

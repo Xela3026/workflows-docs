@@ -49,7 +49,6 @@ const CustomisableImage = ({ src, alt, width }) => {
         style= {{
                 opacity: clicked ? 1 : 0,
                 visibility: clicked ? 'visible' : 'hidden',
-                transition: 'opacity 0.3s ease, visibility 0.3s ease',
                 }}
                 >
 

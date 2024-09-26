@@ -1,11 +1,13 @@
 ---
 sidebar_position: 13
+hide_title: true
+title: "Targets"
 ---
 
 
 import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
-# Targets
+
 
 <CollectionWrapper record="targets" collection="core" />
 

@@ -44,7 +44,7 @@ const CarouselCard = ({ children, code, name, offset, direction, link }) => {
         
         <div className="cards" ref={cardRef}>
             <a href={link} className="fullLink"></a>
-            <div className='code-container' style={{whiteSpace: 'pre-wrap'}}>
+            <div className='code-container'>
                 &#123;<br/><br/>
                 {code}<br/><br/>
                 &#125;

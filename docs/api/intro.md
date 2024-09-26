@@ -1,13 +1,14 @@
 ---
-title: "Intro"
 sidebar_position: 1
 slug: "/api"
+hide_title: true
+title: "Introduction"
 ---
 
 import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
 
-# Yabbr Core
+
 
 <div className="intro">
 

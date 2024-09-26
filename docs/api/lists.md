@@ -1,11 +1,13 @@
 ---
 sidebar_position: 7
+hide_title: true
+title: "Lists"
 ---
 
 
 import CollectionWrapper from '@site/src/components/CollectionWrapper';
 
-# Lists
+
 
 <CollectionWrapper record="lists" collection="core" />
 

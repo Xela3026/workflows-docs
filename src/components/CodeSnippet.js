@@ -85,7 +85,8 @@ const CodeSnippet = ({request, environment}) => {
     const requestObject = new sdk.Request(request);
 
     // loops over every language, runs it through the code generator with the inputted request object, and stores the output
-    languages.forEach(group => {
+
+    const newSnippets = languages.map(group => {
       const [language, variant] = group;
       codegen.convert(language, variant, requestObject, options, (error, snippet) => {
         if (error) {
@@ -94,10 +95,11 @@ const CodeSnippet = ({request, environment}) => {
         } else {
           snippet = envInterpolate(snippet);
           
-          setSnippets(prevSnippets => [...prevSnippets, { snippet: snippet  }]);
+          return { snippet: snippet  };
         }
 
       });
+      setSnippets(newSnippets);
     });
   }, [selected]);
 
@@ -155,7 +157,7 @@ const CodeSnippet = ({request, environment}) => {
         ))}
         </div>
         </div>
-        <div style={{'marginTop': "1em",}}>
+        <div className={"margin-top"}>
 
         {/* display the code in the selected language */}
         <div className='code'>
