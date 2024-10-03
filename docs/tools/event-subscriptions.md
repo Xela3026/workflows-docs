@@ -7,13 +7,13 @@ toc_max_heading_level: 5
 
 import Tag from '@site/src/components/Tag';
 import CustomisableImage from '@site/src/components/CustomisableImage';
-import BrandName from '@site/src/components/BrandName';
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 
 # Event Subscriptions
 
 <div className="dubheader">Overview</div>
 
-When an action is performed in a <BrandName type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
+When an action is performed in <EnvironmentConfig type="indefiniteArticle"/> <EnvironmentConfig type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
 
 
 
@@ -33,7 +33,7 @@ You can then catch and store this data using an Event Subscription. So:
 
 <div className="dubheader">Subscribing</div>
 
-Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <BrandName type="name"/> events or [custom events](./event-schemas). 
+Event subscriptions will "subscribe" to certain types of events (via a whitelisting process). Whenever an event is triggered, it will relay its data to all of its subscribers. An event subscriber can catch and record data from any <EnvironmentConfig type="name"/> events or [custom events](./event-schemas). 
 
 
 
@@ -137,23 +137,23 @@ If a 404 is returned, it usually means that some data is missing or doesn't exis
 
 
 
-<div className="dubheader"><BrandName type="name"/> events</div>
+<div className="dubheader"><EnvironmentConfig type="name"/> events</div>
 
-An event subscription can either catch custom events defined by your [event schemas](./event-schemas), or it can catch events predefined by <BrandName type="name"/>. These <BrandName type="name"/> events will record information that is associated with the action that triggered them. For example, the `"chat.concluded"` event will record information about the chat session and its participants. This information can then be caught by an event subscriber.
+An event subscription can either catch custom events defined by your [event schemas](./event-schemas), or it can catch events predefined by <EnvironmentConfig type="name"/>. These <EnvironmentConfig type="name"/> events will record information that is associated with the action that triggered them. For example, the `"chat.concluded"` event will record information about the chat session and its participants. This information can then be caught by an event subscriber.
 
-You will find some event subscriptions that appear in your workspace by default. These will have the `"public": true` property. These are <BrandName type="name"/>'s default subscriptions that are in all workspaces. 
+You will find some event subscriptions that appear in your workspace by default. These will have the `"public": true` property. These are <EnvironmentConfig type="name"/>'s default subscriptions that are in all workspaces. 
 
 <br/>
 
 :::info Information
-- You can only catch <BrandName type="name"/> events that have been triggered from within your own workspace. 
-- Your Workflows and <BrandName type="name"/> App workspaces are connected. An event triggered in your <BrandName type="name"/> App workspace can be caught by an event subscription in your Workflows workspace.
+- You can only catch <EnvironmentConfig type="name"/> events that have been triggered from within your own workspace. 
+- Your Workflows and <EnvironmentConfig type="name"/> App workspaces are connected. An event triggered in your <EnvironmentConfig type="name"/> App workspace can be caught by an event subscription in your Workflows workspace.
 :::
 
 <br/>
 
-These predefined events are triggered by various actions in your <BrandName type="name"/> App and Workflows workspace:
-- `"chat.concluded"`: a session in the <BrandName type="name"/> Chat is concluded.
+These predefined events are triggered by various actions in your <EnvironmentConfig type="name"/> App and Workflows workspace:
+- `"chat.concluded"`: a session in the <EnvironmentConfig type="name"/> Chat is concluded.
 - `"contact.update"`: a customer's contact information is updated.
 
 You will find the properties associated with these events within their event schemas.
@@ -161,9 +161,9 @@ You will find the properties associated with these events within their event sch
 
 
 
-<div className="dubheader"><BrandName type="name"/> subscriptions</div>
+<div className="dubheader"><EnvironmentConfig type="name"/> subscriptions</div>
 
-Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the "workflows.<BrandName type="lowerName"/>.io" subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <BrandName type="name"/> logs API endpoint.
+Your Workflows workspace will come with some default event subscriptions. The only default subscription currently in place is the "workflows.<EnvironmentConfig type="baseUrl"/>" subscription. It will catch any events with the prefix `workflow.log.` and POST it to the <EnvironmentConfig type="name"/> logs API endpoint.
 
 ---
 

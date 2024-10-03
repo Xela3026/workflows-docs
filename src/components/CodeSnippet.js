@@ -6,12 +6,12 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import IsDarkMode from './IsDarkMode.js';
 import { useSelector, useDispatch } from 'react-redux'
-import { setPreference } from './snippetSlice.js'
+import { setPreference, setSnippets } from './snippetSlice.js'
 
 
 
 
-const CodeSnippet = ({request, environment}) => {
+const CodeSnippet = ({request, environment, record, collection, uid}) => {
 
   // runs the environment variable interpolator internally
   const envInterpolate = (string) => {
@@ -23,13 +23,13 @@ const CodeSnippet = ({request, environment}) => {
   }
 
   // initialise useState variables
-  const [snippets, setSnippets] = useState([]);
+
   const [error, setError] = useState(null);
-  // const [selected,setSelected] = useState(localStorage.getItem('code-preference') || 0);
   const isDarkMode = IsDarkMode();
   const buttonRef = useRef(null);
 
   const selected = useSelector((state) => state.snippet.preference);
+  const snippets = useSelector((state) => state.snippet.snippets[`${record}_${collection}_${uid}`])
   const dispatch = useDispatch();
 
 
@@ -78,30 +78,61 @@ const CodeSnippet = ({request, environment}) => {
   };
 
   
+  
+  // format the inputted request object for the code generator
+  const requestObject = new sdk.Request(request);
+
   // generates all the code snippets for each language and stores them
-  // doesn't work without being in a useEffect
+  // loops over every language, runs it through the code generator with the inputted request object, and stores the output
+
+  const generateSnippets = async () => {
+    try {
+
+      // wait for all snippets to be generated
+      const newSnippets = await Promise.all(
+        languages.map(([language, variant]) => {
+          return new Promise((resolve) => {
+            codegen.convert(language, variant, requestObject, options, (error, snippet) => {
+              if (error) {
+                setError('Error generating code snippet: ' + error);
+                resolve(undefined);
+              } else {
+                snippet = envInterpolate(snippet);
+                resolve({ snippet });
+              }
+            });
+          });
+        })
+      );
+
+      // get rid of undefined
+      const filteredSnippets = newSnippets.filter(snippet => snippet !== undefined);
+      
+      dispatch(setSnippets({
+        "data": filteredSnippets,
+        "record": record,
+        "collection": collection,
+        "uid": uid,
+      }));
+
+
+    } catch (err) {
+      setError('Error generating snippets: ' + err);
+    }
+  };
+  
+  // generate the snippets if they're not stored in redux
+  // only run on mount
   useEffect(() => {
     
-    const requestObject = new sdk.Request(request);
+    if (!snippets || !snippets.length) {
+      generateSnippets();
+      
+    }
+  }, []);
 
-    // loops over every language, runs it through the code generator with the inputted request object, and stores the output
+  
 
-    const newSnippets = languages.map(group => {
-      const [language, variant] = group;
-      codegen.convert(language, variant, requestObject, options, (error, snippet) => {
-        if (error) {
-          setError('Error generating code snippet: ' + error);
-
-        } else {
-          snippet = envInterpolate(snippet);
-          
-          return { snippet: snippet  };
-        }
-
-      });
-      setSnippets(newSnippets);
-    });
-  }, [selected]);
 
   
   // error handling
@@ -142,7 +173,7 @@ const CodeSnippet = ({request, environment}) => {
       {/* error handling */}
       {error && <div>{error.message}</div>}
       {/* if the snippet exists */}
-      {snippets && snippets.length > 0 && !error && (<div>
+      {snippets && snippets.length && !error && (<div>
         {/* generates the drop-down menu with all the language options */}
         <div className={'dropdown'}>
         {/* displays the selected language */}

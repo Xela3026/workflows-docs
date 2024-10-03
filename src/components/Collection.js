@@ -11,6 +11,7 @@ import IsDarkMode from './IsDarkMode.js';
 import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { fetchDMS } from './fetchDMS.js';
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -30,13 +31,13 @@ const Collection = ({record,collection}) => {
 
   const docs = useSelector((state) => state.collection.docs[`${record}_${collection}`])
   const dispatch = useDispatch();
-
+  const workspaceId = EnvironmentConfig({ type: "workspaceId" });
 
   // fetch the API docs from DMS
   useEffect(() => {
     if (!docs || Object.keys(docs).length === 0) {
       setLoading(prev => prev + 1);
-      fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_${collection}/${record}`, { method: 'GET' })
+      fetchDMS(`${workspaceId}_api_docs_${collection}/${record}`, { method: 'GET' })
         .then(data => {
           dispatch(setDocs({
             "data": data.dms.docs,
@@ -52,7 +53,7 @@ const Collection = ({record,collection}) => {
       
     if (Object.keys(env).length === 0) {
       setLoading(prev => prev + 1);
-      fetchDMS(`8fdc2e9e10b63176dde73c1bbed1bfe76d07e0f07c1e068f3177281bd642e1c7_api_docs_environment`, { method: 'GET' })
+      fetchDMS(`${workspaceId}_api_docs_environment`, { method: 'GET' })
         .then(data => {
           dispatch(setEnv(data.dms.docs.environment.values));
         })
@@ -151,7 +152,7 @@ return (
                 {item.request.description}
             </ReactMarkdown>
             {/* generate a code snippet for the request for valid endpoints */}
-            {item.request && item.request.url.raw.startsWith("{{") && <CodeSnippet request={item.request} environment ={env} key={`code-${index}`}/>}
+            {item.request && item.request.url.raw.startsWith("{{") && <CodeSnippet request={item.request} environment ={env} collection={collection} record = {record} key={`code-${index}`} uid={`code-${index}`}/>}
             {/* divider between requests */}
             {index + 1 !== items.length && <ReactMarkdown remarkPlugins={[remarkGfm]} key={`divider-${index}`}>---</ReactMarkdown>}
             
@@ -167,6 +168,7 @@ return (
     )}
     {/* handle request loading */}
     {loading > 0 && !error && (<div>
+      <p><Skeleton count={1} height={"3em"} width={"50%"} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
       <p><Skeleton count={1.5} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p><br/>
       <p><Skeleton count={1} height={"3em"} width={"50%"} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
       <p><Skeleton count={4.2} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>

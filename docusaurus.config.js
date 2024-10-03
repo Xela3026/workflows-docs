@@ -6,15 +6,21 @@
 
 import {themes as prismThemes} from 'prism-react-renderer';
 
+import path from 'path';
+const brandName = process.env.brand || 'yabbr';
+
 
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Dev Docs',
   tagline: 'How to use Dev Tools',
-  favicon: 'img/fav.ico',
-  plugins: ['polyfill'],
-  
+  favicon: '/img/fav.ico',
+  plugins: ['polyfill',path.join(__dirname, '/plugins/webpackConfig')],
+  staticDirectories: [`src/brands/${brandName}`, 'static'],
+
+
+
 
   // Set the production url of your site here
   url: 'https://your-docusaurus-site.example.com',
@@ -51,10 +57,7 @@ const config = {
 
         },
 
-        theme: {
-          customCss: './src/css/custom.css',
 
-        },
       }),
     ],
   ],
@@ -66,7 +69,7 @@ const config = {
 
 
       // Replace with your project's social card
-      image: 'img/yabbr.svg',
+      image: '/img/brand-logo.png',
       navbar: {
         items: [
           {to: '/api', label: 'API', position: 'left'},
@@ -77,8 +80,9 @@ const config = {
 
         ],
         logo: {
-          alt: 'Yabbr Site Logo',
-          src: 'img/yabbr.svg',
+          alt: 'Site Logo',
+          src: '/img/brand-logo.png',
+          href: '/api',
         },
         
 

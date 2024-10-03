@@ -3,15 +3,15 @@ slug: "/tools"
 sidebar_position: 1
 ---
 
-import BrandName from '@site/src/components/BrandName';
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 
 # Overview
 
 <div class="dubheader">Workflows</div>
 
-<BrandName type="name"/> provides your workspaces with an incredibly useful, comprehensive, and detailed automation program called Workflows. At its core, this tool lets you sequence together several repeatable tasks and processes involving the flow, communication, storage, and evaluation of data. 
+<EnvironmentConfig type="name"/> provides your workspaces with an incredibly useful, comprehensive, and detailed automation program called Workflows. At its core, this tool lets you sequence together several repeatable tasks and processes involving the flow, communication, storage, and evaluation of data. 
 
-These sequenced processes are collated and connected via a ["Workflow"](./tools/workflows). You can find your workspace's workflows at <BrandName type="workflows-url"/>.
+These sequenced processes are collated and connected via a ["Workflow"](./tools/workflows). You can find your workspace's workflows at <EnvironmentConfig type="workflowsUrl"/>.
 
 
 
@@ -32,7 +32,7 @@ The workflows tool lets you:
 - log information about executions of your workflows
 - read and write csv and txt files
 - monitor your workflows to evaluate their performance
-- collect information about [<BrandName type="name"/> events and custom events](./tools/event-schemas)
+- collect information about [<EnvironmentConfig type="name"/> events and custom events](./tools/event-schemas)
 
 ---
 
@@ -83,7 +83,7 @@ Once you have familiarised yourself with the major features, you can enhance you
 <br/><br/>
 
 For future reference, all of the API URLs required for using workflows are:
-- **Core**: <BrandName type="core"/>
-- **DMS**: <BrandName type="dms"/>
-- **Workflows**: <BrandName type="workflow"/>
-- **Custodian**: <BrandName type="custodian"/>
+- **Core**: <EnvironmentConfig type="core"/>
+- **DMS**: <EnvironmentConfig type="dms"/>
+- **Workflows**: <EnvironmentConfig type="workflow"/>
+- **Custodian**: <EnvironmentConfig type="custodian"/>

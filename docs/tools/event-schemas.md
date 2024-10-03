@@ -7,13 +7,13 @@ toc_max_heading_level: 5
 
 import Tag from '@site/src/components/Tag';
 import CustomisableImage from '@site/src/components/CustomisableImage';
-import BrandName from '@site/src/components/BrandName';
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 
 # Event Schemas
 
 <div className="dubheader">Overview</div>
 
-When an action is performed in a <BrandName type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
+When an action is performed in <EnvironmentConfig type="indefiniteArticle"/> <EnvironmentConfig type="name"/> service, it will trigger an 'event'. These actions include sending a message, concluding a chat, and updating a contact's information. These will all trigger events. 
 
 
 
@@ -153,9 +153,8 @@ An event name must be have all lowercase characters, no spaces, and no special c
 
 <div className="dubheader">Overview</div>
 
-To "trigger" an event, you need to make a POST request. The URL of this request must be formatted as "<BrandName type="custodian"/>/organisations/&#123;&#123;workspace-id&#125;&#125;/events/publish" where &#123;&#123;workspace-id&#125;&#125; is the ID of your workspace. This same URL is used to trigger all the event schemas in your workspace. Access your workspace ID by navigating to the <BrandName type="name"/> App, clicking the workspace icon in the top right of your screen, and clicking on info. 
+To "trigger" an event, you need to make a POST request. The URL of this request must be formatted as "<EnvironmentConfig type="custodian"/>/organisations/&#123;&#123;workspace-id&#125;&#125;/events/publish" where &#123;&#123;workspace-id&#125;&#125; is the ID of your workspace. This same URL is used to trigger all the event schemas in your workspace. Access your workspace ID by navigating to the <EnvironmentConfig type="name"/> App, clicking the workspace icon in the top right of your screen, and clicking on info. Alternately, navigate to <EnvironmentConfig type="detailsPage" />.
 
-[comment]: <> (Alternately, navigate to <BrandName type="details-page"/>.)
 
 
 
@@ -191,9 +190,9 @@ Since these events are triggered by a POST request, they can be triggered wherev
 
 
 
-<div className="dubheader"><BrandName type="name"/>'s Events</div>
+<div className="dubheader"><EnvironmentConfig type="name"/>'s Events</div>
 
-<BrandName type="name"/>'s predefined events work in the exact same way. Each one has its own event schema. Then, when the relevant action is performed, <BrandName type="name"/> sends a POST request triggering the relevant event. This event is then validated by one of <BrandName type="name"/>'s event schemas. Since these schemas are global for all workspaces to use, event subscribers from any workspace can then catch these events.
+<EnvironmentConfig type="name"/>'s predefined events work in the exact same way. Each one has its own event schema. Then, when the relevant action is performed, <EnvironmentConfig type="name"/> sends a POST request triggering the relevant event. This event is then validated by one of <EnvironmentConfig type="name"/>'s event schemas. Since these schemas are global for all workspaces to use, event subscribers from any workspace can then catch these events.
 
 ---
 

@@ -7,7 +7,7 @@ toc_max_heading_level: 5
 
 import Tag from '@site/src/components/Tag';
 import CustomisableImage from '@site/src/components/CustomisableImage';
-import BrandName from '@site/src/components/BrandName';
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 
 # Workflows
 
@@ -92,6 +92,7 @@ Deleting a step from your workflow will move all subsequent steps to the unassig
 Your workflow will start empty. It will look like this:
 
 <CustomisableImage src="/img/workflows-config.png" alt="Empty Workflow" width="700"/>
+
 
 This menu is called the toolbar. Each button on this toolbar will help you start creating and customising your workflow. From top to bottom and left to right, these buttons are:
 
@@ -197,7 +198,7 @@ The workflow will try to determine where it is being triggered and activated fro
 
 <div className="dubheader">Lock Button</div> 
 
-Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without <BrandName type="name"/> API authentication. If it is 'locked', then a <BrandName type="name"/> API authentication is required to activate the workflow.
+Toggles the security of the workflow. If it is 'unlocked', then the workflow can be activated without <EnvironmentConfig type="name"/> API authentication. If it is 'locked', then <EnvironmentConfig type="indefiniteArticle"/> <EnvironmentConfig type="name"/> API authentication is required to activate the workflow.
 
 
 
@@ -545,7 +546,7 @@ When the step is run, it will send every line in the streamed file individually 
 The workflow will only run one step at a time. Thus, it will actually "queue" several iterations of the step to run once the current step has finished executing. In the above example, the workflow would queue five executions of the next step, each with their own payload.
 :::
 
-To store a CSV file within <BrandName type="name"/>, use the [Stream To](#stream-to) action.
+To store a CSV file within <EnvironmentConfig type="name"/>, use the [Stream To](#stream-to) action.
 
 <br/>
 
@@ -974,7 +975,7 @@ Whilst the "Return to Caller" action will send the data to the API caller by def
 
 ##### Stream To
 
-Stores a new plain text file (eg CSV, TXT, etc.) within <BrandName type="name"/> that you can access within your workflow. You may use this to store some collated data permanently into a file, or to modify the formatting of a streamed file and potentially insert new information.
+Stores a new plain text file (eg CSV, TXT, etc.) within <EnvironmentConfig type="name"/> that you can access within your workflow. You may use this to store some collated data permanently into a file, or to modify the formatting of a streamed file and potentially insert new information.
 
 <br/>
 
@@ -994,7 +995,7 @@ The JSON for this action is:
 
 Explanations of the above properties:
 - **destination**: the new file name. For example: `"my-file.csv"`.
-- **authHeaders**: authorisation headers. These are the headers that you use in any <BrandName type="name"/> API requests to authorise the request. It is usually either tokens or an API key. This API authorisation process gives you permission to store your new file at one of the <BrandName type="name"/> API endpoints.
+- **authHeaders**: authorisation headers. These are the headers that you use in any <EnvironmentConfig type="name"/> API requests to authorise the request. It is usually either tokens or an API key. This API authorisation process gives you permission to store your new file at one of the <EnvironmentConfig type="name"/> API endpoints.
 - **header**: the first line of the file. If you're creating a CSV file, this would be the column titles.
 - **line**: the data you are writing to the file. This property is a string. Separate the data into new lines using `\n`. For a CSV file, separate data into columns using `,`.
 - **id**: (optional) an identifier for your file. This can be any miscellaneous string. You can use it to reference the file elsewhere in the workflow. 
@@ -1033,7 +1034,7 @@ Use `"ignoreAutoAppendNewLine": true` so that each repetition of the action does
 
 <div className="dubheader">File Storage</div>
 
-Once the Stream To action is completed, the entire file will be stored at one of the <BrandName type="name"/> API endpoints. You can access the file again by streaming it from the <BrandName type="name"/> API endpoints with a GET request and the file ID. 
+Once the Stream To action is completed, the entire file will be stored at one of the <EnvironmentConfig type="name"/> API endpoints. You can access the file again by streaming it from the <EnvironmentConfig type="name"/> API endpoints with a GET request and the file ID. 
 
 There are two ways to access the file ID. If the file did not have the `"id"` property in its "Stream To" action, then you need to reference it by its name. To access the file ID using the file name, use `{{memory.nameCsvId}}` where `name.csv` is the name of the file. Alternately, if you gave your file an `"id"` property, you can reference the file's ID using `{{memory.nameId}}` where `"name"` was the value of the `"id"` property. 
 
@@ -1055,7 +1056,7 @@ When an API caller makes a POST request using an execution key, the workflow wil
 
 Imagine it as this: A step generates an execution key pointing to the next step, and then the step ends. The workflow is now in a temporary stasis. Once an API caller makes a request using the execution key, the instance of the workflow resumes from where it left off, just at a new destination, with a new payload.
 
-The URL for the execution key POST request should be formatted as "<BrandName type="workflow"/>/execute/&#123;&#123;execution-key&#125;&#125;" where &#123;&#123;execution-key&#125;&#125; is the execution key.
+The URL for the execution key POST request should be formatted as "<EnvironmentConfig type="workflow"/>/execute/&#123;&#123;execution-key&#125;&#125;" where &#123;&#123;execution-key&#125;&#125; is the execution key.
 
 Once an execution key has been used, it cannot be used again. 
 
@@ -1253,7 +1254,7 @@ To quickly start a new instance of the workflow again with the same payload, cli
 
 ## Activating the Workflow
 
-To start a new instance of a workflow, you need to make a POST request to the workflow's start endpoint. That endpoint will look something like "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;" where &#123;&#123;workflow-id&#125;&#125; is the ID of the workflow. 
+To start a new instance of a workflow, you need to make a POST request to the workflow's start endpoint. That endpoint will look something like "<EnvironmentConfig type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;" where &#123;&#123;workflow-id&#125;&#125; is the ID of the workflow. 
 
 <br/>
 
@@ -1263,7 +1264,7 @@ When you make a POST request to this endpoint, it will start a new instance of t
 
 <div className="dubheader">Keys</div>
 
-You can also add a "key" to this request. The start endpoint with a key will look like "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/&#123;&#123;key-name&#125;&#125;" where #123;&#123;key-name&#125;&#125; is the name of your key. This key can be anything. The first request made using the key will execute normally. However, any future requests made using the same key will not be executed. Instead, the workflow will just return the same response it gave on its first execution with that key. For example, if the first execution of "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/onlyonce" returns `"success"`, then, regardless of any other factors (including payload), the second execution of "<BrandName type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/onlyonce" will also return `"success"`.
+You can also add a "key" to this request. The start endpoint with a key will look like "<EnvironmentConfig type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/&#123;&#123;key-name&#125;&#125;" where #123;&#123;key-name&#125;&#125; is the name of your key. This key can be anything. The first request made using the key will execute normally. However, any future requests made using the same key will not be executed. Instead, the workflow will just return the same response it gave on its first execution with that key. For example, if the first execution of "<EnvironmentConfig type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/onlyonce" returns `"success"`, then, regardless of any other factors (including payload), the second execution of "<EnvironmentConfig type="workflow"/>/start/&#123;&#123;workflow-id&#125;&#125;/onlyonce" will also return `"success"`.
 
 <br/>
 

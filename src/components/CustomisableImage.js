@@ -1,16 +1,24 @@
 import React, { useState,useEffect } from 'react';
 
 import BorderImage from './BorderImage.js';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+import path from 'path';
+const brandName = process.env.brand || 'yabbr';
+const brandDirectory = `../../src/brands/${brandName}`;
+
+
 
 const CustomisableImage = ({ src, alt, width }) => {
   const [clicked, setClicked] = useState(false);
   const [loaded, setLoaded] = useState(false);
-
   // pre loads the image
   useEffect(() => {
 
     const image = new Image();
+
     image.src = src;
+    
+
     image.onload = () => {
       setLoaded(true);
     };

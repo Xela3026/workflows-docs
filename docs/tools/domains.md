@@ -7,7 +7,7 @@ toc_max_heading_level: 5
 
 import Tag from '@site/src/components/Tag';
 import CustomisableImage from '@site/src/components/CustomisableImage';
-import BrandName from '@site/src/components/BrandName';
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 
 # Domains
 
@@ -66,7 +66,7 @@ The `"meta"` object can have three properties:
 
 ## Accessing Data
 
-To access the data stored in a domain, make a GET request to it. The URL of this request will be formatted as "<BrandName type="dms"/>/namespaces?domain=&#123;&#123;domain-name&#125;&#125;", where &#123;&#123;domain-name&#125;&#125; is the name of the domain you are retrieving data from. Once you make this request with the proper authentication, the response to your request will include the `"body"` stored in the domain. 
+To access the data stored in a domain, make a GET request to it. The URL of this request will be formatted as "<EnvironmentConfig type="dms"/>/namespaces?domain=&#123;&#123;domain-name&#125;&#125;", where &#123;&#123;domain-name&#125;&#125; is the name of the domain you are retrieving data from. Once you make this request with the proper authentication, the response to your request will include the `"body"` stored in the domain. 
 
 
 
