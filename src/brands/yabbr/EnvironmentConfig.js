@@ -2,7 +2,6 @@ import React from 'react';
 import Interpolate from '@docusaurus/Interpolate';
 
 const EnvironmentConfig = ({ type }) => {
-  alert(type);
   const values = {
     name: 'Yabbr', // your brand's name
     baseUrl: 'yabbr.io', // your brand's primary domain

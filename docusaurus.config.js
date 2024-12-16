@@ -56,6 +56,7 @@ const config = {
           routeBasePath: '/',
 
         },
+        blog: false,
 
 
       }),
@@ -82,7 +83,7 @@ const config = {
         logo: {
           alt: 'Site Logo',
           src: '/img/brand-logo.png',
-          href: '/api',
+          href: '/',
         },
         
 

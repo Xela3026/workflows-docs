@@ -5,13 +5,11 @@ import sdk from 'postman-collection';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import IsDarkMode from './IsDarkMode.js';
-import { useSelector, useDispatch } from 'react-redux'
-import { setPreference, setSnippets } from './snippetSlice.js'
-
-
-
+import { useSelector, useDispatch } from 'react-redux';
+import { setPreference, setSnippets } from './snippetSlice.js';
 
 const CodeSnippet = ({request, environment, record, collection, uid}) => {
+
 
   // runs the environment variable interpolator internally
   const envInterpolate = (string) => {
@@ -28,9 +26,12 @@ const CodeSnippet = ({request, environment, record, collection, uid}) => {
   const isDarkMode = IsDarkMode();
   const buttonRef = useRef(null);
 
+
+
   const selected = useSelector((state) => state.snippet.preference);
-  const snippets = useSelector((state) => state.snippet.snippets[`${record}_${collection}_${uid}`])
+  const snippets = useSelector((state) => state.snippet.snippets[`${record}_${collection}_${uid}`]);
   const dispatch = useDispatch();
+
 
 
   // find out why C# language variants are not working - WIP
@@ -144,7 +145,6 @@ const CodeSnippet = ({request, environment, record, collection, uid}) => {
   // 2. copies the code snippet to clipboard
   // 3. re-enables the copy button
   const copyToClipboard = () => {
-
     const textToCopy = snippets[selected].snippet;
     navigator.clipboard.writeText(textToCopy).then(() => {
       const button = buttonRef.current;

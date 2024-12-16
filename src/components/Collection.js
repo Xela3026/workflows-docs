@@ -12,12 +12,13 @@ import { atomOneLight as lightCodeStyle, atomOneDark as darkCodeStyle } from 're
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { fetchDMS } from './fetchDMS.js';
 import EnvironmentConfig from 'brand/EnvironmentConfig';
+import { setEnv, setDocs } from './collectionSlice.js';
+import { useSelector, useDispatch } from 'react-redux';
 
 
-import { useSelector, useDispatch } from 'react-redux'
-import { setEnv, setDocs } from './collectionSlice.js'
 
 const Collection = ({record,collection}) => {
+
   // initialise useState variables
   // const [docs, setDocs] = useState(null);
   // const [env, setEnv] = useState(null);
@@ -27,10 +28,12 @@ const Collection = ({record,collection}) => {
   const isDarkMode = IsDarkMode();
   const [collapsed, setCollapsed] = useState(true);
 
-  const env = useSelector((state) => state.collection.env);
 
+
+  const env = useSelector((state) => state.collection.env);
   const docs = useSelector((state) => state.collection.docs[`${record}_${collection}`])
   const dispatch = useDispatch();
+
   const workspaceId = EnvironmentConfig({ type: "workspaceId" });
 
   // fetch the API docs from DMS
@@ -106,6 +109,7 @@ return (
     {/* display API docs */}
     {loading === 0 && docs && !error && env && (<div>
       {/* interpolates the docs with the environemtn variables */}
+
       <Environment environment = {env} class="api">
         {Object.keys(TOC).length !== 0 && <div onClick={() => setCollapsed(!collapsed)} className={`collapsible ${collapsed ? 'closed': 'open'}`}>On this page</div>}
         {/* generate the table of contents for the requests */}
@@ -161,6 +165,7 @@ return (
 
         
       </Environment>
+
       
       
       </div>
@@ -168,6 +173,7 @@ return (
     )}
     {/* handle request loading */}
     {loading > 0 && !error && (<div>
+      
       <p><Skeleton count={1} height={"3em"} width={"50%"} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
       <p><Skeleton count={1.5} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p><br/>
       <p><Skeleton count={1} height={"3em"} width={"50%"} baseColor={isDarkMode ? "#202020": ''} highlightColor={isDarkMode ? "#444": ''}/></p>
