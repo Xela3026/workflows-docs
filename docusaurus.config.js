@@ -9,12 +9,10 @@ import {themes as prismThemes} from 'prism-react-renderer';
 import path from 'path';
 const brandName = process.env.brand || 'yabbr';
 
-
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Dev Docs',
-  tagline: 'How to use Dev Tools',
+  tagline: 'Learn to use our APIs and Workflows',
   favicon: '/img/fav.ico',
   plugins: ['polyfill',path.join(__dirname, '/plugins/webpackConfig')],
   staticDirectories: [`src/brands/${brandName}`, 'static'],
@@ -103,10 +101,7 @@ const config = {
                 label: 'Yabbr App',
                 to: 'https://go.yabbr.io',
               },
-              {
-                label: 'API Documentation',
-                to: 'https://api.yabbr.io/',
-              },
+
             ],
           },
           {

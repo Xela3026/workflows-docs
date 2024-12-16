@@ -3,9 +3,10 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 
-
+import EnvironmentConfig from 'brand/EnvironmentConfig';
 import Heading from '@theme/Heading';
 import styles from './index.module.css';
+
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
@@ -20,7 +21,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/api">
-            Docusaurus Tutorial - 5min ⏱️
+            Get Started
           </Link>
         </div>
       </div>
@@ -29,14 +30,35 @@ function HomepageHeader() {
 }
 
 export default function Home() {
-  const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      title={"Home"}
+      description="Developer Tools Documentation">
       <HomepageHeader />
       <main>
-
+        <div className="homepage-content">
+          <div className="homepage-item">
+            <h2>API Docs</h2>
+            <p>Setup and integrate <EnvironmentConfig type="name"></EnvironmentConfig>'s services in your own backend using our various APIs.</p>
+            <div className={styles.buttons}>
+          <Link
+            className="button button--secondary button--lg"
+            to="/api">
+            View Docs
+          </Link>
+        </div>
+          </div>
+          <div className="homepage-item">
+            <h2>Workflows Docs</h2>
+            <p>Create, customise, and manage automated processes using the tools provided by Workflows.</p>
+            <Link
+            className="button button--secondary button--lg"
+            to="/tools">
+            View Docs
+          </Link>
+          </div>
+          
+        </div>
       </main>
     </Layout>
   );

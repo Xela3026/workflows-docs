@@ -750,4 +750,31 @@ summary {
 
 
 
+.homepage-content {
+  width: 100%;
+  height: 100%;
+  padding: 5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.homepage-item {
+  padding: 1em;
+  margin: 0 5em;
+  width: 20em;
+  text-align: center;
+  transition: transform 0.2s ease;
+  border-bottom: 1px solid grey;
+}
+
+
+.homepage-item:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+
+
 
