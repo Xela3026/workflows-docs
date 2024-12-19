@@ -771,5 +771,7 @@ summary {
   transition: transform 0.2s ease;
 }
 
-
+.white {
+  color: white;
+}
 
